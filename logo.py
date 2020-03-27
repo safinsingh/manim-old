@@ -8,5 +8,6 @@ class DrawLogo(Scene):
         introText = TextMobject("S", "a", "f", "i", "n", " ", "S", "i", "n", "g", "h")
         
         self.play(Write(svg), run_time=4)
+        self.wait()
         self.play(Transform(svg, introText))
         self.wait()
