@@ -16,13 +16,15 @@ ben_cairo_test.py
 .vs
 *.xml
 *.iml
-media
+media/
 manim.sublime-project
 manim.sublime-workspace
 .eggs/
 build/
 dist/
 manim.egg-info/
+__pycache__/
+.vscode/
 
 primes.py
 /media_dir.txt 
