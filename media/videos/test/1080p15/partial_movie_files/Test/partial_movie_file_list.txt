@@ -1,5 +1,0 @@
-file '/mnt/hgfs/manim/media/videos/test/1080p15/partial_movie_files/Test/00000.mp4'
-file '/mnt/hgfs/manim/media/videos/test/1080p15/partial_movie_files/Test/00001.mp4'
-file '/mnt/hgfs/manim/media/videos/test/1080p15/partial_movie_files/Test/00002.mp4'
-file '/mnt/hgfs/manim/media/videos/test/1080p15/partial_movie_files/Test/00003.mp4'
-file '/mnt/hgfs/manim/media/videos/test/1080p15/partial_movie_files/Test/00004.mp4'
