@@ -1,0 +1,5 @@
+file '/mnt/hgfs/manim/media/videos/logo/1080p15/partial_movie_files/DrawLogo/00000.mp4'
+file '/mnt/hgfs/manim/media/videos/logo/1080p15/partial_movie_files/DrawLogo/00001.mp4'
+file '/mnt/hgfs/manim/media/videos/logo/1080p15/partial_movie_files/DrawLogo/00002.mp4'
+file '/mnt/hgfs/manim/media/videos/logo/1080p15/partial_movie_files/DrawLogo/00003.mp4'
+file '/mnt/hgfs/manim/media/videos/logo/1080p15/partial_movie_files/DrawLogo/00004.mp4'

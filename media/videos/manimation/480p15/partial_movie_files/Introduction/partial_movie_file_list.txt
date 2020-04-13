@@ -1,0 +1,7 @@
+file '/mnt/hgfs/manim/media/videos/manimation/480p15/partial_movie_files/Introduction/00000.mp4'
+file '/mnt/hgfs/manim/media/videos/manimation/480p15/partial_movie_files/Introduction/00001.mp4'
+file '/mnt/hgfs/manim/media/videos/manimation/480p15/partial_movie_files/Introduction/00002.mp4'
+file '/mnt/hgfs/manim/media/videos/manimation/480p15/partial_movie_files/Introduction/00003.mp4'
+file '/mnt/hgfs/manim/media/videos/manimation/480p15/partial_movie_files/Introduction/00004.mp4'
+file '/mnt/hgfs/manim/media/videos/manimation/480p15/partial_movie_files/Introduction/00005.mp4'
+file '/mnt/hgfs/manim/media/videos/manimation/480p15/partial_movie_files/Introduction/00006.mp4'
