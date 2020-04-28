@@ -56,14 +56,15 @@ class TipableVMobject(VMobject):
     
     # Adding, Creating, Modifying tips
 
-    def add_tip(self, tip_length=None, at_start=False):
+    def add_tip(self, tip_length=None, at_start=False, reset_endpoints=True):
         """
         Adds a tip to the TipableVMobject instance, recognising
         that the endpoints might need to be switched if it's
         a 'starting tip' or not.
         """
         tip = self.create_tip(tip_length, at_start)
-        self.reset_endpoints_based_on_tip(tip, at_start)
+        if reset_endpoints == True:
+            self.reset_endpoints_based_on_tip(tip, at_start)
         self.asign_tip_attr(tip, at_start)
         self.add(tip)
         return self

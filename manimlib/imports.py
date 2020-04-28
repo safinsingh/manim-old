@@ -97,7 +97,6 @@ from manimlib.utils.sounds import *
 from manimlib.utils.space_ops import *
 from manimlib.utils.strings import *
 
-from manimlib.custom_utils import *
 
 # Non manim libraries that are also nice to have without thinking
 
