@@ -96,6 +96,11 @@ class DrawBorderThenFill(Animation):
         else:
             submob.interpolate(outline, start, subalpha)
 
+class UnDrawBorderThenFill(DrawBorderThenFill):
+    CONFIG = {
+        "rate_func": lambda t: double_smooth(1 - t),
+        "remover": True
+    }
 
 class Write(DrawBorderThenFill):
     CONFIG = {
@@ -121,6 +126,11 @@ class Write(DrawBorderThenFill):
         if self.lag_ratio is None:
             self.lag_ratio = min(4.0 / length, 0.2)
 
+class Unwrite(Write):
+    CONFIG = {
+        "rate_func": lambda t: linear(1 - t),
+        "remover": True
+    }
 
 class ShowIncreasingSubsets(Animation):
     CONFIG = {

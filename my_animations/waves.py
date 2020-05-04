@@ -97,35 +97,9 @@ def ReplacementMultiIndex(
     ], [])
     return replacements
 
-
-class Unwrite(Write):
-    CONFIG = {
-        "rate_func": lambda t: linear(1 - t),
-        "remover": True
-    }
-
-
-class UnDrawBorderThenFill(DrawBorderThenFill):
-    CONFIG = {
-        "rate_func": lambda t: double_smooth(1 - t),
-        "remover": True
-    }
-
-
-class ReplaceClockwiseTransform(ClockwiseTransform):
-    CONFIG = {
-        "replace_mobject_with_target_in_scene": True,
-    }
-
-
-class ReplaceCounterclockwiseTransform(CounterclockwiseTransform):
-    CONFIG = {
-        "replace_mobject_with_target_in_scene": True,
-    }
-
 ########## END UTILS BLOCK ##########
 
-class Intro(Scene):
+class Part1(Scene):
     def construct(self):
         svg = SVGMobject("logo", fill_opacity=0)
         introText = TextMobject("Safin Singh")
@@ -140,20 +114,30 @@ class Intro(Scene):
         # end on wait
         self.wait()
 
-class waveTypes(GraphScene):
+class Part2(GraphScene):
     CONFIG = {
         "y_max": 8,
         "y_axis_height": 5,
-        "x_axis_label": "$\\theta$"
+        "x_min":-0.5,
+        "y_min":-0.5,
+        "x_axis_label": "$sec$"
     }
     def get_sine_wave(self,dx=0):
         return FunctionGraph(
             lambda x: np.sin((x+dx)),
             x_min=-4,x_max=4
         )
+    
+    def get_sine_wave2(self,dx=0):
+        return FunctionGraph(
+            lambda x: np.sin((x+dx)),
+            x_min=-8,x_max=8
+        )
+    
+
     def construct(self):
         svg2 = SVGMobject("wave", fill_opacity=0, stroke_width=1)
-        text = TextMobject("What are waves?")
+        text = TextMobject("What are"," waves?")
         text.scale(2)
         text.next_to(svg2,UP*3)
         self.play(Write(svg2),FadeIn(text), run_time=4)
@@ -171,25 +155,31 @@ class waveTypes(GraphScene):
         self.add(sine_function)
         self.play(d_theta.increment_value,5*PI,rate_func=linear, run_time=6)
         sine_function.remove_updater(update_wave)
-        gVG = VGroup(self.axes.copy(),sine_function)
-        self.play(gVG.scale,0.3,gVG.move_to,DL*2.5+LEFT*2,self.axes.move_to,UR*.7+RIGHT*1.4,self.axes.scale,0.9)
+        axes2 = self.axes.copy()
+        gVG = VGroup(axes2,sine_function)
+        text2 = TextMobject("What are the")
+        text2_2 = TextMobject("types of waves?")
+        text2.move_to(text)
+        text2_2.next_to(text2,DOWN)
+        text2VG = VGroup(text2,text2_2)
+        self.play(gVG.scale,0.3,gVG.move_to,DL*2.5+LEFT*2,FadeOut(self.axes),ReplacementTransform(text,text2VG))
         
-        # end on wait
-        self.wait()
-    
-class DotsNew(GraphScene):
-    CONFIG = {
-        "x_min": -0.5,
-        "x_max": 2.5,
-        "y_min": -0.5,
-        "y_max": 2.5,
-        "x_tick_frequency": 0.5,
-        "y_tick_frequency": 0.5,
-        "x_axis_label": "$\\theta$"
-    }
-    def construct(self):
-        self.setup_axes(animate=True)
-        a = [0,0.125,0.25,0.375,0.5,0.625,0.75,0.875,1,1.125,1.25,1.375,1.5,1.625,1.75,1.875,2]
+        self.x_max=2.5
+        self.y_max=2.5
+        self.x_tick_frequency=0.5
+        self.y_tick_frequency=0.5
+        self.x_axis_label="$sec$"
+        self.y_axis_label="$y$"
+        newMobj = TexMobject("y")
+
+        self.setup()
+        self.setup_axes()
+        self.remove(self.axes)
+        self.play(self.axes.move_to,UR*0.6+RIGHT*1.2,self.axes.scale,0.9,run_time=0)
+        self.play(Write(self.axes),self.axes.scale,1.1)
+        self.play(newMobj.move_to,self.y_axis_label_mob, run_time=0)
+        
+        a = [0.125,0.25,0.375,0.5,0.625,0.75,0.875,1,1.125,1.25,1.375,1.5,1.625,1.75,1.875,2,2.125]
         time = ValueTracker(0)
 
         # BEGIN DOT DEFINITIONS
@@ -340,7 +330,7 @@ class DotsNew(GraphScene):
             Write(dot15_1),
             Write(dot16_1),
             Write(dot0_2),
-            Write(dot1_0),
+            Write(dot1_2),
             Write(dot2_2),
             Write(dot3_2),
             Write(dot4_2),
@@ -1040,10 +1030,273 @@ class DotsNew(GraphScene):
         dot16_5.add_updater(dot_updater_165)
         
 
-        self.add(dot0_0,dot1_0,dot2_0,dot3_0,dot4_0,dot5_0,dot6_0,dot7_0,dot8_0,dot9_0,dot10_0,dot11_0,dot12_0,dot13_0,dot14_0,dot15_0,dot16_0,dot0_1,dot1_1,dot2_1,dot3_1,dot4_1,dot5_1,dot6_1,dot7_1,dot8_1,dot9_1,dot10_1,dot11_1,dot12_1,dot13_1,dot14_1,dot15_1,dot16_1,dot0_2,dot1_2,dot2_2,dot3_2,dot4_2,dot5_2,dot6_2,dot7_2,dot8_2,dot9_2,dot12_2,dot11_2,dot12_2,dot13_2,dot14_2,dot15_2,dot16_2,dot0_3,dot1_3,dot2_3,dot3_3,dot4_3,dot5_3,dot6_3,dot7_3,dot8_3,dot9_3,dot13_3,dot11_3,dot12_3,dot13_3,dot14_3,dot15_3,dot16_3,dot0_4,dot1_4,dot2_4,dot3_4,dot4_4,dot5_4,dot6_4,dot7_4,dot8_4,dot9_4,dot14_4,dot11_4,dot12_4,dot13_4,dot14_4,dot15_4,dot16_4,dot0_5,dot1_5,dot2_5,dot3_5,dot5_5,dot5_5,dot6_5,dot7_5,dot8_5,dot9_5,dot14_5,dot11_5,dot12_5,dot13_5,dot14_5,dot15_5,dot16_5)
+        self.add(dot0_0,dot1_0,dot2_0,dot3_0,dot4_0,dot5_0,dot6_0,dot7_0,dot8_0,dot9_0,dot10_0,dot11_0,dot12_0,dot13_0,dot14_0,dot15_0,dot16_0,dot0_1,dot1_1,dot2_1,dot3_1,dot4_1,dot5_1,dot6_1,dot7_1,dot8_1,dot9_1,dot10_1,dot11_1,dot12_1,dot13_1,dot14_1,dot15_1,dot16_1,dot0_2,dot1_2,dot2_2,dot3_2,dot4_2,dot5_2,dot6_2,dot7_2,dot8_2,dot9_2,dot10_2,dot11_2,dot12_2,dot13_2,dot14_2,dot15_2,dot16_2,dot0_3,dot1_3,dot2_3,dot3_3,dot4_3,dot5_3,dot6_3,dot7_3,dot8_3,dot9_3,dot10_3,dot11_3,dot12_3,dot13_3,dot14_3,dot15_3,dot16_3,dot0_4,dot1_4,dot2_4,dot3_4,dot4_4,dot5_4,dot6_4,dot7_4,dot8_4,dot9_4,dot10_4,dot11_4,dot12_4,dot13_4,dot14_4,dot15_4,dot16_4,dot0_5,dot1_5,dot2_5,dot3_5,dot4_5,dot5_5,dot6_5,dot7_5,dot8_5,dot9_5,dot10_5,dot11_5,dot12_5,dot13_5,dot14_5,dot15_5,dot16_5)
 
-        self.play(time.increment_value,2,rate_func=linear,run_time=6)
+        self.play(time.increment_value,3,rate_func=linear,run_time=6)
 
+        dot0_0.remove_updater(dot_updater_00)
+        dot1_0.remove_updater(dot_updater_10)
+        dot2_0.remove_updater(dot_updater_20)
+        dot3_0.remove_updater(dot_updater_30)
+        dot4_0.remove_updater(dot_updater_40)
+        dot5_0.remove_updater(dot_updater_50)
+        dot6_0.remove_updater(dot_updater_60)
+        dot7_0.remove_updater(dot_updater_70)
+        dot8_0.remove_updater(dot_updater_80)
+        dot9_0.remove_updater(dot_updater_90)
+        dot10_0.remove_updater(dot_updater_100)
+        dot11_0.remove_updater(dot_updater_110)
+        dot12_0.remove_updater(dot_updater_120)
+        dot13_0.remove_updater(dot_updater_130)
+        dot14_0.remove_updater(dot_updater_140)
+        dot15_0.remove_updater(dot_updater_150)
+        dot16_0.remove_updater(dot_updater_160)
+
+        dot0_1.remove_updater(dot_updater_01)
+        dot1_1.remove_updater(dot_updater_11)
+        dot2_1.remove_updater(dot_updater_21)
+        dot3_1.remove_updater(dot_updater_31)
+        dot4_1.remove_updater(dot_updater_41)
+        dot5_1.remove_updater(dot_updater_51)
+        dot6_1.remove_updater(dot_updater_61)
+        dot7_1.remove_updater(dot_updater_71)
+        dot8_1.remove_updater(dot_updater_81)
+        dot9_1.remove_updater(dot_updater_91)
+        dot10_1.remove_updater(dot_updater_101)
+        dot11_1.remove_updater(dot_updater_111)
+        dot12_1.remove_updater(dot_updater_121)
+        dot13_1.remove_updater(dot_updater_131)
+        dot14_1.remove_updater(dot_updater_141)
+        dot15_1.remove_updater(dot_updater_151)
+        dot16_1.remove_updater(dot_updater_161)
+
+        dot0_2.remove_updater(dot_updater_02)
+        dot1_2.remove_updater(dot_updater_12)
+        dot2_2.remove_updater(dot_updater_22)
+        dot3_2.remove_updater(dot_updater_32)
+        dot4_2.remove_updater(dot_updater_42)
+        dot5_2.remove_updater(dot_updater_52)
+        dot6_2.remove_updater(dot_updater_62)
+        dot7_2.remove_updater(dot_updater_72)
+        dot8_2.remove_updater(dot_updater_82)
+        dot9_2.remove_updater(dot_updater_92)
+        dot10_2.remove_updater(dot_updater_102)
+        dot11_2.remove_updater(dot_updater_112)
+        dot12_2.remove_updater(dot_updater_122)
+        dot13_2.remove_updater(dot_updater_132)
+        dot14_2.remove_updater(dot_updater_142)
+        dot15_2.remove_updater(dot_updater_152)
+        dot16_2.remove_updater(dot_updater_162)
+
+        dot0_3.remove_updater(dot_updater_03)
+        dot1_3.remove_updater(dot_updater_13)
+        dot2_3.remove_updater(dot_updater_23)
+        dot3_3.remove_updater(dot_updater_33)
+        dot4_3.remove_updater(dot_updater_43)
+        dot5_3.remove_updater(dot_updater_53)
+        dot6_3.remove_updater(dot_updater_63)
+        dot7_3.remove_updater(dot_updater_73)
+        dot8_3.remove_updater(dot_updater_83)
+        dot9_3.remove_updater(dot_updater_93)
+        dot10_3.remove_updater(dot_updater_103)
+        dot11_3.remove_updater(dot_updater_113)
+        dot12_3.remove_updater(dot_updater_123)
+        dot13_3.remove_updater(dot_updater_133)
+        dot14_3.remove_updater(dot_updater_143)
+        dot15_3.remove_updater(dot_updater_153)
+        dot16_3.remove_updater(dot_updater_163)
+
+        dot0_4.remove_updater(dot_updater_04)
+        dot1_4.remove_updater(dot_updater_14)
+        dot2_4.remove_updater(dot_updater_24)
+        dot3_4.remove_updater(dot_updater_34)
+        dot4_4.remove_updater(dot_updater_44)
+        dot5_4.remove_updater(dot_updater_54)
+        dot6_4.remove_updater(dot_updater_64)
+        dot7_4.remove_updater(dot_updater_74)
+        dot8_4.remove_updater(dot_updater_84)
+        dot9_4.remove_updater(dot_updater_94)
+        dot10_4.remove_updater(dot_updater_104)
+        dot11_4.remove_updater(dot_updater_114)
+        dot12_4.remove_updater(dot_updater_124)
+        dot13_4.remove_updater(dot_updater_134)
+        dot14_4.remove_updater(dot_updater_144)
+        dot15_4.remove_updater(dot_updater_154)
+        dot16_4.remove_updater(dot_updater_164)
+
+        dot0_5.remove_updater(dot_updater_05)
+        dot1_5.remove_updater(dot_updater_15)
+        dot2_5.remove_updater(dot_updater_25)
+        dot3_5.remove_updater(dot_updater_35)
+        dot4_5.remove_updater(dot_updater_45)
+        dot5_5.remove_updater(dot_updater_55)
+        dot6_5.remove_updater(dot_updater_65)
+        dot7_5.remove_updater(dot_updater_75)
+        dot8_5.remove_updater(dot_updater_85)
+        dot9_5.remove_updater(dot_updater_95)
+        dot10_5.remove_updater(dot_updater_105)
+        dot11_5.remove_updater(dot_updater_115)
+        dot12_5.remove_updater(dot_updater_125)
+        dot13_5.remove_updater(dot_updater_135)
+        dot15_5.remove_updater(dot_updater_145)
+        dot15_5.remove_updater(dot_updater_155)
+        dot16_5.remove_updater(dot_updater_165)
+
+
+        dotsVG = VGroup(dot0_0,dot1_0,dot2_0,dot3_0,dot4_0,dot5_0,dot6_0,dot7_0,dot8_0,dot9_0,dot10_0,dot11_0,dot12_0,dot13_0,dot14_0,dot15_0,dot16_0,dot0_1,dot1_1,dot2_1,dot3_1,dot4_1,dot5_1,dot6_1,dot7_1,dot8_1,dot9_1,dot10_1,dot11_1,dot12_1,dot13_1,dot14_1,dot15_1,dot16_1,dot0_2,dot1_2,dot2_2,dot3_2,dot4_2,dot5_2,dot6_2,dot7_2,dot8_2,dot9_2,dot10_2,dot11_2,dot12_2,dot13_2,dot14_2,dot15_2,dot16_2,dot0_3,dot1_3,dot2_3,dot3_3,dot4_3,dot5_3,dot6_3,dot7_3,dot8_3,dot9_3,dot10_3,dot11_3,dot12_3,dot13_3,dot14_3,dot15_3,dot16_3,dot0_4,dot1_4,dot2_4,dot3_4,dot4_4,dot5_4,dot6_4,dot7_4,dot8_4,dot9_4,dot10_4,dot11_4,dot12_4,dot13_4,dot14_4,dot15_4,dot16_4,dot0_5,dot1_5,dot2_5,dot3_5,dot4_5,dot5_5,dot6_5,dot7_5,dot8_5,dot9_5,dot10_5,dot11_5,dot12_5,dot13_5,dot14_5,dot15_5,dot16_5,self.axes,newMobj)
+
+        self.play(FadeOut(dotsVG))
+
+        self.play(sine_function.scale,4,sine_function.move_to,ORIGIN,FadeOut(axes2))
+        midline = Line(start=LEFT*8,end=RIGHT*8)
+        fullGraph = FunctionGraph(
+            lambda x: np.sin(x),
+            x_min=-8,x_max=8
+        )
+        fullGraphExt = FunctionGraph(
+            lambda x: np.sin(x/1.2),
+            x_min=-8,x_max=8
+        )
+        fullGraphExt2 = FunctionGraph(
+            lambda x: 1.5*np.sin(x),
+            x_min=-8,x_max=8
+        )
+
+        text3=TextMobject("What are some")
+        text3_2 = TextMobject("properties of waves?")
+        text3.move_to(UL*3+LEFT)
+        text3_2.next_to(text3,DOWN)
+        text3VG = VGroup(text3,text3_2)
+
+        self.play(ShowCreation(midline),ReplacementTransform(sine_function,fullGraph),ReplacementTransform(text2VG,text3VG))
+
+        wlDot0 = Dot(point=np.array((-9*np.pi/5,1,0)))
+        wlDot1 = Dot(point=np.array((-3*np.pi/2,1,0)))
+        wlDot2 = Dot(point=np.array((np.pi/2,1,0)))
+        wlDot3 = Dot(point=np.array((3*np.pi/5,1,0)))
+        ampDot1 = Dot(point=np.array((-3*np.pi/2,0,0)))
+        ampDot2 = Dot(point=np.array((-3*np.pi/2,1.5,0)))
+        line11 = Line(start=wlDot1,end=wlDot2)
+        line111 = Line(start=wlDot0,end=wlDot3)
+        line21 = Line(start=wlDot1,end=ampDot1)
+        line211 = Line(start=ampDot2,end=ampDot1)
+        wlBrace = Brace(line11,direction=UP)
+        wlBrace2 = Brace(line111,direction=UP)
+        ampBrace = Brace(line21,direction=RIGHT)
+        ampBrace2 = Brace(line211,direction=RIGHT)
+        wlB_lbl = TextMobject("Wavelength, $\\lambda$ ($4m$)")
+        ampB_lbl = TextMobject("Amplitude, $A$ ($2m$)")
+        per_lbl = TextMobject("Period, $T$:")
+        freqB_lbl = TextMobject("Frequency, $f$ ($1 \\over s$, $Hz$)")
+        wlB_lbl.next_to(wlBrace,UP)
+        ampB_lbl.next_to(ampBrace,RIGHT)
+        self.play(FadeOut(text3VG),run_time=0.5)
+        self.play(Write(wlDot1),Write(wlDot2),ShowCreation(wlBrace),Write(wlB_lbl))
+        def wLBLup(self):
+            wlB_lbl.next_to(wlBrace,UP)
+        wlB_lbl.add_updater(wLBLup)
+        self.add(wlB_lbl)
+        self.play(Transform(fullGraph,fullGraphExt),Transform(wlBrace,wlBrace2),Transform(wlDot2,wlDot3),Transform(wlDot1,wlDot0),rate_func=there_and_back,run_time=3)
+        wlB_lbl.remove_updater(wLBLup)
+        self.play(Transform(wlDot2,ampDot1),ReplacementTransform(wlBrace,ampBrace),ReplacementTransform(wlB_lbl,ampB_lbl))
+        def ampLBLup(self):
+            ampB_lbl.next_to(ampBrace,RIGHT)
+        ampB_lbl.add_updater(ampLBLup)
+        self.add(ampB_lbl)
+        self.play(Transform(fullGraph,fullGraphExt2),Transform(ampBrace,ampBrace2),Transform(wlDot1,ampDot2),rate_func=there_and_back,run_time=3)
+        ampB_lbl.remove_updater(ampB_lbl)
+        self.play(FadeOut(ampBrace),FadeOut(ampB_lbl),FadeOut(wlDot2),FadeOut(wlDot1))
+        self.wait()
+        pDot1 = Dot(point=np.array((-3*np.pi/2,5,0)))
+        pDot2 = Dot(point=np.array((-3*np.pi/2,-5,0)))
+        pDot3 = Dot(point=np.array((np.pi/2,5,0)))
+        pDot4 = Dot(point=np.array((np.pi/2,-5,0)))
+        pDot5 = Dot(point=np.array((-3*np.pi/2,1,0)))
+        pDot6 = Dot(point=np.array((np.pi/2,1,0)))
+        pLine1 = Line(start=pDot1,end=pDot2,color=RED)
+        pLine2 = Line(start=pDot3,end=pDot4,color=RED)
+        pLine3 = Line(start=pDot5,end=pDot6)
+        pBrace = Brace(pLine3,direction=UP)
+        pLabel = DecimalNumber(number = 0, num_decimal_places = 2, unit = "sec")
+        def pLabelUpdater(self):
+            pLabel.move_to(pLine1.get_center()+RIGHT+UP*3)
+            pLabel.set_value((pLine1.get_center()[0]+6)/((2/1.2)*np.pi)-0.25)
+        pLabel.add_updater(pLabelUpdater)
+        self.add(pLabel)
+        self.play(ShowCreation(pLine1))
+        self.play(Transform(pLine1,pLine2),run_time=5)
+        pLabel.remove_updater(pLabelUpdater)
+        self.play(CounterclockwiseTransform(pLine1,pBrace),pLabel.move_to,pBrace.get_center()+UP*0.5)
+        per_lbl.move_to(pLabel.get_center()+UP*0.5)
+        self.play(Write(per_lbl))
+        freqEq = TexMobject("f = {1\\over","T}")
+        freqEq2 = TexMobject("f = {1\\over","1.20sec}")
+        pLabel2 = TexMobject("T=1.20sec")
+        freqEq.move_to(pBrace)
+        pLabel2.move_to(pBrace.get_center()+UP*0.4)
+        myVG22 = VGroup(pLabel,per_lbl)
+        self.play(ReplacementTransform(myVG22,pLabel2))
+        self.play(Write(freqEq),freqEq.move_to,freqEq.get_center()+RIGHT*1+UP*0.75,pLabel2.move_to,freqEq.get_center()+LEFT*1.5+UP*0.7)
+        freqEq2.move_to(pBrace.get_center()+UP*1)
+        self.play(FadeOut(pLabel2))
+        self.play(Transform(freqEq,freqEq2))
+        freqEq3 = TexMobject("f \\approx 0.83 Hz")
+        freqEq3.move_to(pBrace.get_center()+UP*0.7)
+        self.play(Transform(freqEq,freqEq3))
+        freqVG = VGroup(freqEq,pLine1)
+        self.play(FadeOut(freqVG))
+        self.remove(fullGraph)
+        d_theta2=ValueTracker(0)
+        sine_function2=self.get_sine_wave2()
+        self.play(ShowCreation(sine_function2),run_time=0)
+        def update_wave(func):
+            func.become(
+                self.get_sine_wave2(dx=d_theta2.get_value())
+            )
+            return func
+        sine_function2.add_updater(update_wave)
+        self.add(sine_function2)
+        self.play(d_theta2.increment_value,6*PI,rate_func=linear,run_time=4)
+        speedEq1 = TexMobject("s = \\lambda\\times f")
+        speedEq2 = TexMobject("s = 4m\\times","0.83Hz")
+        speedEq3 = TexMobject("s = 4m\\times","0.83\\frac{1}{s}")
+        speedEq4 = TexMobject("s = 3.32\\frac{m}{s}")
+        speedEq1.move_to(ORIGIN+UP*2)
+        speedEq2.move_to(ORIGIN+UP*2)
+        speedEq3.move_to(ORIGIN+UP*2)
+        speedEq4.move_to(ORIGIN+UP*2)
+        wavelEq1 = TexMobject("\\lambda = 4m",color=DARK_GRAY)
+        wavelEq1.next_to(speedEq1,UP)
+        freqEq4 = TexMobject("f = 0.83 Hz",color=DARK_GRAY)
+        freqEq4.next_to(wavelEq1,UP)
+        self.play(Write(speedEq1))
+        self.play(Write(wavelEq1))
+        self.play(Write(freqEq4))
+        speedPoint = speedEq1.get_center()
+        print(speedPoint)
+        self.play(FadeOutAndShift(wavelEq1),FadeOutAndShift(freqEq4),Transform(speedEq1,speedEq2))
+        self.play(Transform(speedEq1,speedEq3))
+        self.play(Transform(speedEq1,speedEq4))
+        #wEq1 = TexMobject("\\lambda = 4m")
+
+class Outro(Scene):
+    def construct(self):
+        svg = SVGMobject("logo", fill_opacity=0)
+        outro = TextMobject("All animations created by Safin Singh")
+        outro2 = TextMobject("With the Manim Python library")
+        outro3 = TextMobject("See source code in description")
+        outro2.next_to(outro,DOWN)
+        outro3.next_to(outro,DOWN)
+        svg.scale_in_place(2)
+        self.add(svg)
+        self.play(Unwrite(svg), run_time=4)
+        self.play(Write(outro))
+        self.play(Write(outro2))
+        self.wait()
+        self.play(Transform(outro2,outro3))
+        
+        # end on wait
+        self.wait()
 # Broken Code that I tried
 
 # class DotsOld(GraphScene):

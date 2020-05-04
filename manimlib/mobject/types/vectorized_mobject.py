@@ -38,7 +38,7 @@ class VMobject(Mobject):
         # The purpose of background stroke is to have
         # something that won't overlap the fill, e.g.
         # For text against some textured background
-        "background_stroke_color": BLACK,
+        "background_stroke_color": "0e0e0e",
         "background_stroke_opacity": 1.0,
         "background_stroke_width": 0,
         # When a color c is set, there will be a second color

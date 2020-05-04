@@ -341,7 +341,7 @@ class Dot(Circle):
         "radius": DEFAULT_DOT_RADIUS,
         "stroke_width": 0,
         "fill_opacity": 1.0,
-        "color": WHITE
+        "color": YELLOW
     }
 
     def __init__(self, point=ORIGIN, **kwargs):
