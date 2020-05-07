@@ -7,12 +7,9 @@ import itertools
 import collections
 import math
 
-
 def set_colors(object: typing.Union[Mobject, Group, typing.Sequence], colors: typing.List[str]) -> object:
     [object[i].set_color(color) for i, color in enumerate(colors)]
     return object
-
-
 def ReplacementMultiIndex(
     m1: Mobject, i1: typing.Iterable[typing.Union[int, typing.Sequence[int], range]],
     m2: Mobject, i2: typing.Iterable[typing.Union[int, typing.Sequence[int], range]],
@@ -106,11 +103,14 @@ class Part1(Scene):
         introText2 = TextMobject("By ","Safin Singh")
         title = TextMobject("T","h","e"," ","P","h","y","s","i","c","s"," ","o","f"," ","W","a","v","e","s")
         introText.next_to(svg,DOWN)
+        self.wait()
         self.play(Write(svg),Write(introText), run_time=4)
         self.wait()
         introText2.next_to(title,DOWN)
-        self.play(Transform(svg, title),*ReplacementMultiIndex(introText,[None,0],introText2,[0,1]))
-        
+        self.play(ReplacementTransform(svg, title),*ReplacementMultiIndex(introText,[None,0],introText2,[0,1]))
+        self.play(FadeOut(title))
+        self.play(FadeOut(introText2))
+
         # end on wait
         self.wait()
 
@@ -1257,10 +1257,10 @@ class Part2(GraphScene):
         sine_function2.add_updater(update_wave)
         self.add(sine_function2)
         self.play(d_theta2.increment_value,6*PI,rate_func=linear,run_time=4)
-        speedEq1 = TexMobject("s = \\lambda\\times f")
-        speedEq2 = TexMobject("s = 4m\\times","0.83Hz")
-        speedEq3 = TexMobject("s = 4m\\times","0.83\\frac{1}{s}")
-        speedEq4 = TexMobject("s = 3.32\\frac{m}{s}")
+        speedEq1 = TexMobject("v = \\lambda\\times f")
+        speedEq2 = TexMobject("v = 4m\\times","0.83Hz")
+        speedEq3 = TexMobject("v = 4m\\times","0.83\\frac{1}{s}")
+        speedEq4 = TexMobject("v = 3.32\\frac{m}{s}")
         speedEq1.move_to(ORIGIN+UP*2)
         speedEq2.move_to(ORIGIN+UP*2)
         speedEq3.move_to(ORIGIN+UP*2)
@@ -1278,6 +1278,89 @@ class Part2(GraphScene):
         self.play(Transform(speedEq1,speedEq3))
         self.play(Transform(speedEq1,speedEq4))
         #wEq1 = TexMobject("\\lambda = 4m")
+        self.play(FadeOut(speedEq1))
+        propEq1 = TexMobject("E \\propto A^2")
+        propEq1.move_to(ORIGIN+UP*2)
+        self.play(Write(propEq1))
+        fullGraphExt3 = FunctionGraph(
+            lambda x: 2*np.sin(x),
+            x_min=-8,x_max=8
+        )
+        fullGraphExt4 = FunctionGraph(
+            lambda x: 3*np.sin(x),
+            x_min=-8,x_max=8
+        )
+        final_sine = FunctionGraph(
+            lambda x: np.sin(x),
+            x_min=-8,x_max=8
+        )
+        # self.play(ReplacementTransform(sine_function2,fullGraphExt3))
+        # self.play(ReplacementTransform(fullGraphExt3,fullGraphExt4))
+        # self.play(ReplacementTransform(fullGraphExt4,final_sine))
+
+        eDot1 = Dot(point=np.array((-3*np.pi/2,0,0)))
+        eDot1_2 = Dot(point=np.array((-3*np.pi/2,1,0)))
+        eDot2 = Dot(point=np.array((-3*np.pi/2,2,0)))
+        eDot3 = Dot(point=np.array((-3*np.pi/2,3,0)))
+
+        eLine1 = Line(start=eDot1,end=eDot1_2)
+        eLine2 = Line(start=eDot1,end=eDot2)
+        eLine3 = Line(start=eDot1,end=eDot3)
+
+        eBrace1 = Brace(eLine1,direction=RIGHT)
+        eBrace2 = Brace(eLine2,direction=RIGHT)
+        eBrace3 = Brace(eLine3,direction=RIGHT)
+
+        eLbl1 = TexMobject("A=1")
+        eLbl2 = TexMobject("A=2")
+        eLbl3 = TexMobject("A=3")
+
+        eLbl1.next_to(eBrace1,RIGHT)
+        eLbl2.next_to(eBrace2,RIGHT)
+        eLbl3.next_to(eBrace3,RIGHT)
+
+        propEq1_2 = TextMobject("$E = 2$ units")
+        propEq2 = TextMobject("$E = 8$ units")
+        propEq3 = TextMobject("$E = 18$ units")
+
+        propEq1_2.move_to(ORIGIN+UP*2)
+        propEq2.move_to(ORIGIN+UP*2)
+        propEq3.move_to(ORIGIN+UP*2)
+
+
+        self.play(Write(eDot1))
+        self.play(Write(eDot1_2))
+        self.play(Write(eBrace1))
+        self.play(Write(eLbl1))
+        self.play(propEq1.move_to,ORIGIN+UP*3)
+        self.play(Write(propEq1_2))
+
+        self.play(ReplacementTransform(sine_function2,fullGraphExt3),ReplacementTransform(eBrace1,eBrace2),ReplacementTransform(eLbl1,eLbl2),ReplacementTransform(eDot1_2,eDot2),ReplacementTransform(propEq1_2,propEq2))
+        self.play(ReplacementTransform(fullGraphExt3,fullGraphExt4),ReplacementTransform(eBrace2,eBrace3),ReplacementTransform(eLbl2,eLbl3),ReplacementTransform(eDot2,eDot3),ReplacementTransform(propEq2,propEq3))
+        eDot1_2 = Dot(point=np.array((-3*np.pi/2,1,0)))
+        propEq1_2.move_to(ORIGIN+UP*2)
+        eBrace1 = Brace(eLine1,direction=RIGHT)
+        eLbl1 = TexMobject("A=1")
+        eLbl1.next_to(eBrace1,RIGHT)
+        propEq1_2 = TextMobject("$E = 2$ units")
+        propEq1_2.move_to(ORIGIN+UP*2)
+        self.play(ReplacementTransform(fullGraphExt4,final_sine),ReplacementTransform(eBrace3,eBrace1),ReplacementTransform(eLbl3,eLbl1),ReplacementTransform(eDot3,eDot1_2),ReplacementTransform(propEq3,propEq1_2))
+        self.play(FadeOut(eDot1_2),FadeOut(eDot1),FadeOut(eBrace1),FadeOut(eLbl1))
+        
+
+class Part3(Scene):
+    def construct(self):
+        circle = Circle(radius=1.5)
+        line1 = Line(start=circle.get_top(),end=circle.get_top()+UP)
+        line3 = Line(start=circle.get_bottom(),end=circle.get_bottom()+DOWN)
+        line2 = Line(start=circle.get_right(),end=circle.get_right()+RIGHT)
+        line4 = Line(start=circle.get_left(),end=circle.get_left()+LEFT)
+        line4 = Line(start=np.array((1.5*math.sqrt(2)/2,1.5*math.sqrt(2)/2,0)),end=np.array(()))
+        self.play(ShowCreation(circle))
+        self.play(ShowCreation(line1))
+        self.play(ShowCreation(line2))
+        self.play(ShowCreation(line3))
+        self.play(ShowCreation(line4))
 
 class Outro(Scene):
     def construct(self):
