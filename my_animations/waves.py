@@ -108,6 +108,7 @@ class Part1(Scene):
         self.wait()
         introText2.next_to(title,DOWN)
         self.play(ReplacementTransform(svg, title),*ReplacementMultiIndex(introText,[None,0],introText2,[0,1]))
+        self.wait(3)
         self.play(FadeOut(title))
         self.play(FadeOut(introText2))
 
@@ -136,6 +137,7 @@ class Part2(GraphScene):
     
 
     def construct(self):
+        self.wait()
         svg2 = SVGMobject("wave", fill_opacity=0, stroke_width=1)
         text = TextMobject("What are"," waves?")
         text.scale(2)
@@ -171,13 +173,18 @@ class Part2(GraphScene):
         self.x_axis_label="$sec$"
         self.y_axis_label="$y$"
         newMobj = TexMobject("y")
+        newMobj2 = TexMobject("sec")
 
         self.setup()
         self.setup_axes()
         self.remove(self.axes)
         self.play(self.axes.move_to,UR*0.6+RIGHT*1.2,self.axes.scale,0.9,run_time=0)
         self.play(Write(self.axes),self.axes.scale,1.1)
-        self.play(newMobj.move_to,self.y_axis_label_mob, run_time=0)
+        newMobj.move_to(self.y_axis_label_mob)
+        newMobj2.move_to(self.x_axis_label_mob)
+        self.add(newMobj)
+        self.add(newMobj2)
+        
         
         a = [0.125,0.25,0.375,0.5,0.625,0.75,0.875,1,1.125,1.25,1.375,1.5,1.625,1.75,1.875,2,2.125]
         time = ValueTracker(0)
@@ -1142,8 +1149,7 @@ class Part2(GraphScene):
         dot15_5.remove_updater(dot_updater_155)
         dot16_5.remove_updater(dot_updater_165)
 
-
-        dotsVG = VGroup(dot0_0,dot1_0,dot2_0,dot3_0,dot4_0,dot5_0,dot6_0,dot7_0,dot8_0,dot9_0,dot10_0,dot11_0,dot12_0,dot13_0,dot14_0,dot15_0,dot16_0,dot0_1,dot1_1,dot2_1,dot3_1,dot4_1,dot5_1,dot6_1,dot7_1,dot8_1,dot9_1,dot10_1,dot11_1,dot12_1,dot13_1,dot14_1,dot15_1,dot16_1,dot0_2,dot1_2,dot2_2,dot3_2,dot4_2,dot5_2,dot6_2,dot7_2,dot8_2,dot9_2,dot10_2,dot11_2,dot12_2,dot13_2,dot14_2,dot15_2,dot16_2,dot0_3,dot1_3,dot2_3,dot3_3,dot4_3,dot5_3,dot6_3,dot7_3,dot8_3,dot9_3,dot10_3,dot11_3,dot12_3,dot13_3,dot14_3,dot15_3,dot16_3,dot0_4,dot1_4,dot2_4,dot3_4,dot4_4,dot5_4,dot6_4,dot7_4,dot8_4,dot9_4,dot10_4,dot11_4,dot12_4,dot13_4,dot14_4,dot15_4,dot16_4,dot0_5,dot1_5,dot2_5,dot3_5,dot4_5,dot5_5,dot6_5,dot7_5,dot8_5,dot9_5,dot10_5,dot11_5,dot12_5,dot13_5,dot14_5,dot15_5,dot16_5,self.axes,newMobj)
+        dotsVG = VGroup(dot0_0,dot1_0,dot2_0,dot3_0,dot4_0,dot5_0,dot6_0,dot7_0,dot8_0,dot9_0,dot10_0,dot11_0,dot12_0,dot13_0,dot14_0,dot15_0,dot16_0,dot0_1,dot1_1,dot2_1,dot3_1,dot4_1,dot5_1,dot6_1,dot7_1,dot8_1,dot9_1,dot10_1,dot11_1,dot12_1,dot13_1,dot14_1,dot15_1,dot16_1,dot0_2,dot1_2,dot2_2,dot3_2,dot4_2,dot5_2,dot6_2,dot7_2,dot8_2,dot9_2,dot10_2,dot11_2,dot12_2,dot13_2,dot14_2,dot15_2,dot16_2,dot0_3,dot1_3,dot2_3,dot3_3,dot4_3,dot5_3,dot6_3,dot7_3,dot8_3,dot9_3,dot10_3,dot11_3,dot12_3,dot13_3,dot14_3,dot15_3,dot16_3,dot0_4,dot1_4,dot2_4,dot3_4,dot4_4,dot5_4,dot6_4,dot7_4,dot8_4,dot9_4,dot10_4,dot11_4,dot12_4,dot13_4,dot14_4,dot15_4,dot16_4,dot0_5,dot1_5,dot2_5,dot3_5,dot4_5,dot5_5,dot6_5,dot7_5,dot8_5,dot9_5,dot10_5,dot11_5,dot12_5,dot13_5,dot14_5,dot15_5,dot16_5,self.axes,newMobj,newMobj2)
 
         self.play(FadeOut(dotsVG))
 
@@ -1187,34 +1193,26 @@ class Part2(GraphScene):
         wlB_lbl = TextMobject("Wavelength, $\\lambda$ ($4m$)")
         wlB2_lbl = TextMobject("Wavelength, $\\lambda$ ($5m$)")
         ampB_lbl = TextMobject("Amplitude, $A$ ($2m$)")
-        ampB2_lbl = TextMobject("Amplitude, $A$ ($2m$)")
+        ampB2_lbl = TextMobject("Amplitude, $A$ ($3m$)")
         per_lbl = TextMobject("Period, $T$:")
         freqB_lbl = TextMobject("Frequency, $f$ ($1 \\over s$, $Hz$)")
         wlB_lbl.next_to(wlBrace,UP)
         ampB_lbl.next_to(ampBrace,RIGHT)
+        wlB2_lbl.next_to(wlBrace2,UP)
+        ampB2_lbl.next_to(ampBrace2,RIGHT)
+
+        self.wait()
         self.play(FadeOut(text3VG),run_time=0.5)
         self.play(Write(wlDot1),Write(wlDot2),ShowCreation(wlBrace),Write(wlB_lbl))
-        def wLBLup(self):
-            wlB_lbl.next_to(wlBrace,UP)
-            wlB2_lbl.next_to(wlBrace,UP)
-        wlB_lbl.add_updater(wLBLup)
-        wlB2_lbl.add_updater(wLBLup)
-        self.add(wlB_lbl)
-        self.add(wlB2_lbl)
+        self.wait()
         self.play(Transform(fullGraph,fullGraphExt),Transform(wlBrace,wlBrace2),Transform(wlDot2,wlDot3),Transform(wlDot1,wlDot0),Transform(wlB_lbl,wlB2_lbl),rate_func=there_and_back,run_time=3)
-        wlB_lbl.remove_updater(wLBLup)
-        wlB2_lbl.remove_updater(wLBLup)
+        self.wait()
         self.play(Transform(wlDot2,ampDot1),ReplacementTransform(wlBrace,ampBrace),ReplacementTransform(wlB_lbl,ampB_lbl))
-        def ampLBLup(self):
-            ampB_lbl.next_to(ampBrace,RIGHT)
-            ampB2_lbl.next_to(ampBrace,RIGHT)
-        ampB_lbl.add_updater(ampLBLup)
-        ampB2_lbl.add_updater(ampLBLup)
+        self.wait()
         self.add(ampB_lbl)
-        self.add(ampB2_lbl)
         self.play(Transform(fullGraph,fullGraphExt2),Transform(ampBrace,ampBrace2),Transform(wlDot1,ampDot2),Transform(ampB_lbl,ampB2_lbl),rate_func=there_and_back,run_time=3)
+        self.wait()
         ampB_lbl.remove_updater(ampB_lbl)
-        ampB2_lbl.remove_updater(ampB_lbl)
         self.play(FadeOut(ampBrace),FadeOut(ampB_lbl),FadeOut(wlDot2),FadeOut(wlDot1))
         self.wait()
         pDot1 = Dot(point=np.array((-3*np.pi/2,5,0)))
@@ -1236,9 +1234,11 @@ class Part2(GraphScene):
         self.play(ShowCreation(pLine1))
         self.play(Transform(pLine1,pLine2),run_time=5)
         pLabel.remove_updater(pLabelUpdater)
+        self.wait()
         self.play(CounterclockwiseTransform(pLine1,pBrace),pLabel.move_to,pBrace.get_center()+UP*0.5)
         per_lbl.move_to(pLabel.get_center()+UP*0.5)
         self.play(Write(per_lbl))
+        self.wait()
         freqEq = TexMobject("f = {1\\over","T}")
         freqEq2 = TexMobject("f = {1\\over","1.20sec}")
         pLabel2 = TexMobject("T=1.20sec")
@@ -1246,15 +1246,20 @@ class Part2(GraphScene):
         pLabel2.move_to(pBrace.get_center()+UP*0.4)
         myVG22 = VGroup(pLabel,per_lbl)
         self.play(ReplacementTransform(myVG22,pLabel2))
+        self.wait()
         self.play(Write(freqEq),freqEq.move_to,freqEq.get_center()+RIGHT*1+UP*0.75,pLabel2.move_to,freqEq.get_center()+LEFT*1.5+UP*0.7)
+        self.wait()
         freqEq2.move_to(pBrace.get_center()+UP*1)
         self.play(FadeOut(pLabel2))
         self.play(Transform(freqEq,freqEq2))
+        self.wait()
         freqEq3 = TexMobject("f \\approx 0.83 Hz")
         freqEq3.move_to(pBrace.get_center()+UP*0.7)
         self.play(Transform(freqEq,freqEq3))
+        self.wait()
         freqVG = VGroup(freqEq,pLine1)
         self.play(FadeOut(freqVG))
+        self.wait()
         self.remove(fullGraph)
         d_theta2=ValueTracker(0)
         sine_function2=self.get_sine_wave2()
@@ -1280,18 +1285,23 @@ class Part2(GraphScene):
         freqEq4 = TexMobject("f = 0.83 Hz",color=DARK_GRAY)
         freqEq4.next_to(wavelEq1,UP)
         self.play(Write(speedEq1))
-        self.play(Write(wavelEq1))
-        self.play(Write(freqEq4))
-        speedPoint = speedEq1.get_center()
-        print(speedPoint)
-        self.play(FadeOutAndShift(wavelEq1),FadeOutAndShift(freqEq4),Transform(speedEq1,speedEq2))
+        self.wait()
+        self.play(FadeIn(wavelEq1))
+        self.play(FadeIn(freqEq4))
+        speedpoint = speedEq1.get_center()
+        self.play(FadeOutAndShift(wavelEq1,direction=speedpoint-wavelEq1.get_center()),FadeOutAndShift(freqEq4,direction=speedpoint-freqEq4.get_center()),Transform(speedEq1,speedEq2))
+        self.wait()
         self.play(Transform(speedEq1,speedEq3))
+        self.wait()
         self.play(Transform(speedEq1,speedEq4))
+        self.wait()
         #wEq1 = TexMobject("\\lambda = 4m")
         self.play(FadeOut(speedEq1))
+        self.wait()
         propEq1 = TexMobject("E \\propto A^2")
         propEq1.move_to(ORIGIN+UP*2)
         self.play(Write(propEq1))
+        self.wait()
         fullGraphExt3 = FunctionGraph(
             lambda x: 2*np.sin(x),
             x_min=-8,x_max=8
@@ -1338,15 +1348,18 @@ class Part2(GraphScene):
         propEq3.move_to(ORIGIN+UP*2)
 
 
-        self.play(Write(eDot1))
-        self.play(Write(eDot1_2))
+        self.play(Write(eDot1),Write(eDot1_2))
         self.play(Write(eBrace1))
         self.play(Write(eLbl1))
+        self.wait()
         self.play(propEq1.move_to,ORIGIN+UP*3)
         self.play(Write(propEq1_2))
+        self.wait()
 
         self.play(ReplacementTransform(sine_function2,fullGraphExt3),ReplacementTransform(eBrace1,eBrace2),ReplacementTransform(eLbl1,eLbl2),ReplacementTransform(eDot1_2,eDot2),ReplacementTransform(propEq1_2,propEq2))
+        self.wait(1)
         self.play(ReplacementTransform(fullGraphExt3,fullGraphExt4),ReplacementTransform(eBrace2,eBrace3),ReplacementTransform(eLbl2,eLbl3),ReplacementTransform(eDot2,eDot3),ReplacementTransform(propEq2,propEq3))
+        self.wait(1)
         eDot1_2 = Dot(point=np.array((-3*np.pi/2,1,0)))
         propEq1_2.move_to(ORIGIN+UP*2)
         eBrace1 = Brace(eLine1,direction=RIGHT)
@@ -1355,7 +1368,16 @@ class Part2(GraphScene):
         propEq1_2 = TextMobject("$E = 2$ units")
         propEq1_2.move_to(ORIGIN+UP*2)
         self.play(ReplacementTransform(fullGraphExt4,final_sine),ReplacementTransform(eBrace3,eBrace1),ReplacementTransform(eLbl3,eLbl1),ReplacementTransform(eDot3,eDot1_2),ReplacementTransform(propEq3,propEq1_2))
+        self.wait()
         self.play(FadeOut(eDot1_2),FadeOut(eDot1),FadeOut(eBrace1),FadeOut(eLbl1))
+        self.remove(time,d_theta,d_theta2)
+        self.wait()
+        self.play(FadeOut(VGroup(*self.get_mobjects())))
+        self.wait()
+        
+
+class Part3(GraphScene):
+    def construct(self):
         circle = Circle(radius=1.5,fill_opacity=0.2)
         line1 = Line(start=circle.get_top(),end=circle.get_top()+UP,stroke_color=YELLOW)
         line3 = Line(start=circle.get_bottom(),end=circle.get_bottom()+DOWN,stroke_color=YELLOW)
@@ -1367,28 +1389,167 @@ class Part2(GraphScene):
         line8 = Line(start=np.array(((1.5*math.sqrt(2)/2),-(1.5*math.sqrt(2)/2),0)),end=np.array((((1.5*math.sqrt(2)/2)+math.sqrt(2)/2),-((1.5*math.sqrt(2)/2)+math.sqrt(2)/2),0)),stroke_color=YELLOW)
         
         sunVG = VGroup(circle,line1,line5,line2,line8,line3,line7,line4,line6)
-        
-        sunVG.scale(0.3)
-        sunVG.move_to(np.array((-6, 3, 0)))
+        lightwat = TextMobject("What is light?")
+        diffwat = TextMobject("What is diffraction?")        
+        lightwat.scale(2)
+        sunVG.scale(0.6)
+        lightwat.next_to(sunVG,UP*1.5)
 
-        # self.play(ShowCreation(circle))
-        # self.play(ShowCreation(line1))
-        # self.play(ShowCreation(line5))
-        # self.play(ShowCreation(line2))
-        # self.play(ShowCreation(line8))
-        # self.play(ShowCreation(line3))
-        # self.play(ShowCreation(line7))
-        # self.play(ShowCreation(line4))
-        # self.play(ShowCreation(line6))
+        self.play(Write(lightwat),Write(sunVG),run_time=2.5)
+        self.play(FadeOut(sunVG),lightwat.scale,0.5,lightwat.move_to,UL*3+LEFT*2)
 
-        self.play(Write(sunVG),run_time=2.5)
-        
+        waterRect=Rectangle(height=9,width=8,color=BLUE,fill_opacity=0.2)
+        waterRect.move_to(ORIGIN+RIGHT*4.5)
+        self.play(ShowCreation(waterRect))
 
-class Part3(GraphScene):
-    def construct(self):
-        pass
+        airlbl = TextMobject("Air")
+        waterlbl = TextMobject("Water")
 
-class Outro(Scene):
+        airlbl.move_to(DL*3.5+LEFT*3)
+        waterlbl.move_to(DR*3.5+RIGHT*2.6)
+        self.play(Write(airlbl),Write(waterlbl))
+
+        laser = Line(start=LEFT_SIDE+DOWN*2.75,end=waterRect.get_left(),stroke_color=RED)
+        self.wait()
+        self.play(ShowCreation(laser))
+
+        qm = TextMobject("?")
+        qm.scale(2)
+        qm.move_to(ORIGIN+RIGHT*1)
+        self.play(Write(qm))
+        self.wait()
+        self.play(FadeOut(qm))
+        self.wait()
+
+        laser2 = Line(start=waterRect.get_left(),end=LEFT_SIDE+UP*2.75,stroke_color=RED,stroke_opacity=0.3)
+        laser3 = Line(start=waterRect.get_left(),end=RIGHT_SIDE+UP*1,stroke_color=RED,stroke_opacity=0.6)
+        laser4 = Line(start=waterRect.get_left(),end=RIGHT_SIDE+UP*0.3,stroke_color=RED,stroke_opacity=0.6)
+
+        self.play(Write(laser2),Write(laser3))
+
+        self.wait()
+        reference = DashedLine(start=LEFT_SIDE,end=RIGHT_SIDE,stroke_opacity=0.2,stroke_color=WHITE)
+        self.play(ShowCreation(reference))
+
+        self.wait()
+        t1 = TexMobject("\\theta_1")
+        t1.move_to(ORIGIN+DOWN*0.5+LEFT*2)
+        self.play(Write(t1))
+
+        inT = TextMobject("Angle of Incidence")
+        inT.move_to(ORIGIN+DOWN*2+LEFT*2)
+
+        pointer = Arrow(inT.get_top()+LEFT*0.05,t1.get_bottom()+UP*0.1+LEFT*0.05)
+        self.play(Write(inT),ShowCreation(pointer))
+        self.wait()
+
+        t2 = TexMobject("\\theta_2")
+        t2.move_to(ORIGIN+UP*0.5+LEFT*2)
+        self.play(Write(t2))
+
+        inT2 = TextMobject("Angle of Reflection")
+        inT2.move_to(ORIGIN+UP*2+LEFT*2)
+
+        pointer2 = Arrow(inT2.get_bottom()+RIGHT*0.05,t2.get_top()+UP*0.1+RIGHT*0.05)
+        self.play(Write(inT2),ShowCreation(pointer2))
+        self.wait()
+
+        t3 = TexMobject("\\theta_3")
+        t3.move_to(ORIGIN+UP*0.3+RIGHT*5)
+        self.play(Write(t3))
+
+        inT3 = TextMobject("Angle of Refraction")
+        inT3.move_to(ORIGIN+RIGHT*4+DOWN*2)
+
+        pointer3 = Arrow(inT3.get_top()+LEFT*0.05,t3.get_bottom()+UP*0.1+LEFT*0.05)
+        self.play(Write(inT3),ShowCreation(pointer3))
+        self.wait()
+
+        lVG1 = VGroup(inT,pointer,t1)
+        lVG2 = VGroup(inT2,pointer2,t2)
+        lVG3 = VGroup(inT3,pointer3,t3)
+
+        self.play(Indicate(lVG1),run_time=2)
+        self.wait()
+        self.play(Indicate(lVG2),run_time=2)
+        self.wait()
+        self.play(Indicate(lVG3),run_time=2)
+        self.wait()
+
+        self.play(FadeOut(lVG1),FadeOut(lVG2),FadeOut(lVG3))
+        self.wait()
+
+        refLBL = TextMobject("Refractive Index:")
+        refLBL.move_to(ORIGIN+RIGHT*4+UP*2.5)
+        refIndex = DecimalNumber(number=1.33,num_decimal_places=2)
+        refIndex.next_to(refLBL,DOWN)
+        self.play(Write(refIndex),Write(refLBL))
+        refIndex.add_updater(lambda x: x.set_value(2.66-(laser3.get_y())*2.66))
+        self.add(refIndex)
+        self.wait()
+        self.play(Transform(laser3,laser4),rate_func=there_and_back,run_time=4)
+
+        refIndex.clear_updaters()
+
+        self.remove(refIndex)
+        self.wait()
+
+        self.play(FadeOut(VGroup(laser,laser2,laser3,waterRect,waterlbl,airlbl,refLBL,refIndex,reference)))
+
+        prism = Triangle(color=WHITE,fill_opacity=0.2)
+        self.wait()
+        laser5=Line(start=LEFT_SIDE,end=ORIGIN,stroke_color=WHITE,stroke_width=10.0)
+
+        diffwat.move_to(UL*3+LEFT*1.5)
+        self.play(Transform(lightwat,diffwat))
+
+        self.play(ShowCreation(prism))
+        self.play(ShowCreation(laser5))
+
+        red=Line(start=ORIGIN,end=np.array((8,5,0)),stroke_color=RED)
+        orange=Line(start=ORIGIN,end=np.array((8,3,0)),stroke_color=ORANGE)
+        yellow=Line(start=ORIGIN,end=np.array((8,1,0)),stroke_color=YELLOW)
+        green=Line(start=ORIGIN,end=np.array((8,-1,0)),stroke_color=GREEN)
+        blue=Line(start=ORIGIN,end=np.array((8,-3,0)),stroke_color=BLUE)
+        purple=Line(start=ORIGIN,end=np.array((8,-5,0)),stroke_color=PURPLE)
+
+        self.play(ShowCreation(red),ShowCreation(orange),ShowCreation(yellow),ShowCreation(green),ShowCreation(blue),ShowCreation(purple))
+
+        redFunc=FunctionGraph(lambda x: 0.3*np.sin(2*x)+2.5,x_min=-8,x_max=8,color=RED)
+        orangeFunc=FunctionGraph(lambda x: 0.3*np.sin(3*x)+1.5,x_min=-8,x_max=8,color=ORANGE)
+        yellowFunc=FunctionGraph(lambda x: 0.3*np.sin(4*x)+0.5,x_min=-8,x_max=8,color=YELLOW)
+        greenFunc=FunctionGraph(lambda x: 0.3*np.sin(5*x)-0.5,x_min=-8,x_max=8,color=GREEN)
+        blueFunc=FunctionGraph(lambda x: 0.3*np.sin(6*x)-1.5,x_min=-8,x_max=8,color=BLUE)
+        purpleFunc=FunctionGraph(lambda x: 0.3*np.sin(7*x)-2.5,x_min=-8,x_max=8,color=PURPLE)
+
+        self.wait()
+        self.play(FadeOut(prism),FadeOut(laser5))
+        self.wait()
+
+        self.play(
+            FadeOut(lightwat),
+            Transform(red,redFunc),
+            Transform(orange,orangeFunc),
+            Transform(yellow,yellowFunc),
+            Transform(green,greenFunc),
+            Transform(blue,blueFunc),
+            Transform(purple,purpleFunc)
+        )
+
+        self.wait(3)
+        self.play(
+            FadeOut(red),
+            FadeOut(orange),
+            FadeOut(yellow),
+            FadeOut(green),
+            FadeOut(blue),
+            FadeOut(purple),
+            FadeOut(red)
+        )
+        self.wait()
+
+
+class Part4(Scene):
     def construct(self):
         svg = SVGMobject("logo", fill_opacity=0)
         outro = TextMobject("All animations created by Safin Singh")

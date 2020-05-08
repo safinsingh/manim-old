@@ -115,6 +115,13 @@ NO_SCENE_MESSAGE = """
 """
 
 # There might be other configuration than pixel shape later...
+
+INSANE_QUALITY_CAMERA_CONFIG = {
+    "pixel_height": 2160,
+    "pixel_width": 3840,
+    "frame_rate": 120,
+}
+
 PRODUCTION_QUALITY_CAMERA_CONFIG = {
     "pixel_height": 1440,
     "pixel_width": 2560,
@@ -164,7 +171,7 @@ DEFAULT_MOBJECT_TO_MOBJECT_BUFFER = MED_SMALL_BUFF
 
 # All in seconds
 DEFAULT_POINTWISE_FUNCTION_RUN_TIME = 3.0
-DEFAULT_WAIT_TIME = 1.0
+DEFAULT_WAIT_TIME = 2.0
 
 
 ORIGIN = np.array((0., 0., 0.))
