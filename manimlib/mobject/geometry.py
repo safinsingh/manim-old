@@ -306,7 +306,7 @@ class CurvedDoubleArrow(CurvedArrow):
 
 class Circle(Arc):
     CONFIG = {
-        "color": RED,
+        "color": YELLOW,
         "close_new_points": True,
         "anchors_span_full_range": False
     }

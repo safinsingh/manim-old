@@ -1185,7 +1185,9 @@ class Part2(GraphScene):
         ampBrace = Brace(line21,direction=RIGHT)
         ampBrace2 = Brace(line211,direction=RIGHT)
         wlB_lbl = TextMobject("Wavelength, $\\lambda$ ($4m$)")
+        wlB2_lbl = TextMobject("Wavelength, $\\lambda$ ($5m$)")
         ampB_lbl = TextMobject("Amplitude, $A$ ($2m$)")
+        ampB2_lbl = TextMobject("Amplitude, $A$ ($2m$)")
         per_lbl = TextMobject("Period, $T$:")
         freqB_lbl = TextMobject("Frequency, $f$ ($1 \\over s$, $Hz$)")
         wlB_lbl.next_to(wlBrace,UP)
@@ -1194,17 +1196,25 @@ class Part2(GraphScene):
         self.play(Write(wlDot1),Write(wlDot2),ShowCreation(wlBrace),Write(wlB_lbl))
         def wLBLup(self):
             wlB_lbl.next_to(wlBrace,UP)
+            wlB2_lbl.next_to(wlBrace,UP)
         wlB_lbl.add_updater(wLBLup)
+        wlB2_lbl.add_updater(wLBLup)
         self.add(wlB_lbl)
-        self.play(Transform(fullGraph,fullGraphExt),Transform(wlBrace,wlBrace2),Transform(wlDot2,wlDot3),Transform(wlDot1,wlDot0),rate_func=there_and_back,run_time=3)
+        self.add(wlB2_lbl)
+        self.play(Transform(fullGraph,fullGraphExt),Transform(wlBrace,wlBrace2),Transform(wlDot2,wlDot3),Transform(wlDot1,wlDot0),Transform(wlB_lbl,wlB2_lbl),rate_func=there_and_back,run_time=3)
         wlB_lbl.remove_updater(wLBLup)
+        wlB2_lbl.remove_updater(wLBLup)
         self.play(Transform(wlDot2,ampDot1),ReplacementTransform(wlBrace,ampBrace),ReplacementTransform(wlB_lbl,ampB_lbl))
         def ampLBLup(self):
             ampB_lbl.next_to(ampBrace,RIGHT)
+            ampB2_lbl.next_to(ampBrace,RIGHT)
         ampB_lbl.add_updater(ampLBLup)
+        ampB2_lbl.add_updater(ampLBLup)
         self.add(ampB_lbl)
-        self.play(Transform(fullGraph,fullGraphExt2),Transform(ampBrace,ampBrace2),Transform(wlDot1,ampDot2),rate_func=there_and_back,run_time=3)
+        self.add(ampB2_lbl)
+        self.play(Transform(fullGraph,fullGraphExt2),Transform(ampBrace,ampBrace2),Transform(wlDot1,ampDot2),Transform(ampB_lbl,ampB2_lbl),rate_func=there_and_back,run_time=3)
         ampB_lbl.remove_updater(ampB_lbl)
+        ampB2_lbl.remove_updater(ampB_lbl)
         self.play(FadeOut(ampBrace),FadeOut(ampB_lbl),FadeOut(wlDot2),FadeOut(wlDot1))
         self.wait()
         pDot1 = Dot(point=np.array((-3*np.pi/2,5,0)))
@@ -1346,21 +1356,37 @@ class Part2(GraphScene):
         propEq1_2.move_to(ORIGIN+UP*2)
         self.play(ReplacementTransform(fullGraphExt4,final_sine),ReplacementTransform(eBrace3,eBrace1),ReplacementTransform(eLbl3,eLbl1),ReplacementTransform(eDot3,eDot1_2),ReplacementTransform(propEq3,propEq1_2))
         self.play(FadeOut(eDot1_2),FadeOut(eDot1),FadeOut(eBrace1),FadeOut(eLbl1))
+        circle = Circle(radius=1.5,fill_opacity=0.2)
+        line1 = Line(start=circle.get_top(),end=circle.get_top()+UP,stroke_color=YELLOW)
+        line3 = Line(start=circle.get_bottom(),end=circle.get_bottom()+DOWN,stroke_color=YELLOW)
+        line2 = Line(start=circle.get_right(),end=circle.get_right()+RIGHT,stroke_color=YELLOW)
+        line4 = Line(start=circle.get_left(),end=circle.get_left()+LEFT,stroke_color=YELLOW)
+        line5 = Line(start=np.array((1.5*math.sqrt(2)/2,1.5*math.sqrt(2)/2,0)),end=np.array(((1.5*math.sqrt(2)/2)+math.sqrt(2)/2,(1.5*math.sqrt(2)/2)+math.sqrt(2)/2,0)),stroke_color=YELLOW)
+        line6 = Line(start=np.array((-(1.5*math.sqrt(2)/2),1.5*math.sqrt(2)/2,0)),end=np.array((-((1.5*math.sqrt(2)/2)+math.sqrt(2)/2),(1.5*math.sqrt(2)/2)+math.sqrt(2)/2,0)),stroke_color=YELLOW)
+        line7 = Line(start=np.array((-(1.5*math.sqrt(2)/2),-(1.5*math.sqrt(2)/2),0)),end=np.array((-((1.5*math.sqrt(2)/2)+math.sqrt(2)/2),-((1.5*math.sqrt(2)/2)+math.sqrt(2)/2),0)),stroke_color=YELLOW)
+        line8 = Line(start=np.array(((1.5*math.sqrt(2)/2),-(1.5*math.sqrt(2)/2),0)),end=np.array((((1.5*math.sqrt(2)/2)+math.sqrt(2)/2),-((1.5*math.sqrt(2)/2)+math.sqrt(2)/2),0)),stroke_color=YELLOW)
+        
+        sunVG = VGroup(circle,line1,line5,line2,line8,line3,line7,line4,line6)
+        
+        sunVG.scale(0.3)
+        sunVG.move_to(np.array((-6, 3, 0)))
+
+        # self.play(ShowCreation(circle))
+        # self.play(ShowCreation(line1))
+        # self.play(ShowCreation(line5))
+        # self.play(ShowCreation(line2))
+        # self.play(ShowCreation(line8))
+        # self.play(ShowCreation(line3))
+        # self.play(ShowCreation(line7))
+        # self.play(ShowCreation(line4))
+        # self.play(ShowCreation(line6))
+
+        self.play(Write(sunVG),run_time=2.5)
         
 
-class Part3(Scene):
+class Part3(GraphScene):
     def construct(self):
-        circle = Circle(radius=1.5)
-        line1 = Line(start=circle.get_top(),end=circle.get_top()+UP)
-        line3 = Line(start=circle.get_bottom(),end=circle.get_bottom()+DOWN)
-        line2 = Line(start=circle.get_right(),end=circle.get_right()+RIGHT)
-        line4 = Line(start=circle.get_left(),end=circle.get_left()+LEFT)
-        line4 = Line(start=np.array((1.5*math.sqrt(2)/2,1.5*math.sqrt(2)/2,0)),end=np.array(()))
-        self.play(ShowCreation(circle))
-        self.play(ShowCreation(line1))
-        self.play(ShowCreation(line2))
-        self.play(ShowCreation(line3))
-        self.play(ShowCreation(line4))
+        pass
 
 class Outro(Scene):
     def construct(self):
