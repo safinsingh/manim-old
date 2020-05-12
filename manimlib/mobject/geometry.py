@@ -686,6 +686,122 @@ class Arrow(Line):
         return self.deepcopy()
 
 
+class ThreeDArrow(Line):
+    CONFIG = {
+        "tip_length": 0.25,
+        "tip_width_to_length_ratio": 1,
+        "max_tip_length_to_length_ratio": 0.35,
+        "max_stem_width_to_tip_width_ratio": 0.3,
+        "buff": 0,
+        "propagate_style_to_family": False,
+        "preserve_tip_size_when_scaling": True,
+        "normal_vector": OUT,
+        "use_rectangular_stem": True,
+        "rectangular_stem_width": 0.05,
+    }
+
+    def __init__(self, *args, **kwargs):
+        points = list(map(self.pointify, args))
+        if len(args) == 1:
+            args = (points[0] + UP + LEFT, points[0])
+        Line.__init__(self, *args, **kwargs)
+        self.add_tip()
+
+    def add_tip(self, add_at_end=True):
+        tip = VMobject(
+            close_new_points=True,
+            mark_paths_closed=True,
+            fill_color=self.color,
+            fill_opacity=1,
+            stroke_color=self.color,
+            stroke_width=0,
+        )
+        tip.add_at_end = add_at_end
+        self.set_tip_points(tip, add_at_end, preserve_normal=False)
+        self.add(tip)
+        if not hasattr(self, 'tip'):
+            self.tip = VGroup()
+            self.tip.match_style(tip)
+        self.tip.add(tip)
+        return tip
+
+    def set_tip_points(
+        self, tip,
+        add_at_end=True,
+        tip_length=None,
+        preserve_normal=True,
+    ):
+        if tip_length is None:
+            tip_length = self.tip_length
+        if preserve_normal:
+            normal_vector = self.get_normal_vector()
+        else:
+            normal_vector = self.normal_vector
+        line_length = get_norm(self.points[-1] - self.points[0])
+        tip_length = min(
+            tip_length, self.max_tip_length_to_length_ratio * line_length
+        )
+
+        indices = (-2, -1) if add_at_end else (1, 0)
+        pre_end_point, end_point = [
+            self.get_anchors()[index]
+            for index in indices
+        ]
+        vect = end_point - pre_end_point
+        perp_vect = np.cross(vect, normal_vector)
+        for v in vect, perp_vect:
+            if get_norm(v) == 0:
+                v[0] = 1
+            v *= tip_length / get_norm(v)
+        ratio = self.tip_width_to_length_ratio
+        tip.set_points_as_corners([
+            end_point,
+            end_point - vect + perp_vect * ratio / 2,
+            end_point - vect - perp_vect * ratio / 2,
+        ])
+
+        return self
+
+    def get_normal_vector(self):
+        p0, p1, p2 = self.tip[0].get_anchors()[:3]
+        result = np.cross(p2 - p1, p1 - p0)
+        norm = get_norm(result)
+        if norm == 0:
+            return self.normal_vector
+        else:
+            return result / norm
+
+    def reset_normal_vector(self):
+        self.normal_vector = self.get_normal_vector()
+        return self
+
+    def get_end(self):
+        if hasattr(self, "tip"):
+            return self.tip[0].get_anchors()[0]
+        else:
+            return Line.get_end(self)
+
+    def get_tip(self):
+        return self.tip
+
+    def put_start_and_end_on(self, *args, **kwargs):
+        Line.put_start_and_end_on(self, *args, **kwargs)
+        self.set_tip_points(self.tip[0], preserve_normal=False)
+        self.set_rectangular_stem_points()
+        return self
+
+    def scale(self, scale_factor, **kwargs):
+        Line.scale(self, scale_factor, **kwargs)
+        if self.preserve_tip_size_when_scaling:
+            for t in self.tip:
+                self.set_tip_points(t, add_at_end=t.add_at_end)
+        if self.use_rectangular_stem:
+            self.set_rectangular_stem_points()
+        return self
+
+    def copy(self):
+        return self.deepcopy()
+
 class Vector(Arrow):
     CONFIG = {
         "buff": 0,

@@ -21,18 +21,26 @@ class Part1(Scene):
 
 class Part2(ThreeDScene):
     def construct(self):
-        p1 = TextMobject("1. Find the point on the line $(0,-1,-3)+t(4, 2,-7)$ that is closest to $(2, 0, 5)$.")
+        p1 = TextMobject("1. Let $V = (0,3,2)$ and $A = (-1,0,1).$ Let $P$ be the point on the line \\\\passing through $A$ with direction vector $(1,1,1)$ that is closest to $V$.")
         p1.scale(0.75)
-        # self.play(Write(p1))
-        # self.play(p1.move_to,UP*3.3)
+        self.play(Write(p1),run_time=3)
+        self.play(p1.move_to,UP*3)
+        self.add_fixed_in_frame_mobjects(p1)
         axis1 = ThreeDAxes()
         self.play(ShowCreation(axis1))
         self.move_camera(phi=70 * DEGREES,theta=20*DEGREES,run_time=3)
         def Line1(t):
             return np.array((-1,0,1))+t*np.array((1,1,1))
-        func = ParametricFunction(Line1, t_min=-10, max=10, fill_opacity=0)
+        func = ParametricFunction(Line1, t_min=-10, max=10, fill_opacity=0,stroke_color=BLUE)
         A = Sphere(radius=0.1)
+        V = Sphere(radius=0.1)
         A.move_to(np.array((-1,0,1)))
-        self.play(ShowCreation(A),run_time=3)
+        V.move_to(np.array((0,3,2)))
+        A_vector = ThreeDArrow(start=ORIGIN,end=A,stroke_color=RED,color=RED)
+        V_vector = ThreeDArrow(start=ORIGIN,end=V,stroke_color=GREEN_E,color=GREEN_E)
+        AV_vector = ThreeDArrow(start=V,end=A,stroke_color=YELLOW_E,stroke_width=2)
+        self.play(ShowCreation(A_vector),run_time=3)
+        self.play(ShowCreation(V_vector),run_time=3)
+        self.play(ShowCreation(AV_vector),run_time=3)
         self.play(ShowCreation(func))
 
