@@ -1,0 +1,1508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>manimlib.mobject.svg.text_mobject API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>manimlib.mobject.svg.text_mobject</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import re
+import os
+import copy
+import hashlib
+import cairo
+import manimlib.constants as consts
+from manimlib.constants import *
+from manimlib.container.container import Container
+from manimlib.mobject.geometry import Dot, Rectangle
+from manimlib.mobject.svg.svg_mobject import SVGMobject
+from manimlib.mobject.types.vectorized_mobject import VGroup
+from manimlib.utils.config_ops import digest_config
+
+
+TEXT_MOB_SCALE_FACTOR = 0.05
+
+
+class TextSetting(object):
+    def __init__(self, start, end, font, slant, weight, line_num=-1):
+        self.start = start
+        self.end = end
+        self.font = font
+        self.slant = slant
+        self.weight = weight
+        self.line_num = line_num
+
+
+class Text(SVGMobject):
+    CONFIG = {
+        # Mobject
+        &#39;color&#39;: consts.WHITE,
+        &#39;height&#39;: None,
+        &#39;width&#39;: None,
+        &#39;fill_opacity&#39;: 1,
+        &#39;stroke_width&#39;: 0,
+        &#34;should_center&#34;: True,
+        &#34;unpack_groups&#34;: True,
+        # Text
+        &#39;font&#39;: &#39;&#39;,
+        &#39;gradient&#39;: None,
+        &#39;lsh&#39;: -1,
+        &#39;size&#39;: 1,
+        &#39;slant&#39;: NORMAL,
+        &#39;weight&#39;: NORMAL,
+        &#39;t2c&#39;: {},
+        &#39;t2f&#39;: {},
+        &#39;t2g&#39;: {},
+        &#39;t2s&#39;: {},
+        &#39;t2w&#39;: {},
+        &#39;tab_width&#39;: 4,
+    }
+
+    def __init__(self, text, **config):
+        self.full2short(config)
+        digest_config(self, config)
+        text_without_tabs = text
+        if text.find(&#39;\t&#39;) != -1:
+            text_without_tabs = text.replace(&#39;\t&#39;, &#39; &#39;*self.tab_width)
+        self.text = text_without_tabs
+        self.lsh = self.size if self.lsh == -1 else self.lsh
+
+        file_name = self.text2svg()
+        self.remove_last_M(file_name)
+        SVGMobject.__init__(self, file_name, **config)
+        self.apply_front_and_end_spaces()
+        self.text = text
+        self.apply_space_chars()
+
+        nppc = self.n_points_per_cubic_curve
+        for each in self:
+            if len(each.points) == 0:
+                continue
+            points = each.points
+            last = points[0]
+            each.clear_points()
+            for index, point in enumerate(points):
+                each.append_points([point])
+                if index != len(points) - 1 and (index + 1) % nppc == 0 and any(point != points[index+1]):
+                    each.add_line_to(last)
+                    last = points[index + 1]
+            each.add_line_to(last)
+
+        if self.t2c:
+            self.set_color_by_t2c()
+        if self.gradient:
+            self.set_color_by_gradient(*self.gradient)
+        if self.t2g:
+            self.set_color_by_t2g()
+
+        # anti-aliasing
+        if self.height is None and self.width is None:
+            self.scale(TEXT_MOB_SCALE_FACTOR)
+
+    def get_space_width(self):
+        size = self.size * 10
+
+        dir_name = consts.TEXT_DIR
+        file_name = os.path.join(dir_name, &#34;space&#34;) + &#39;.svg&#39;
+
+        surface = cairo.SVGSurface(file_name, 600, 400)
+        context = cairo.Context(surface)
+        context.set_font_size(size)
+        context.move_to(START_X, START_Y)
+        context.select_font_face(self.font, self.str2slant(self.slant), self.str2weight(self.weight))
+        context.move_to(START_X, START_Y)
+        context.show_text(&#34;_&#34;)
+        surface.finish()
+        svg_with_space = SVGMobject(file_name, height=self.height,
+                                    width=self.width,
+                                    stroke_width=self.stroke_width,
+                                    should_center=self.should_center,
+                                    unpack_groups=self.unpack_groups, )
+        space_width = svg_with_space.get_width()
+        return space_width
+
+    def apply_front_and_end_spaces(self):
+        space_width = self.get_space_width()
+        max_height = self.get_height()
+        front_spaces_count = 0
+        i = -1
+        for i in range(self.text.__len__()):
+            if self.text[i] == &#34; &#34;:
+                front_spaces_count += 1
+                continue
+            else:
+                break
+        first_visible_char_index = i
+        if first_visible_char_index != 0:
+            space = Rectangle(width=space_width * front_spaces_count, height=max_height, fill_opacity=0,
+                                  stroke_opacity=0,
+                                  stroke_width=0)
+            text_width = self.get_width()
+            space.move_to(np.array([-text_width / 2, max_height / 2, 0]))
+            self.next_to(space, direction=RIGHT, buff=0)
+            self.submobjects.insert(0, space)
+
+        i = -1
+        last_spaces_count = 0
+        for i in range(self.text.__len__() - 1, -1, -1):
+            if self.text[i] == &#34; &#34;:
+                last_spaces_count += 1
+                continue
+            else:
+                break
+        last_visible_char_index = i
+        if last_visible_char_index != self.text.__len__() - 1:
+            space = Rectangle(width=space_width * last_spaces_count, height=max_height, fill_opacity=0,
+                                  stroke_opacity=0,
+                                  stroke_width=0)
+            text_width = self.get_width()
+            space.move_to(np.array([-text_width / 2, max_height / 2, 0]))
+            self.next_to(space, direction=LEFT, buff=0)
+            self.submobjects.append(space)
+        self.move_to(np.array([0,0,0]))
+
+    def apply_space_chars(self):
+        char_index = 0
+        while char_index &lt; self.text.__len__() - 1:
+            char_index += 1
+            if self.text[char_index] == &#34; &#34; or self.text[char_index] == &#34;\t&#34; or self.text[char_index] == &#34;\n&#34;:
+                space = Dot(fill_opacity=0, stroke_opacity=0)
+                space.move_to(self.submobjects[char_index - 1].get_center())
+                self.submobjects.insert(char_index, space)
+
+    def remove_last_M(self, file_name):
+        with open(file_name, &#39;r&#39;) as fpr:
+            content = fpr.read()
+        content = re.sub(r&#39;Z M [^A-Za-z]*? &#34;\/&gt;&#39;, &#39;Z &#34;/&gt;&#39;, content)
+        with open(file_name, &#39;w&#39;) as fpw:
+            fpw.write(content)
+
+    def find_indexes(self, word):
+        m = re.match(r&#39;\[([0-9\-]{0,}):([0-9\-]{0,})\]&#39;, word)
+        if m:
+            start = int(m.group(1)) if m.group(1) != &#39;&#39; else 0
+            end = int(m.group(2)) if m.group(2) != &#39;&#39; else len(self.text)
+            start = len(self.text) + start if start &lt; 0 else start
+            end = len(self.text) + end if end &lt; 0 else end
+            return [(start, end)]
+
+        indexes = []
+        index = self.text.find(word)
+        while index != -1:
+            indexes.append((index, index + len(word)))
+            index = self.text.find(word, index + len(word))
+        return indexes
+
+    def full2short(self, config):
+        for kwargs in [config, self.CONFIG]:
+            if kwargs.__contains__(&#39;line_spacing_height&#39;):
+                kwargs[&#39;lsh&#39;] = kwargs.pop(&#39;line_spacing_height&#39;)
+            if kwargs.__contains__(&#39;text2color&#39;):
+                kwargs[&#39;t2c&#39;] = kwargs.pop(&#39;text2color&#39;)
+            if kwargs.__contains__(&#39;text2font&#39;):
+                kwargs[&#39;t2f&#39;] = kwargs.pop(&#39;text2font&#39;)
+            if kwargs.__contains__(&#39;text2gradient&#39;):
+                kwargs[&#39;t2g&#39;] = kwargs.pop(&#39;text2gradient&#39;)
+            if kwargs.__contains__(&#39;text2slant&#39;):
+                kwargs[&#39;t2s&#39;] = kwargs.pop(&#39;text2slant&#39;)
+            if kwargs.__contains__(&#39;text2weight&#39;):
+                kwargs[&#39;t2w&#39;] = kwargs.pop(&#39;text2weight&#39;)
+
+    def set_color_by_t2c(self, t2c=None):
+        t2c = t2c if t2c else self.t2c
+        for word, color in list(t2c.items()):
+            for start, end in self.find_indexes(word):
+                self[start:end].set_color(color)
+
+    def set_color_by_t2g(self, t2g=None):
+        t2g = t2g if t2g else self.t2g
+        for word, gradient in list(t2g.items()):
+            for start, end in self.find_indexes(word):
+                self[start:end].set_color_by_gradient(*gradient)
+
+    def str2slant(self, string):
+        if string == NORMAL:
+            return cairo.FontSlant.NORMAL
+        if string == ITALIC:
+            return cairo.FontSlant.ITALIC
+        if string == OBLIQUE:
+            return cairo.FontSlant.OBLIQUE
+
+    def str2weight(self, string):
+        if string == NORMAL:
+            return cairo.FontWeight.NORMAL
+        if string == BOLD:
+            return cairo.FontWeight.BOLD
+
+    def text2hash(self):
+        settings = self.font + self.slant + self.weight
+        settings += str(self.t2f) + str(self.t2s) + str(self.t2w)
+        settings += str(self.lsh) + str(self.size)
+        id_str = self.text+settings
+        hasher = hashlib.sha256()
+        hasher.update(id_str.encode())
+        return hasher.hexdigest()[:16]
+
+    def text2settings(self):
+        settings = []
+        t2x = [self.t2f, self.t2s, self.t2w]
+        for i in range(len(t2x)):
+            fsw = [self.font, self.slant, self.weight]
+            if t2x[i]:
+                for word, x in list(t2x[i].items()):
+                    for start, end in self.find_indexes(word):
+                        fsw[i] = x
+                        settings.append(TextSetting(start, end, *fsw))
+
+        # Set All text settings(default font slant weight)
+        fsw = [self.font, self.slant, self.weight]
+        settings.sort(key=lambda setting: setting.start)
+        temp_settings = settings.copy()
+        start = 0
+        for setting in settings:
+            if setting.start != start:
+                temp_settings.append(TextSetting(start, setting.start, *fsw))
+            start = setting.end
+        if start != len(self.text):
+            temp_settings.append(TextSetting(start, len(self.text), *fsw))
+        settings = sorted(temp_settings, key=lambda setting: setting.start)
+
+        if re.search(r&#39;\n&#39;, self.text):
+            line_num = 0
+            for start, end in self.find_indexes(&#39;\n&#39;):
+                for setting in settings:
+                    if setting.line_num == -1:
+                        setting.line_num = line_num
+                    if start &lt; setting.end:
+                        line_num += 1
+                        new_setting = copy.copy(setting)
+                        setting.end = end
+                        new_setting.start = end
+                        new_setting.line_num = line_num
+                        settings.append(new_setting)
+                        settings.sort(key=lambda setting: setting.start)
+                        break
+
+        for setting in settings:
+            if setting.line_num == -1:
+                setting.line_num = 0
+
+        return settings
+
+    def text2svg(self):
+        # anti-aliasing
+        size = self.size * 10
+        lsh = self.lsh * 10
+
+        if self.font == &#39;&#39;:
+            if NOT_SETTING_FONT_MSG != &#39;&#39;:
+                print(NOT_SETTING_FONT_MSG)
+
+        dir_name = consts.TEXT_DIR
+        hash_name = self.text2hash()
+        file_name = os.path.join(dir_name, hash_name)+&#39;.svg&#39;
+        if os.path.exists(file_name):
+            return file_name
+
+        surface = cairo.SVGSurface(file_name, 600, 400)
+        context = cairo.Context(surface)
+        context.set_font_size(size)
+        context.move_to(START_X, START_Y)
+
+        settings = self.text2settings()
+        offset_x = 0
+        last_line_num = 0
+        for setting in settings:
+            font = setting.font
+            slant = self.str2slant(setting.slant)
+            weight = self.str2weight(setting.weight)
+            text = self.text[setting.start:setting.end].replace(&#39;\n&#39;, &#39; &#39;)
+
+            context.select_font_face(font, slant, weight)
+            if setting.line_num != last_line_num:
+                offset_x = 0
+                last_line_num = setting.line_num
+            context.move_to(START_X + offset_x, START_Y + lsh*setting.line_num)
+            context.show_text(text)
+            offset_x += context.text_extents(text)[4]
+
+        return file_name
+
+class TextWithFixHeight(Text):
+    def __init__(self, text, **kwargs):
+        Text.__init__(self, text, **kwargs)
+        max_height = Text(&#34;(gyt{[/QW&#34;, **kwargs).get_height()
+        rectangle = Rectangle(width=0, height=max_height, fill_opacity=0,
+                              stroke_opacity=0,
+                              stroke_width=0)
+        self.submobjects.append(rectangle)
+
+class Paragraph(VGroup):
+    CONFIG = {
+        &#34;line_spacing&#34;: 0.1,
+        &#34;alignment&#34;: &#34;center&#34;,
+    }
+
+    def __init__(self, *text, **config):
+        Container.__init__(self, **config)
+        self.lines_list = list(text)
+        self.lines = []
+        self.lines.append([])
+        for line_no in range(self.lines_list.__len__()):
+            if &#34;\n&#34; in self.lines_list[line_no]:
+                self.lines_list[line_no:line_no + 1] = self.lines_list[line_no].split(&#34;\n&#34;)
+        for line_no in range(self.lines_list.__len__()):
+            self.lines[0].append(TextWithFixHeight(self.lines_list[line_no], **config))
+        self.char_height = TextWithFixHeight(&#34;(&#34;, **config).get_height()
+        self.lines.append([])
+        self.lines[1].extend([self.alignment for _ in range(self.lines_list.__len__())])
+        self.lines[0][0].move_to(np.array([0, 0, 0]))
+        self.align_lines()
+        VGroup.__init__(self, *[self.lines[0][i] for i in range(self.lines[0].__len__())], **config)
+        self.move_to(np.array([0, 0, 0]))
+
+    def set_all_lines_alignment(self, alignment):
+        self.lines[1] = [alignment for _ in range(self.lines_list.__len__())]
+        for line_no in range(0, self.lines[0].__len__()):
+            self.change_alignment_for_a_line(alignment, line_no)
+        return self
+
+    def set_alignment(self, alignment, line_no):
+        self.change_alignment_for_a_line(alignment, line_no)
+        return self
+
+    def change_alignment_for_a_line(self, alignment, line_no):
+        self.lines[1][line_no] = alignment
+        if self.lines[1][line_no] == &#34;center&#34;:
+            self[line_no].move_to(self.get_top() +
+                                  np.array([0, -self.char_height / 2, 0]) +
+                                  np.array([0, - line_no * (self.char_height + self.line_spacing), 0]))
+        elif self.lines[1][line_no] == &#34;right&#34;:
+            self[line_no].move_to(self.get_top() +
+                                  np.array([0, -self.char_height / 2, 0]) +
+                                  np.array([self.get_width() / 2 - self.lines[0][line_no].get_width() / 2,
+                                            - line_no * (self.char_height + self.line_spacing), 0])
+                                  )
+        elif self.lines[1][line_no] == &#34;left&#34;:
+            self[line_no].move_to(self.get_top() +
+                                  np.array([0, -self.char_height / 2, 0]) +
+                                  np.array([- self.get_width() / 2 + self.lines[0][line_no].get_width() / 2,
+                                            - line_no * (self.char_height + self.line_spacing), 0])
+                                  )
+
+    def align_lines(self):
+        for line_no in range(0, self.lines[0].__len__()):
+            if self.lines[1][line_no] == &#34;center&#34;:
+                self.lines[0][line_no].move_to(
+                    np.array([0, 0, 0]) + np.array([0, - line_no * (self.char_height + self.line_spacing), 0]))
+            elif self.lines[1][line_no] == &#34;left&#34;:
+                self.lines[0][line_no].move_to(np.array([0, 0, 0]) +
+                                               np.array([self.lines[0][line_no].get_width() / 2,
+                                                         - line_no * (self.char_height + self.line_spacing), 0])
+                                               )
+            elif self.lines[1][line_no] == &#34;right&#34;:
+                self.lines[0][line_no].move_to(np.array([0, 0, 0]) +
+                                               np.array([- self.lines[0][line_no].get_width() / 2,
+                                                         - line_no * (self.char_height + self.line_spacing), 0])
+                                               )</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="manimlib.mobject.svg.text_mobject.Paragraph"><code class="flex name class">
+<span>class <span class="ident">Paragraph</span></span>
+<span>(</span><span>*text, **config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Mathematical Object</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Paragraph(VGroup):
+    CONFIG = {
+        &#34;line_spacing&#34;: 0.1,
+        &#34;alignment&#34;: &#34;center&#34;,
+    }
+
+    def __init__(self, *text, **config):
+        Container.__init__(self, **config)
+        self.lines_list = list(text)
+        self.lines = []
+        self.lines.append([])
+        for line_no in range(self.lines_list.__len__()):
+            if &#34;\n&#34; in self.lines_list[line_no]:
+                self.lines_list[line_no:line_no + 1] = self.lines_list[line_no].split(&#34;\n&#34;)
+        for line_no in range(self.lines_list.__len__()):
+            self.lines[0].append(TextWithFixHeight(self.lines_list[line_no], **config))
+        self.char_height = TextWithFixHeight(&#34;(&#34;, **config).get_height()
+        self.lines.append([])
+        self.lines[1].extend([self.alignment for _ in range(self.lines_list.__len__())])
+        self.lines[0][0].move_to(np.array([0, 0, 0]))
+        self.align_lines()
+        VGroup.__init__(self, *[self.lines[0][i] for i in range(self.lines[0].__len__())], **config)
+        self.move_to(np.array([0, 0, 0]))
+
+    def set_all_lines_alignment(self, alignment):
+        self.lines[1] = [alignment for _ in range(self.lines_list.__len__())]
+        for line_no in range(0, self.lines[0].__len__()):
+            self.change_alignment_for_a_line(alignment, line_no)
+        return self
+
+    def set_alignment(self, alignment, line_no):
+        self.change_alignment_for_a_line(alignment, line_no)
+        return self
+
+    def change_alignment_for_a_line(self, alignment, line_no):
+        self.lines[1][line_no] = alignment
+        if self.lines[1][line_no] == &#34;center&#34;:
+            self[line_no].move_to(self.get_top() +
+                                  np.array([0, -self.char_height / 2, 0]) +
+                                  np.array([0, - line_no * (self.char_height + self.line_spacing), 0]))
+        elif self.lines[1][line_no] == &#34;right&#34;:
+            self[line_no].move_to(self.get_top() +
+                                  np.array([0, -self.char_height / 2, 0]) +
+                                  np.array([self.get_width() / 2 - self.lines[0][line_no].get_width() / 2,
+                                            - line_no * (self.char_height + self.line_spacing), 0])
+                                  )
+        elif self.lines[1][line_no] == &#34;left&#34;:
+            self[line_no].move_to(self.get_top() +
+                                  np.array([0, -self.char_height / 2, 0]) +
+                                  np.array([- self.get_width() / 2 + self.lines[0][line_no].get_width() / 2,
+                                            - line_no * (self.char_height + self.line_spacing), 0])
+                                  )
+
+    def align_lines(self):
+        for line_no in range(0, self.lines[0].__len__()):
+            if self.lines[1][line_no] == &#34;center&#34;:
+                self.lines[0][line_no].move_to(
+                    np.array([0, 0, 0]) + np.array([0, - line_no * (self.char_height + self.line_spacing), 0]))
+            elif self.lines[1][line_no] == &#34;left&#34;:
+                self.lines[0][line_no].move_to(np.array([0, 0, 0]) +
+                                               np.array([self.lines[0][line_no].get_width() / 2,
+                                                         - line_no * (self.char_height + self.line_spacing), 0])
+                                               )
+            elif self.lines[1][line_no] == &#34;right&#34;:
+                self.lines[0][line_no].move_to(np.array([0, 0, 0]) +
+                                               np.array([- self.lines[0][line_no].get_width() / 2,
+                                                         - line_no * (self.char_height + self.line_spacing), 0])
+                                               )</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.mobject.types.vectorized_mobject.VGroup" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VGroup">VGroup</a></li>
+<li><a title="manimlib.mobject.types.vectorized_mobject.VMobject" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject">VMobject</a></li>
+<li><a title="manimlib.mobject.mobject.Mobject" href="../mobject.html#manimlib.mobject.mobject.Mobject">Mobject</a></li>
+<li><a title="manimlib.container.container.Container" href="../../container/container.html#manimlib.container.container.Container">Container</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.mobject.svg.text_mobject.Paragraph.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.mobject.svg.text_mobject.Paragraph.align_lines"><code class="name flex">
+<span>def <span class="ident">align_lines</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def align_lines(self):
+    for line_no in range(0, self.lines[0].__len__()):
+        if self.lines[1][line_no] == &#34;center&#34;:
+            self.lines[0][line_no].move_to(
+                np.array([0, 0, 0]) + np.array([0, - line_no * (self.char_height + self.line_spacing), 0]))
+        elif self.lines[1][line_no] == &#34;left&#34;:
+            self.lines[0][line_no].move_to(np.array([0, 0, 0]) +
+                                           np.array([self.lines[0][line_no].get_width() / 2,
+                                                     - line_no * (self.char_height + self.line_spacing), 0])
+                                           )
+        elif self.lines[1][line_no] == &#34;right&#34;:
+            self.lines[0][line_no].move_to(np.array([0, 0, 0]) +
+                                           np.array([- self.lines[0][line_no].get_width() / 2,
+                                                     - line_no * (self.char_height + self.line_spacing), 0])
+                                           )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Paragraph.change_alignment_for_a_line"><code class="name flex">
+<span>def <span class="ident">change_alignment_for_a_line</span></span>(<span>self, alignment, line_no)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def change_alignment_for_a_line(self, alignment, line_no):
+    self.lines[1][line_no] = alignment
+    if self.lines[1][line_no] == &#34;center&#34;:
+        self[line_no].move_to(self.get_top() +
+                              np.array([0, -self.char_height / 2, 0]) +
+                              np.array([0, - line_no * (self.char_height + self.line_spacing), 0]))
+    elif self.lines[1][line_no] == &#34;right&#34;:
+        self[line_no].move_to(self.get_top() +
+                              np.array([0, -self.char_height / 2, 0]) +
+                              np.array([self.get_width() / 2 - self.lines[0][line_no].get_width() / 2,
+                                        - line_no * (self.char_height + self.line_spacing), 0])
+                              )
+    elif self.lines[1][line_no] == &#34;left&#34;:
+        self[line_no].move_to(self.get_top() +
+                              np.array([0, -self.char_height / 2, 0]) +
+                              np.array([- self.get_width() / 2 + self.lines[0][line_no].get_width() / 2,
+                                        - line_no * (self.char_height + self.line_spacing), 0])
+                              )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Paragraph.set_alignment"><code class="name flex">
+<span>def <span class="ident">set_alignment</span></span>(<span>self, alignment, line_no)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_alignment(self, alignment, line_no):
+    self.change_alignment_for_a_line(alignment, line_no)
+    return self</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Paragraph.set_all_lines_alignment"><code class="name flex">
+<span>def <span class="ident">set_all_lines_alignment</span></span>(<span>self, alignment)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_all_lines_alignment(self, alignment):
+    self.lines[1] = [alignment for _ in range(self.lines_list.__len__())]
+    for line_no in range(0, self.lines[0].__len__()):
+        self.change_alignment_for_a_line(alignment, line_no)
+    return self</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.mobject.types.vectorized_mobject.VGroup" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VGroup">VGroup</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.add" href="../../container/container.html#manimlib.container.container.Container.add">add</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.add_cubic_bezier_curve_to" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.add_cubic_bezier_curve_to">add_cubic_bezier_curve_to</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.add_smooth_curve_to" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.add_smooth_curve_to">add_smooth_curve_to</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.align_on_border" href="../mobject.html#manimlib.mobject.mobject.Mobject.align_on_border">align_on_border</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.align_to" href="../mobject.html#manimlib.mobject.mobject.Mobject.align_to">align_to</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.become" href="../mobject.html#manimlib.mobject.mobject.Mobject.become">become</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.become_partial" href="../mobject.html#manimlib.mobject.mobject.Mobject.become_partial">become_partial</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.consider_points_equals_2d" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.consider_points_equals_2d">consider_points_equals_2d</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.digest_mobject_attrs" href="../mobject.html#manimlib.mobject.mobject.Mobject.digest_mobject_attrs">digest_mobject_attrs</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.gen_cubic_bezier_tuples_from_points" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.gen_cubic_bezier_tuples_from_points">gen_cubic_bezier_tuples_from_points</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.generate_rgbas_array" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.generate_rgbas_array">generate_rgbas_array</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.get_anchors_and_handles" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.get_anchors_and_handles">get_anchors_and_handles</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.get_coord" href="../mobject.html#manimlib.mobject.mobject.Mobject.get_coord">get_coord</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.get_critical_point" href="../mobject.html#manimlib.mobject.mobject.Mobject.get_critical_point">get_critical_point</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.get_fill_color" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.get_fill_color">get_fill_color</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.get_fill_opacity" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.get_fill_opacity">get_fill_opacity</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.get_point_mobject" href="../mobject.html#manimlib.mobject.mobject.Mobject.get_point_mobject">get_point_mobject</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.interpolate" href="../mobject.html#manimlib.mobject.mobject.Mobject.interpolate">interpolate</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.null_point_align" href="../mobject.html#manimlib.mobject.mobject.Mobject.null_point_align">null_point_align</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.remove" href="../../container/container.html#manimlib.container.container.Container.remove">remove</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.repeat" href="../mobject.html#manimlib.mobject.mobject.Mobject.repeat">repeat</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.scale" href="../mobject.html#manimlib.mobject.mobject.Mobject.scale">scale</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.scale_handle_to_anchor_distances" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.scale_handle_to_anchor_distances">scale_handle_to_anchor_distances</a></code></li>
+<li><code><a title="manimlib.mobject.types.vectorized_mobject.VGroup.set_color" href="../mobject.html#manimlib.mobject.mobject.Mobject.set_color">set_color</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text"><code class="flex name class">
+<span>class <span class="ident">Text</span></span>
+<span>(</span><span>text, **config)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Mathematical Object</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Text(SVGMobject):
+    CONFIG = {
+        # Mobject
+        &#39;color&#39;: consts.WHITE,
+        &#39;height&#39;: None,
+        &#39;width&#39;: None,
+        &#39;fill_opacity&#39;: 1,
+        &#39;stroke_width&#39;: 0,
+        &#34;should_center&#34;: True,
+        &#34;unpack_groups&#34;: True,
+        # Text
+        &#39;font&#39;: &#39;&#39;,
+        &#39;gradient&#39;: None,
+        &#39;lsh&#39;: -1,
+        &#39;size&#39;: 1,
+        &#39;slant&#39;: NORMAL,
+        &#39;weight&#39;: NORMAL,
+        &#39;t2c&#39;: {},
+        &#39;t2f&#39;: {},
+        &#39;t2g&#39;: {},
+        &#39;t2s&#39;: {},
+        &#39;t2w&#39;: {},
+        &#39;tab_width&#39;: 4,
+    }
+
+    def __init__(self, text, **config):
+        self.full2short(config)
+        digest_config(self, config)
+        text_without_tabs = text
+        if text.find(&#39;\t&#39;) != -1:
+            text_without_tabs = text.replace(&#39;\t&#39;, &#39; &#39;*self.tab_width)
+        self.text = text_without_tabs
+        self.lsh = self.size if self.lsh == -1 else self.lsh
+
+        file_name = self.text2svg()
+        self.remove_last_M(file_name)
+        SVGMobject.__init__(self, file_name, **config)
+        self.apply_front_and_end_spaces()
+        self.text = text
+        self.apply_space_chars()
+
+        nppc = self.n_points_per_cubic_curve
+        for each in self:
+            if len(each.points) == 0:
+                continue
+            points = each.points
+            last = points[0]
+            each.clear_points()
+            for index, point in enumerate(points):
+                each.append_points([point])
+                if index != len(points) - 1 and (index + 1) % nppc == 0 and any(point != points[index+1]):
+                    each.add_line_to(last)
+                    last = points[index + 1]
+            each.add_line_to(last)
+
+        if self.t2c:
+            self.set_color_by_t2c()
+        if self.gradient:
+            self.set_color_by_gradient(*self.gradient)
+        if self.t2g:
+            self.set_color_by_t2g()
+
+        # anti-aliasing
+        if self.height is None and self.width is None:
+            self.scale(TEXT_MOB_SCALE_FACTOR)
+
+    def get_space_width(self):
+        size = self.size * 10
+
+        dir_name = consts.TEXT_DIR
+        file_name = os.path.join(dir_name, &#34;space&#34;) + &#39;.svg&#39;
+
+        surface = cairo.SVGSurface(file_name, 600, 400)
+        context = cairo.Context(surface)
+        context.set_font_size(size)
+        context.move_to(START_X, START_Y)
+        context.select_font_face(self.font, self.str2slant(self.slant), self.str2weight(self.weight))
+        context.move_to(START_X, START_Y)
+        context.show_text(&#34;_&#34;)
+        surface.finish()
+        svg_with_space = SVGMobject(file_name, height=self.height,
+                                    width=self.width,
+                                    stroke_width=self.stroke_width,
+                                    should_center=self.should_center,
+                                    unpack_groups=self.unpack_groups, )
+        space_width = svg_with_space.get_width()
+        return space_width
+
+    def apply_front_and_end_spaces(self):
+        space_width = self.get_space_width()
+        max_height = self.get_height()
+        front_spaces_count = 0
+        i = -1
+        for i in range(self.text.__len__()):
+            if self.text[i] == &#34; &#34;:
+                front_spaces_count += 1
+                continue
+            else:
+                break
+        first_visible_char_index = i
+        if first_visible_char_index != 0:
+            space = Rectangle(width=space_width * front_spaces_count, height=max_height, fill_opacity=0,
+                                  stroke_opacity=0,
+                                  stroke_width=0)
+            text_width = self.get_width()
+            space.move_to(np.array([-text_width / 2, max_height / 2, 0]))
+            self.next_to(space, direction=RIGHT, buff=0)
+            self.submobjects.insert(0, space)
+
+        i = -1
+        last_spaces_count = 0
+        for i in range(self.text.__len__() - 1, -1, -1):
+            if self.text[i] == &#34; &#34;:
+                last_spaces_count += 1
+                continue
+            else:
+                break
+        last_visible_char_index = i
+        if last_visible_char_index != self.text.__len__() - 1:
+            space = Rectangle(width=space_width * last_spaces_count, height=max_height, fill_opacity=0,
+                                  stroke_opacity=0,
+                                  stroke_width=0)
+            text_width = self.get_width()
+            space.move_to(np.array([-text_width / 2, max_height / 2, 0]))
+            self.next_to(space, direction=LEFT, buff=0)
+            self.submobjects.append(space)
+        self.move_to(np.array([0,0,0]))
+
+    def apply_space_chars(self):
+        char_index = 0
+        while char_index &lt; self.text.__len__() - 1:
+            char_index += 1
+            if self.text[char_index] == &#34; &#34; or self.text[char_index] == &#34;\t&#34; or self.text[char_index] == &#34;\n&#34;:
+                space = Dot(fill_opacity=0, stroke_opacity=0)
+                space.move_to(self.submobjects[char_index - 1].get_center())
+                self.submobjects.insert(char_index, space)
+
+    def remove_last_M(self, file_name):
+        with open(file_name, &#39;r&#39;) as fpr:
+            content = fpr.read()
+        content = re.sub(r&#39;Z M [^A-Za-z]*? &#34;\/&gt;&#39;, &#39;Z &#34;/&gt;&#39;, content)
+        with open(file_name, &#39;w&#39;) as fpw:
+            fpw.write(content)
+
+    def find_indexes(self, word):
+        m = re.match(r&#39;\[([0-9\-]{0,}):([0-9\-]{0,})\]&#39;, word)
+        if m:
+            start = int(m.group(1)) if m.group(1) != &#39;&#39; else 0
+            end = int(m.group(2)) if m.group(2) != &#39;&#39; else len(self.text)
+            start = len(self.text) + start if start &lt; 0 else start
+            end = len(self.text) + end if end &lt; 0 else end
+            return [(start, end)]
+
+        indexes = []
+        index = self.text.find(word)
+        while index != -1:
+            indexes.append((index, index + len(word)))
+            index = self.text.find(word, index + len(word))
+        return indexes
+
+    def full2short(self, config):
+        for kwargs in [config, self.CONFIG]:
+            if kwargs.__contains__(&#39;line_spacing_height&#39;):
+                kwargs[&#39;lsh&#39;] = kwargs.pop(&#39;line_spacing_height&#39;)
+            if kwargs.__contains__(&#39;text2color&#39;):
+                kwargs[&#39;t2c&#39;] = kwargs.pop(&#39;text2color&#39;)
+            if kwargs.__contains__(&#39;text2font&#39;):
+                kwargs[&#39;t2f&#39;] = kwargs.pop(&#39;text2font&#39;)
+            if kwargs.__contains__(&#39;text2gradient&#39;):
+                kwargs[&#39;t2g&#39;] = kwargs.pop(&#39;text2gradient&#39;)
+            if kwargs.__contains__(&#39;text2slant&#39;):
+                kwargs[&#39;t2s&#39;] = kwargs.pop(&#39;text2slant&#39;)
+            if kwargs.__contains__(&#39;text2weight&#39;):
+                kwargs[&#39;t2w&#39;] = kwargs.pop(&#39;text2weight&#39;)
+
+    def set_color_by_t2c(self, t2c=None):
+        t2c = t2c if t2c else self.t2c
+        for word, color in list(t2c.items()):
+            for start, end in self.find_indexes(word):
+                self[start:end].set_color(color)
+
+    def set_color_by_t2g(self, t2g=None):
+        t2g = t2g if t2g else self.t2g
+        for word, gradient in list(t2g.items()):
+            for start, end in self.find_indexes(word):
+                self[start:end].set_color_by_gradient(*gradient)
+
+    def str2slant(self, string):
+        if string == NORMAL:
+            return cairo.FontSlant.NORMAL
+        if string == ITALIC:
+            return cairo.FontSlant.ITALIC
+        if string == OBLIQUE:
+            return cairo.FontSlant.OBLIQUE
+
+    def str2weight(self, string):
+        if string == NORMAL:
+            return cairo.FontWeight.NORMAL
+        if string == BOLD:
+            return cairo.FontWeight.BOLD
+
+    def text2hash(self):
+        settings = self.font + self.slant + self.weight
+        settings += str(self.t2f) + str(self.t2s) + str(self.t2w)
+        settings += str(self.lsh) + str(self.size)
+        id_str = self.text+settings
+        hasher = hashlib.sha256()
+        hasher.update(id_str.encode())
+        return hasher.hexdigest()[:16]
+
+    def text2settings(self):
+        settings = []
+        t2x = [self.t2f, self.t2s, self.t2w]
+        for i in range(len(t2x)):
+            fsw = [self.font, self.slant, self.weight]
+            if t2x[i]:
+                for word, x in list(t2x[i].items()):
+                    for start, end in self.find_indexes(word):
+                        fsw[i] = x
+                        settings.append(TextSetting(start, end, *fsw))
+
+        # Set All text settings(default font slant weight)
+        fsw = [self.font, self.slant, self.weight]
+        settings.sort(key=lambda setting: setting.start)
+        temp_settings = settings.copy()
+        start = 0
+        for setting in settings:
+            if setting.start != start:
+                temp_settings.append(TextSetting(start, setting.start, *fsw))
+            start = setting.end
+        if start != len(self.text):
+            temp_settings.append(TextSetting(start, len(self.text), *fsw))
+        settings = sorted(temp_settings, key=lambda setting: setting.start)
+
+        if re.search(r&#39;\n&#39;, self.text):
+            line_num = 0
+            for start, end in self.find_indexes(&#39;\n&#39;):
+                for setting in settings:
+                    if setting.line_num == -1:
+                        setting.line_num = line_num
+                    if start &lt; setting.end:
+                        line_num += 1
+                        new_setting = copy.copy(setting)
+                        setting.end = end
+                        new_setting.start = end
+                        new_setting.line_num = line_num
+                        settings.append(new_setting)
+                        settings.sort(key=lambda setting: setting.start)
+                        break
+
+        for setting in settings:
+            if setting.line_num == -1:
+                setting.line_num = 0
+
+        return settings
+
+    def text2svg(self):
+        # anti-aliasing
+        size = self.size * 10
+        lsh = self.lsh * 10
+
+        if self.font == &#39;&#39;:
+            if NOT_SETTING_FONT_MSG != &#39;&#39;:
+                print(NOT_SETTING_FONT_MSG)
+
+        dir_name = consts.TEXT_DIR
+        hash_name = self.text2hash()
+        file_name = os.path.join(dir_name, hash_name)+&#39;.svg&#39;
+        if os.path.exists(file_name):
+            return file_name
+
+        surface = cairo.SVGSurface(file_name, 600, 400)
+        context = cairo.Context(surface)
+        context.set_font_size(size)
+        context.move_to(START_X, START_Y)
+
+        settings = self.text2settings()
+        offset_x = 0
+        last_line_num = 0
+        for setting in settings:
+            font = setting.font
+            slant = self.str2slant(setting.slant)
+            weight = self.str2weight(setting.weight)
+            text = self.text[setting.start:setting.end].replace(&#39;\n&#39;, &#39; &#39;)
+
+            context.select_font_face(font, slant, weight)
+            if setting.line_num != last_line_num:
+                offset_x = 0
+                last_line_num = setting.line_num
+            context.move_to(START_X + offset_x, START_Y + lsh*setting.line_num)
+            context.show_text(text)
+            offset_x += context.text_extents(text)[4]
+
+        return file_name</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.mobject.svg.svg_mobject.SVGMobject" href="svg_mobject.html#manimlib.mobject.svg.svg_mobject.SVGMobject">SVGMobject</a></li>
+<li><a title="manimlib.mobject.types.vectorized_mobject.VMobject" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject">VMobject</a></li>
+<li><a title="manimlib.mobject.mobject.Mobject" href="../mobject.html#manimlib.mobject.mobject.Mobject">Mobject</a></li>
+<li><a title="manimlib.container.container.Container" href="../../container/container.html#manimlib.container.container.Container">Container</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.mobject.svg.text_mobject.TextWithFixHeight" href="#manimlib.mobject.svg.text_mobject.TextWithFixHeight">TextWithFixHeight</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.mobject.svg.text_mobject.Text.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.mobject.svg.text_mobject.Text.apply_front_and_end_spaces"><code class="name flex">
+<span>def <span class="ident">apply_front_and_end_spaces</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_front_and_end_spaces(self):
+    space_width = self.get_space_width()
+    max_height = self.get_height()
+    front_spaces_count = 0
+    i = -1
+    for i in range(self.text.__len__()):
+        if self.text[i] == &#34; &#34;:
+            front_spaces_count += 1
+            continue
+        else:
+            break
+    first_visible_char_index = i
+    if first_visible_char_index != 0:
+        space = Rectangle(width=space_width * front_spaces_count, height=max_height, fill_opacity=0,
+                              stroke_opacity=0,
+                              stroke_width=0)
+        text_width = self.get_width()
+        space.move_to(np.array([-text_width / 2, max_height / 2, 0]))
+        self.next_to(space, direction=RIGHT, buff=0)
+        self.submobjects.insert(0, space)
+
+    i = -1
+    last_spaces_count = 0
+    for i in range(self.text.__len__() - 1, -1, -1):
+        if self.text[i] == &#34; &#34;:
+            last_spaces_count += 1
+            continue
+        else:
+            break
+    last_visible_char_index = i
+    if last_visible_char_index != self.text.__len__() - 1:
+        space = Rectangle(width=space_width * last_spaces_count, height=max_height, fill_opacity=0,
+                              stroke_opacity=0,
+                              stroke_width=0)
+        text_width = self.get_width()
+        space.move_to(np.array([-text_width / 2, max_height / 2, 0]))
+        self.next_to(space, direction=LEFT, buff=0)
+        self.submobjects.append(space)
+    self.move_to(np.array([0,0,0]))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text.apply_space_chars"><code class="name flex">
+<span>def <span class="ident">apply_space_chars</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_space_chars(self):
+    char_index = 0
+    while char_index &lt; self.text.__len__() - 1:
+        char_index += 1
+        if self.text[char_index] == &#34; &#34; or self.text[char_index] == &#34;\t&#34; or self.text[char_index] == &#34;\n&#34;:
+            space = Dot(fill_opacity=0, stroke_opacity=0)
+            space.move_to(self.submobjects[char_index - 1].get_center())
+            self.submobjects.insert(char_index, space)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text.find_indexes"><code class="name flex">
+<span>def <span class="ident">find_indexes</span></span>(<span>self, word)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def find_indexes(self, word):
+    m = re.match(r&#39;\[([0-9\-]{0,}):([0-9\-]{0,})\]&#39;, word)
+    if m:
+        start = int(m.group(1)) if m.group(1) != &#39;&#39; else 0
+        end = int(m.group(2)) if m.group(2) != &#39;&#39; else len(self.text)
+        start = len(self.text) + start if start &lt; 0 else start
+        end = len(self.text) + end if end &lt; 0 else end
+        return [(start, end)]
+
+    indexes = []
+    index = self.text.find(word)
+    while index != -1:
+        indexes.append((index, index + len(word)))
+        index = self.text.find(word, index + len(word))
+    return indexes</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text.full2short"><code class="name flex">
+<span>def <span class="ident">full2short</span></span>(<span>self, config)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def full2short(self, config):
+    for kwargs in [config, self.CONFIG]:
+        if kwargs.__contains__(&#39;line_spacing_height&#39;):
+            kwargs[&#39;lsh&#39;] = kwargs.pop(&#39;line_spacing_height&#39;)
+        if kwargs.__contains__(&#39;text2color&#39;):
+            kwargs[&#39;t2c&#39;] = kwargs.pop(&#39;text2color&#39;)
+        if kwargs.__contains__(&#39;text2font&#39;):
+            kwargs[&#39;t2f&#39;] = kwargs.pop(&#39;text2font&#39;)
+        if kwargs.__contains__(&#39;text2gradient&#39;):
+            kwargs[&#39;t2g&#39;] = kwargs.pop(&#39;text2gradient&#39;)
+        if kwargs.__contains__(&#39;text2slant&#39;):
+            kwargs[&#39;t2s&#39;] = kwargs.pop(&#39;text2slant&#39;)
+        if kwargs.__contains__(&#39;text2weight&#39;):
+            kwargs[&#39;t2w&#39;] = kwargs.pop(&#39;text2weight&#39;)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text.get_space_width"><code class="name flex">
+<span>def <span class="ident">get_space_width</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_space_width(self):
+    size = self.size * 10
+
+    dir_name = consts.TEXT_DIR
+    file_name = os.path.join(dir_name, &#34;space&#34;) + &#39;.svg&#39;
+
+    surface = cairo.SVGSurface(file_name, 600, 400)
+    context = cairo.Context(surface)
+    context.set_font_size(size)
+    context.move_to(START_X, START_Y)
+    context.select_font_face(self.font, self.str2slant(self.slant), self.str2weight(self.weight))
+    context.move_to(START_X, START_Y)
+    context.show_text(&#34;_&#34;)
+    surface.finish()
+    svg_with_space = SVGMobject(file_name, height=self.height,
+                                width=self.width,
+                                stroke_width=self.stroke_width,
+                                should_center=self.should_center,
+                                unpack_groups=self.unpack_groups, )
+    space_width = svg_with_space.get_width()
+    return space_width</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text.remove_last_M"><code class="name flex">
+<span>def <span class="ident">remove_last_M</span></span>(<span>self, file_name)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_last_M(self, file_name):
+    with open(file_name, &#39;r&#39;) as fpr:
+        content = fpr.read()
+    content = re.sub(r&#39;Z M [^A-Za-z]*? &#34;\/&gt;&#39;, &#39;Z &#34;/&gt;&#39;, content)
+    with open(file_name, &#39;w&#39;) as fpw:
+        fpw.write(content)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text.set_color_by_t2c"><code class="name flex">
+<span>def <span class="ident">set_color_by_t2c</span></span>(<span>self, t2c=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_color_by_t2c(self, t2c=None):
+    t2c = t2c if t2c else self.t2c
+    for word, color in list(t2c.items()):
+        for start, end in self.find_indexes(word):
+            self[start:end].set_color(color)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text.set_color_by_t2g"><code class="name flex">
+<span>def <span class="ident">set_color_by_t2g</span></span>(<span>self, t2g=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_color_by_t2g(self, t2g=None):
+    t2g = t2g if t2g else self.t2g
+    for word, gradient in list(t2g.items()):
+        for start, end in self.find_indexes(word):
+            self[start:end].set_color_by_gradient(*gradient)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text.str2slant"><code class="name flex">
+<span>def <span class="ident">str2slant</span></span>(<span>self, string)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def str2slant(self, string):
+    if string == NORMAL:
+        return cairo.FontSlant.NORMAL
+    if string == ITALIC:
+        return cairo.FontSlant.ITALIC
+    if string == OBLIQUE:
+        return cairo.FontSlant.OBLIQUE</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text.str2weight"><code class="name flex">
+<span>def <span class="ident">str2weight</span></span>(<span>self, string)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def str2weight(self, string):
+    if string == NORMAL:
+        return cairo.FontWeight.NORMAL
+    if string == BOLD:
+        return cairo.FontWeight.BOLD</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text.text2hash"><code class="name flex">
+<span>def <span class="ident">text2hash</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def text2hash(self):
+    settings = self.font + self.slant + self.weight
+    settings += str(self.t2f) + str(self.t2s) + str(self.t2w)
+    settings += str(self.lsh) + str(self.size)
+    id_str = self.text+settings
+    hasher = hashlib.sha256()
+    hasher.update(id_str.encode())
+    return hasher.hexdigest()[:16]</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text.text2settings"><code class="name flex">
+<span>def <span class="ident">text2settings</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def text2settings(self):
+    settings = []
+    t2x = [self.t2f, self.t2s, self.t2w]
+    for i in range(len(t2x)):
+        fsw = [self.font, self.slant, self.weight]
+        if t2x[i]:
+            for word, x in list(t2x[i].items()):
+                for start, end in self.find_indexes(word):
+                    fsw[i] = x
+                    settings.append(TextSetting(start, end, *fsw))
+
+    # Set All text settings(default font slant weight)
+    fsw = [self.font, self.slant, self.weight]
+    settings.sort(key=lambda setting: setting.start)
+    temp_settings = settings.copy()
+    start = 0
+    for setting in settings:
+        if setting.start != start:
+            temp_settings.append(TextSetting(start, setting.start, *fsw))
+        start = setting.end
+    if start != len(self.text):
+        temp_settings.append(TextSetting(start, len(self.text), *fsw))
+    settings = sorted(temp_settings, key=lambda setting: setting.start)
+
+    if re.search(r&#39;\n&#39;, self.text):
+        line_num = 0
+        for start, end in self.find_indexes(&#39;\n&#39;):
+            for setting in settings:
+                if setting.line_num == -1:
+                    setting.line_num = line_num
+                if start &lt; setting.end:
+                    line_num += 1
+                    new_setting = copy.copy(setting)
+                    setting.end = end
+                    new_setting.start = end
+                    new_setting.line_num = line_num
+                    settings.append(new_setting)
+                    settings.sort(key=lambda setting: setting.start)
+                    break
+
+    for setting in settings:
+        if setting.line_num == -1:
+            setting.line_num = 0
+
+    return settings</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.Text.text2svg"><code class="name flex">
+<span>def <span class="ident">text2svg</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def text2svg(self):
+    # anti-aliasing
+    size = self.size * 10
+    lsh = self.lsh * 10
+
+    if self.font == &#39;&#39;:
+        if NOT_SETTING_FONT_MSG != &#39;&#39;:
+            print(NOT_SETTING_FONT_MSG)
+
+    dir_name = consts.TEXT_DIR
+    hash_name = self.text2hash()
+    file_name = os.path.join(dir_name, hash_name)+&#39;.svg&#39;
+    if os.path.exists(file_name):
+        return file_name
+
+    surface = cairo.SVGSurface(file_name, 600, 400)
+    context = cairo.Context(surface)
+    context.set_font_size(size)
+    context.move_to(START_X, START_Y)
+
+    settings = self.text2settings()
+    offset_x = 0
+    last_line_num = 0
+    for setting in settings:
+        font = setting.font
+        slant = self.str2slant(setting.slant)
+        weight = self.str2weight(setting.weight)
+        text = self.text[setting.start:setting.end].replace(&#39;\n&#39;, &#39; &#39;)
+
+        context.select_font_face(font, slant, weight)
+        if setting.line_num != last_line_num:
+            offset_x = 0
+            last_line_num = setting.line_num
+        context.move_to(START_X + offset_x, START_Y + lsh*setting.line_num)
+        context.show_text(text)
+        offset_x += context.text_extents(text)[4]
+
+    return file_name</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.mobject.svg.svg_mobject.SVGMobject" href="svg_mobject.html#manimlib.mobject.svg.svg_mobject.SVGMobject">SVGMobject</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.add" href="../../container/container.html#manimlib.container.container.Container.add">add</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.add_cubic_bezier_curve_to" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.add_cubic_bezier_curve_to">add_cubic_bezier_curve_to</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.add_smooth_curve_to" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.add_smooth_curve_to">add_smooth_curve_to</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.align_on_border" href="../mobject.html#manimlib.mobject.mobject.Mobject.align_on_border">align_on_border</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.align_to" href="../mobject.html#manimlib.mobject.mobject.Mobject.align_to">align_to</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.become" href="../mobject.html#manimlib.mobject.mobject.Mobject.become">become</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.become_partial" href="../mobject.html#manimlib.mobject.mobject.Mobject.become_partial">become_partial</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.consider_points_equals_2d" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.consider_points_equals_2d">consider_points_equals_2d</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.digest_mobject_attrs" href="../mobject.html#manimlib.mobject.mobject.Mobject.digest_mobject_attrs">digest_mobject_attrs</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.gen_cubic_bezier_tuples_from_points" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.gen_cubic_bezier_tuples_from_points">gen_cubic_bezier_tuples_from_points</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.generate_rgbas_array" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.generate_rgbas_array">generate_rgbas_array</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.get_anchors_and_handles" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.get_anchors_and_handles">get_anchors_and_handles</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.get_coord" href="../mobject.html#manimlib.mobject.mobject.Mobject.get_coord">get_coord</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.get_critical_point" href="../mobject.html#manimlib.mobject.mobject.Mobject.get_critical_point">get_critical_point</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.get_fill_color" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.get_fill_color">get_fill_color</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.get_fill_opacity" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.get_fill_opacity">get_fill_opacity</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.get_point_mobject" href="../mobject.html#manimlib.mobject.mobject.Mobject.get_point_mobject">get_point_mobject</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.interpolate" href="../mobject.html#manimlib.mobject.mobject.Mobject.interpolate">interpolate</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.null_point_align" href="../mobject.html#manimlib.mobject.mobject.Mobject.null_point_align">null_point_align</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.remove" href="../../container/container.html#manimlib.container.container.Container.remove">remove</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.repeat" href="../mobject.html#manimlib.mobject.mobject.Mobject.repeat">repeat</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.scale" href="../mobject.html#manimlib.mobject.mobject.Mobject.scale">scale</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.scale_handle_to_anchor_distances" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.scale_handle_to_anchor_distances">scale_handle_to_anchor_distances</a></code></li>
+<li><code><a title="manimlib.mobject.svg.svg_mobject.SVGMobject.set_color" href="../mobject.html#manimlib.mobject.mobject.Mobject.set_color">set_color</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.TextSetting"><code class="flex name class">
+<span>class <span class="ident">TextSetting</span></span>
+<span>(</span><span>start, end, font, slant, weight, line_num=-1)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TextSetting(object):
+    def __init__(self, start, end, font, slant, weight, line_num=-1):
+        self.start = start
+        self.end = end
+        self.font = font
+        self.slant = slant
+        self.weight = weight
+        self.line_num = line_num</code></pre>
+</details>
+</dd>
+<dt id="manimlib.mobject.svg.text_mobject.TextWithFixHeight"><code class="flex name class">
+<span>class <span class="ident">TextWithFixHeight</span></span>
+<span>(</span><span>text, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Mathematical Object</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TextWithFixHeight(Text):
+    def __init__(self, text, **kwargs):
+        Text.__init__(self, text, **kwargs)
+        max_height = Text(&#34;(gyt{[/QW&#34;, **kwargs).get_height()
+        rectangle = Rectangle(width=0, height=max_height, fill_opacity=0,
+                              stroke_opacity=0,
+                              stroke_width=0)
+        self.submobjects.append(rectangle)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.mobject.svg.text_mobject.Text" href="#manimlib.mobject.svg.text_mobject.Text">Text</a></li>
+<li><a title="manimlib.mobject.svg.svg_mobject.SVGMobject" href="svg_mobject.html#manimlib.mobject.svg.svg_mobject.SVGMobject">SVGMobject</a></li>
+<li><a title="manimlib.mobject.types.vectorized_mobject.VMobject" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject">VMobject</a></li>
+<li><a title="manimlib.mobject.mobject.Mobject" href="../mobject.html#manimlib.mobject.mobject.Mobject">Mobject</a></li>
+<li><a title="manimlib.container.container.Container" href="../../container/container.html#manimlib.container.container.Container">Container</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.mobject.svg.text_mobject.Text" href="#manimlib.mobject.svg.text_mobject.Text">Text</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.add" href="../../container/container.html#manimlib.container.container.Container.add">add</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.add_cubic_bezier_curve_to" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.add_cubic_bezier_curve_to">add_cubic_bezier_curve_to</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.add_smooth_curve_to" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.add_smooth_curve_to">add_smooth_curve_to</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.align_on_border" href="../mobject.html#manimlib.mobject.mobject.Mobject.align_on_border">align_on_border</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.align_to" href="../mobject.html#manimlib.mobject.mobject.Mobject.align_to">align_to</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.become" href="../mobject.html#manimlib.mobject.mobject.Mobject.become">become</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.become_partial" href="../mobject.html#manimlib.mobject.mobject.Mobject.become_partial">become_partial</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.consider_points_equals_2d" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.consider_points_equals_2d">consider_points_equals_2d</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.digest_mobject_attrs" href="../mobject.html#manimlib.mobject.mobject.Mobject.digest_mobject_attrs">digest_mobject_attrs</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.gen_cubic_bezier_tuples_from_points" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.gen_cubic_bezier_tuples_from_points">gen_cubic_bezier_tuples_from_points</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.generate_rgbas_array" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.generate_rgbas_array">generate_rgbas_array</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.get_anchors_and_handles" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.get_anchors_and_handles">get_anchors_and_handles</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.get_coord" href="../mobject.html#manimlib.mobject.mobject.Mobject.get_coord">get_coord</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.get_critical_point" href="../mobject.html#manimlib.mobject.mobject.Mobject.get_critical_point">get_critical_point</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.get_fill_color" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.get_fill_color">get_fill_color</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.get_fill_opacity" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.get_fill_opacity">get_fill_opacity</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.get_point_mobject" href="../mobject.html#manimlib.mobject.mobject.Mobject.get_point_mobject">get_point_mobject</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.interpolate" href="../mobject.html#manimlib.mobject.mobject.Mobject.interpolate">interpolate</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.null_point_align" href="../mobject.html#manimlib.mobject.mobject.Mobject.null_point_align">null_point_align</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.remove" href="../../container/container.html#manimlib.container.container.Container.remove">remove</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.repeat" href="../mobject.html#manimlib.mobject.mobject.Mobject.repeat">repeat</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.scale" href="../mobject.html#manimlib.mobject.mobject.Mobject.scale">scale</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.scale_handle_to_anchor_distances" href="../types/vectorized_mobject.html#manimlib.mobject.types.vectorized_mobject.VMobject.scale_handle_to_anchor_distances">scale_handle_to_anchor_distances</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.set_color" href="../mobject.html#manimlib.mobject.mobject.Mobject.set_color">set_color</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="manimlib.mobject.svg" href="index.html">manimlib.mobject.svg</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="manimlib.mobject.svg.text_mobject.Paragraph" href="#manimlib.mobject.svg.text_mobject.Paragraph">Paragraph</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.mobject.svg.text_mobject.Paragraph.CONFIG" href="#manimlib.mobject.svg.text_mobject.Paragraph.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Paragraph.align_lines" href="#manimlib.mobject.svg.text_mobject.Paragraph.align_lines">align_lines</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Paragraph.change_alignment_for_a_line" href="#manimlib.mobject.svg.text_mobject.Paragraph.change_alignment_for_a_line">change_alignment_for_a_line</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Paragraph.set_alignment" href="#manimlib.mobject.svg.text_mobject.Paragraph.set_alignment">set_alignment</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Paragraph.set_all_lines_alignment" href="#manimlib.mobject.svg.text_mobject.Paragraph.set_all_lines_alignment">set_all_lines_alignment</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.mobject.svg.text_mobject.Text" href="#manimlib.mobject.svg.text_mobject.Text">Text</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.CONFIG" href="#manimlib.mobject.svg.text_mobject.Text.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.apply_front_and_end_spaces" href="#manimlib.mobject.svg.text_mobject.Text.apply_front_and_end_spaces">apply_front_and_end_spaces</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.apply_space_chars" href="#manimlib.mobject.svg.text_mobject.Text.apply_space_chars">apply_space_chars</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.find_indexes" href="#manimlib.mobject.svg.text_mobject.Text.find_indexes">find_indexes</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.full2short" href="#manimlib.mobject.svg.text_mobject.Text.full2short">full2short</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.get_space_width" href="#manimlib.mobject.svg.text_mobject.Text.get_space_width">get_space_width</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.remove_last_M" href="#manimlib.mobject.svg.text_mobject.Text.remove_last_M">remove_last_M</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.set_color_by_t2c" href="#manimlib.mobject.svg.text_mobject.Text.set_color_by_t2c">set_color_by_t2c</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.set_color_by_t2g" href="#manimlib.mobject.svg.text_mobject.Text.set_color_by_t2g">set_color_by_t2g</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.str2slant" href="#manimlib.mobject.svg.text_mobject.Text.str2slant">str2slant</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.str2weight" href="#manimlib.mobject.svg.text_mobject.Text.str2weight">str2weight</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.text2hash" href="#manimlib.mobject.svg.text_mobject.Text.text2hash">text2hash</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.text2settings" href="#manimlib.mobject.svg.text_mobject.Text.text2settings">text2settings</a></code></li>
+<li><code><a title="manimlib.mobject.svg.text_mobject.Text.text2svg" href="#manimlib.mobject.svg.text_mobject.Text.text2svg">text2svg</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.mobject.svg.text_mobject.TextSetting" href="#manimlib.mobject.svg.text_mobject.TextSetting">TextSetting</a></code></h4>
+</li>
+<li>
+<h4><code><a title="manimlib.mobject.svg.text_mobject.TextWithFixHeight" href="#manimlib.mobject.svg.text_mobject.TextWithFixHeight">TextWithFixHeight</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

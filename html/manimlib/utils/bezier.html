@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>manimlib.utils.bezier API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>manimlib.utils.bezier</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from scipy import linalg
+import numpy as np
+
+from manimlib.utils.simple_functions import choose
+
+CLOSED_THRESHOLD = 0.001
+
+
+def bezier(points):
+    n = len(points) - 1
+    return lambda t: sum([
+        ((1 - t)**(n - k)) * (t**k) * choose(n, k) * point
+        for k, point in enumerate(points)
+    ])
+
+
+def partial_bezier_points(points, a, b):
+    &#34;&#34;&#34;
+    Given an array of points which define
+    a bezier curve, and two numbers 0&lt;=a&lt;b&lt;=1,
+    return an array of the same size, which
+    describes the portion of the original bezier
+    curve on the interval [a, b].
+
+    This algorithm is pretty nifty, and pretty dense.
+    &#34;&#34;&#34;
+    if a == 1:
+        return [points[-1]] * len(points)
+
+    a_to_1 = np.array([
+        bezier(points[i:])(a)
+        for i in range(len(points))
+    ])
+    end_prop = (b - a) / (1. - a)
+    return np.array([
+        bezier(a_to_1[:i + 1])(end_prop)
+        for i in range(len(points))
+    ])
+
+
+# Linear interpolation variants
+
+def interpolate(start, end, alpha):
+    return (1 - alpha) * start + alpha * end
+
+
+def integer_interpolate(start, end, alpha):
+    &#34;&#34;&#34;
+    alpha is a float between 0 and 1.  This returns
+    an integer between start and end (inclusive) representing
+    appropriate interpolation between them, along with a
+    &#34;residue&#34; representing a new proportion between the
+    returned integer and the next one of the
+    list.
+
+    For example, if start=0, end=10, alpha=0.46, This
+    would return (4, 0.6).
+    &#34;&#34;&#34;
+    if alpha &gt;= 1:
+        return (end - 1, 1.0)
+    if alpha &lt;= 0:
+        return (start, 0)
+    value = int(interpolate(start, end, alpha))
+    residue = ((end - start) * alpha) % 1
+    return (value, residue)
+
+
+def mid(start, end):
+    return (start + end) / 2.0
+
+
+def inverse_interpolate(start, end, value):
+    return np.true_divide(value - start, end - start)
+
+
+def match_interpolate(new_start, new_end, old_start, old_end, old_value):
+    return interpolate(
+        new_start, new_end,
+        inverse_interpolate(old_start, old_end, old_value)
+    )
+
+
+# Figuring out which bezier curves most smoothly connect a sequence of points
+
+
+def get_smooth_handle_points(points):
+    points = np.array(points)
+    num_handles = len(points) - 1
+    dim = points.shape[1]
+    if num_handles &lt; 1:
+        return np.zeros((0, dim)), np.zeros((0, dim))
+    # Must solve 2*num_handles equations to get the handles.
+    # l and u are the number of lower an upper diagonal rows
+    # in the matrix to solve.
+    l, u = 2, 1
+    # diag is a representation of the matrix in diagonal form
+    # See https://www.particleincell.com/2012/bezier-splines/
+    # for how to arive at these equations
+    diag = np.zeros((l + u + 1, 2 * num_handles))
+    diag[0, 1::2] = -1
+    diag[0, 2::2] = 1
+    diag[1, 0::2] = 2
+    diag[1, 1::2] = 1
+    diag[2, 1:-2:2] = -2
+    diag[3, 0:-3:2] = 1
+    # last
+    diag[2, -2] = -1
+    diag[1, -1] = 2
+    # This is the b as in Ax = b, where we are solving for x,
+    # and A is represented using diag.  However, think of entries
+    # to x and b as being points in space, not numbers
+    b = np.zeros((2 * num_handles, dim))
+    b[1::2] = 2 * points[1:]
+    b[0] = points[0]
+    b[-1] = points[-1]
+
+    def solve_func(b):
+        return linalg.solve_banded((l, u), diag, b)
+    use_closed_solve_function = is_closed(points)
+    if use_closed_solve_function:
+        # Get equations to relate first and last points
+        matrix = diag_to_matrix((l, u), diag)
+        # last row handles second derivative
+        matrix[-1, [0, 1, -2, -1]] = [2, -1, 1, -2]
+        # first row handles first derivative
+        matrix[0, :] = np.zeros(matrix.shape[1])
+        matrix[0, [0, -1]] = [1, 1]
+        b[0] = 2 * points[0]
+        b[-1] = np.zeros(dim)
+
+        def closed_curve_solve_func(b):
+            return linalg.solve(matrix, b)
+
+    handle_pairs = np.zeros((2 * num_handles, dim))
+    for i in range(dim):
+        if use_closed_solve_function:
+            handle_pairs[:, i] = closed_curve_solve_func(b[:, i])
+        else:
+            handle_pairs[:, i] = solve_func(b[:, i])
+    return handle_pairs[0::2], handle_pairs[1::2]
+
+
+def diag_to_matrix(l_and_u, diag):
+    &#34;&#34;&#34;
+    Converts array whose rows represent diagonal
+    entries of a matrix into the matrix itself.
+    See scipy.linalg.solve_banded
+    &#34;&#34;&#34;
+    l, u = l_and_u
+    dim = diag.shape[1]
+    matrix = np.zeros((dim, dim))
+    for i in range(l + u + 1):
+        np.fill_diagonal(
+            matrix[max(0, i - u):, max(0, u - i):],
+            diag[i, max(0, u - i):]
+        )
+    return matrix
+
+
+def is_closed(points):
+    return np.allclose(points[0], points[-1])</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="manimlib.utils.bezier.bezier"><code class="name flex">
+<span>def <span class="ident">bezier</span></span>(<span>points)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def bezier(points):
+    n = len(points) - 1
+    return lambda t: sum([
+        ((1 - t)**(n - k)) * (t**k) * choose(n, k) * point
+        for k, point in enumerate(points)
+    ])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.bezier.diag_to_matrix"><code class="name flex">
+<span>def <span class="ident">diag_to_matrix</span></span>(<span>l_and_u, diag)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Converts array whose rows represent diagonal
+entries of a matrix into the matrix itself.
+See scipy.linalg.solve_banded</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def diag_to_matrix(l_and_u, diag):
+    &#34;&#34;&#34;
+    Converts array whose rows represent diagonal
+    entries of a matrix into the matrix itself.
+    See scipy.linalg.solve_banded
+    &#34;&#34;&#34;
+    l, u = l_and_u
+    dim = diag.shape[1]
+    matrix = np.zeros((dim, dim))
+    for i in range(l + u + 1):
+        np.fill_diagonal(
+            matrix[max(0, i - u):, max(0, u - i):],
+            diag[i, max(0, u - i):]
+        )
+    return matrix</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.bezier.get_smooth_handle_points"><code class="name flex">
+<span>def <span class="ident">get_smooth_handle_points</span></span>(<span>points)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_smooth_handle_points(points):
+    points = np.array(points)
+    num_handles = len(points) - 1
+    dim = points.shape[1]
+    if num_handles &lt; 1:
+        return np.zeros((0, dim)), np.zeros((0, dim))
+    # Must solve 2*num_handles equations to get the handles.
+    # l and u are the number of lower an upper diagonal rows
+    # in the matrix to solve.
+    l, u = 2, 1
+    # diag is a representation of the matrix in diagonal form
+    # See https://www.particleincell.com/2012/bezier-splines/
+    # for how to arive at these equations
+    diag = np.zeros((l + u + 1, 2 * num_handles))
+    diag[0, 1::2] = -1
+    diag[0, 2::2] = 1
+    diag[1, 0::2] = 2
+    diag[1, 1::2] = 1
+    diag[2, 1:-2:2] = -2
+    diag[3, 0:-3:2] = 1
+    # last
+    diag[2, -2] = -1
+    diag[1, -1] = 2
+    # This is the b as in Ax = b, where we are solving for x,
+    # and A is represented using diag.  However, think of entries
+    # to x and b as being points in space, not numbers
+    b = np.zeros((2 * num_handles, dim))
+    b[1::2] = 2 * points[1:]
+    b[0] = points[0]
+    b[-1] = points[-1]
+
+    def solve_func(b):
+        return linalg.solve_banded((l, u), diag, b)
+    use_closed_solve_function = is_closed(points)
+    if use_closed_solve_function:
+        # Get equations to relate first and last points
+        matrix = diag_to_matrix((l, u), diag)
+        # last row handles second derivative
+        matrix[-1, [0, 1, -2, -1]] = [2, -1, 1, -2]
+        # first row handles first derivative
+        matrix[0, :] = np.zeros(matrix.shape[1])
+        matrix[0, [0, -1]] = [1, 1]
+        b[0] = 2 * points[0]
+        b[-1] = np.zeros(dim)
+
+        def closed_curve_solve_func(b):
+            return linalg.solve(matrix, b)
+
+    handle_pairs = np.zeros((2 * num_handles, dim))
+    for i in range(dim):
+        if use_closed_solve_function:
+            handle_pairs[:, i] = closed_curve_solve_func(b[:, i])
+        else:
+            handle_pairs[:, i] = solve_func(b[:, i])
+    return handle_pairs[0::2], handle_pairs[1::2]</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.bezier.integer_interpolate"><code class="name flex">
+<span>def <span class="ident">integer_interpolate</span></span>(<span>start, end, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>alpha is a float between 0 and 1.
+This returns
+an integer between start and end (inclusive) representing
+appropriate interpolation between them, along with a
+"residue" representing a new proportion between the
+returned integer and the next one of the
+list.</p>
+<p>For example, if start=0, end=10, alpha=0.46, This
+would return (4, 0.6).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def integer_interpolate(start, end, alpha):
+    &#34;&#34;&#34;
+    alpha is a float between 0 and 1.  This returns
+    an integer between start and end (inclusive) representing
+    appropriate interpolation between them, along with a
+    &#34;residue&#34; representing a new proportion between the
+    returned integer and the next one of the
+    list.
+
+    For example, if start=0, end=10, alpha=0.46, This
+    would return (4, 0.6).
+    &#34;&#34;&#34;
+    if alpha &gt;= 1:
+        return (end - 1, 1.0)
+    if alpha &lt;= 0:
+        return (start, 0)
+    value = int(interpolate(start, end, alpha))
+    residue = ((end - start) * alpha) % 1
+    return (value, residue)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.bezier.interpolate"><code class="name flex">
+<span>def <span class="ident">interpolate</span></span>(<span>start, end, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate(start, end, alpha):
+    return (1 - alpha) * start + alpha * end</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.bezier.inverse_interpolate"><code class="name flex">
+<span>def <span class="ident">inverse_interpolate</span></span>(<span>start, end, value)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def inverse_interpolate(start, end, value):
+    return np.true_divide(value - start, end - start)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.bezier.is_closed"><code class="name flex">
+<span>def <span class="ident">is_closed</span></span>(<span>points)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_closed(points):
+    return np.allclose(points[0], points[-1])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.bezier.match_interpolate"><code class="name flex">
+<span>def <span class="ident">match_interpolate</span></span>(<span>new_start, new_end, old_start, old_end, old_value)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def match_interpolate(new_start, new_end, old_start, old_end, old_value):
+    return interpolate(
+        new_start, new_end,
+        inverse_interpolate(old_start, old_end, old_value)
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.bezier.mid"><code class="name flex">
+<span>def <span class="ident">mid</span></span>(<span>start, end)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mid(start, end):
+    return (start + end) / 2.0</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.bezier.partial_bezier_points"><code class="name flex">
+<span>def <span class="ident">partial_bezier_points</span></span>(<span>points, a, b)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Given an array of points which define
+a bezier curve, and two numbers 0&lt;=a&lt;b&lt;=1,
+return an array of the same size, which
+describes the portion of the original bezier
+curve on the interval [a, b].</p>
+<p>This algorithm is pretty nifty, and pretty dense.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def partial_bezier_points(points, a, b):
+    &#34;&#34;&#34;
+    Given an array of points which define
+    a bezier curve, and two numbers 0&lt;=a&lt;b&lt;=1,
+    return an array of the same size, which
+    describes the portion of the original bezier
+    curve on the interval [a, b].
+
+    This algorithm is pretty nifty, and pretty dense.
+    &#34;&#34;&#34;
+    if a == 1:
+        return [points[-1]] * len(points)
+
+    a_to_1 = np.array([
+        bezier(points[i:])(a)
+        for i in range(len(points))
+    ])
+    end_prop = (b - a) / (1. - a)
+    return np.array([
+        bezier(a_to_1[:i + 1])(end_prop)
+        for i in range(len(points))
+    ])</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="manimlib.utils" href="index.html">manimlib.utils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="manimlib.utils.bezier.bezier" href="#manimlib.utils.bezier.bezier">bezier</a></code></li>
+<li><code><a title="manimlib.utils.bezier.diag_to_matrix" href="#manimlib.utils.bezier.diag_to_matrix">diag_to_matrix</a></code></li>
+<li><code><a title="manimlib.utils.bezier.get_smooth_handle_points" href="#manimlib.utils.bezier.get_smooth_handle_points">get_smooth_handle_points</a></code></li>
+<li><code><a title="manimlib.utils.bezier.integer_interpolate" href="#manimlib.utils.bezier.integer_interpolate">integer_interpolate</a></code></li>
+<li><code><a title="manimlib.utils.bezier.interpolate" href="#manimlib.utils.bezier.interpolate">interpolate</a></code></li>
+<li><code><a title="manimlib.utils.bezier.inverse_interpolate" href="#manimlib.utils.bezier.inverse_interpolate">inverse_interpolate</a></code></li>
+<li><code><a title="manimlib.utils.bezier.is_closed" href="#manimlib.utils.bezier.is_closed">is_closed</a></code></li>
+<li><code><a title="manimlib.utils.bezier.match_interpolate" href="#manimlib.utils.bezier.match_interpolate">match_interpolate</a></code></li>
+<li><code><a title="manimlib.utils.bezier.mid" href="#manimlib.utils.bezier.mid">mid</a></code></li>
+<li><code><a title="manimlib.utils.bezier.partial_bezier_points" href="#manimlib.utils.bezier.partial_bezier_points">partial_bezier_points</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

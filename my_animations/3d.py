@@ -45,17 +45,9 @@ class ThreeDVector(VMobject):
 
 
 	def get_some_parameters(self):
-
-
-		self.tip_length = self.vector_length * self.tip_length_to_vector_length
-		if self.tip_length > self.max_tip_length:
-			self.tip_length = self.max_tip_length
-
-
-		self.tip_radius = self.tip_length * self.tip_radius_to_tip_length
-
-
-		self.bottom_radius = self.tip_radius * self.bottom_radius_to_tip_radius
+		self.tip_length = 0.15
+		self.tip_radius = 0.1
+		self.bottom_radius = 0.02
 		if self.bottom_radius > self.max_bottom_radius:
 			self.bottom_radius = self.max_bottom_radius
 
@@ -477,33 +469,38 @@ class ThreeDVector_Old(VMobject):
 class Test1(ThreeDScene):
 
 	def construct(self):
+		p1 = TextMobject("1. Let $V = (0,3,2)$ and $A = (-1,0,1).$ Let $P$ be the point on the line \\\\passing through $A$ with direction vector $(1,1,1)$ that is closest to $V$.")
+		p1.scale(0.75)
+		self.play(Write(p1),run_time=3)
+		self.play(p1.move_to,UP*3)
+		self.add_fixed_in_frame_mobjects(p1)
+		axis1 = ThreeDAxes(x_min=-10,x_max=10,y_min=-10,y_max=10,z_min=-10,z_max=10)
+		axis1.scale(0.8)
+		axis1.move_to(np.array((0,0,-1)))
+		axis1.x_axis
+		axis1.y_axis
+		axis1.z_axis
+		x_label=TextMobject("x").move_to(axis1.x_axis.get_end()+np.array((0.5,0,0)))
+		y_label=TextMobject("y").move_to(axis1.y_axis.get_end()+np.array((0,0.5,0)))
+		z_label=TextMobject("z").move_to(axis1.z_axis.get_end()+np.array((0,0,0.5)))
+		self.play(ShowCreation(axis1),Write(x_label),Write(y_label),Write(z_label))
+		self.add_fixed_orientation_mobjects(x_label,y_label,z_label)
+		
+		self.move_camera(phi=70 * DEGREES,theta=20*DEGREES,run_time=3)
 
-		axes = ThreeDAxes()
-		self.add(axes)
-		self.set_camera_orientation(phi=60*DEGREES,theta=0*DEGREES,distance=10)
+		def Line1(t):
+			return np.array((-1,0,1))+t*np.array((1,1,1))
+		func = ParametricFunction(Line1, t_min=-20, max=20, fill_opacity=0,stroke_color=BLUE)
 
-		direction1 = [1,1,1]
-		direction2 = [-1,2,1]
-		direction3 = [0,0,1]
-		direction4 = [0,0,0]
+		direction1 = [-1,0,1]
+		direction2 = [0,3,2]
 
-        # style 1
-		v1 = ThreeDVectorByCone(direction1, color=BLUE)
-		v2 = ThreeDVectorByCone(direction2, color=GREEN)
-		v3 = ThreeDVectorByCone(direction3, color=RED)
-		v4 = ThreeDVectorByCone(direction4, color=WHITE)
+		v1 = ThreeDVector(direction1,color=BLUE)
+		v2 = ThreeDVector(direction2,color=GREEN)
 
-        # style 2
-		# v1 = ThreeDVector(direction1,color=BLUE)
-		# v2 = ThreeDVector(direction2,color=GREEN)
-		# v3 = ThreeDVector(direction3,color=RED)
-		# v4 = ThreeDVector(direction4,color=WHITE)
+		self.add(v1,v2)
 
-		self.add(v1,v2,v3)
-
-		self.begin_ambient_camera_rotation(rate=1)
-
-		self.wait(10)
+		self.play(ShowCreation(func))
 
 class Test2(ThreeDScene):
 
@@ -511,7 +508,8 @@ class Test2(ThreeDScene):
 
 		axes = ThreeDAxes()
 		self.add(axes)
-		self.set_camera_orientation(phi=60*DEGREES,theta=0*DEGREES,distance=10)
+		self.set_camera_orientation(phi=70 * DEGREES,theta=20*DEGREES,distance=10)
+        
 
 		###See the source code comments for more details on the parameters below
 		direction = [2,2,2]
@@ -541,7 +539,7 @@ class Test2(ThreeDScene):
 			fill_opacity=fill_opacity
 			)
 
-		self.add(vector)
+		self.play(ShowCreation(vector))
 
 		#self.begin_ambient_camera_rotation(rate=1)
 

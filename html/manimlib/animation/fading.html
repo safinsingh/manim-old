@@ -1,0 +1,1010 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>manimlib.animation.fading API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>manimlib.animation.fading</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from manimlib.animation.animation import Animation
+from manimlib.animation.animation import DEFAULT_ANIMATION_LAG_RATIO
+from manimlib.animation.transform import Transform
+from manimlib.constants import DOWN
+from manimlib.mobject.types.vectorized_mobject import VMobject
+from manimlib.utils.bezier import interpolate
+from manimlib.utils.rate_functions import there_and_back
+
+
+DEFAULT_FADE_LAG_RATIO = 0
+
+
+class FadeOut(Transform):
+    CONFIG = {
+        &#34;remover&#34;: True,
+        &#34;lag_ratio&#34;: DEFAULT_FADE_LAG_RATIO,
+    }
+
+    def create_target(self):
+        return self.mobject.copy().fade(1)
+
+    def clean_up_from_scene(self, scene=None):
+        super().clean_up_from_scene(scene)
+        self.interpolate(0)
+
+
+class FadeIn(Transform):
+    CONFIG = {
+        &#34;lag_ratio&#34;: DEFAULT_FADE_LAG_RATIO,
+    }
+
+    def create_target(self):
+        return self.mobject
+
+    def create_starting_mobject(self):
+        start = super().create_starting_mobject()
+        start.fade(1)
+        if isinstance(start, VMobject):
+            start.set_stroke(width=0)
+            start.set_fill(opacity=0)
+        return start
+
+
+class FadeInFrom(Transform):
+    CONFIG = {
+        &#34;direction&#34;: DOWN,
+        &#34;lag_ratio&#34;: DEFAULT_ANIMATION_LAG_RATIO,
+    }
+
+    def __init__(self, mobject, direction=None, **kwargs):
+        if direction is not None:
+            self.direction = direction
+        super().__init__(mobject, **kwargs)
+
+    def create_target(self):
+        return self.mobject.copy()
+
+    def begin(self):
+        super().begin()
+        self.starting_mobject.shift(self.direction)
+        self.starting_mobject.fade(1)
+
+
+class FadeInFromDown(FadeInFrom):
+    &#34;&#34;&#34;
+    Identical to FadeInFrom, just with a name that
+    communicates the default
+    &#34;&#34;&#34;
+    CONFIG = {
+        &#34;direction&#34;: DOWN,
+        &#34;lag_ratio&#34;: DEFAULT_ANIMATION_LAG_RATIO,
+    }
+
+
+class FadeOutAndShift(FadeOut):
+    CONFIG = {
+        &#34;direction&#34;: DOWN,
+    }
+
+    def __init__(self, mobject, direction=None, **kwargs):
+        if direction is not None:
+            self.direction = direction
+        super().__init__(mobject, **kwargs)
+
+    def create_target(self):
+        target = super().create_target()
+        target.shift(self.direction)
+        return target
+
+
+class FadeOutAndShiftDown(FadeOutAndShift):
+    &#34;&#34;&#34;
+    Identical to FadeOutAndShift, just with a name that
+    communicates the default
+    &#34;&#34;&#34;
+    CONFIG = {
+        &#34;direction&#34;: DOWN,
+    }
+
+
+class FadeInFromPoint(FadeIn):
+    def __init__(self, mobject, point, **kwargs):
+        self.point = point
+        super().__init__(mobject, **kwargs)
+
+    def create_starting_mobject(self):
+        start = super().create_starting_mobject()
+        start.scale(0)
+        start.move_to(self.point)
+        return start
+
+
+class FadeInFromLarge(FadeIn):
+    CONFIG = {
+        &#34;scale_factor&#34;: 2,
+    }
+
+    def __init__(self, mobject, scale_factor=2, **kwargs):
+        if scale_factor is not None:
+            self.scale_factor = scale_factor
+        super().__init__(mobject, **kwargs)
+
+    def create_starting_mobject(self):
+        start = super().create_starting_mobject()
+        start.scale(self.scale_factor)
+        return start
+
+
+class VFadeIn(Animation):
+    &#34;&#34;&#34;
+    VFadeIn and VFadeOut only work for VMobjects,
+    &#34;&#34;&#34;
+    CONFIG = {
+        &#34;suspend_mobject_updating&#34;: False,
+    }
+
+    def interpolate_submobject(self, submob, start, alpha):
+        submob.set_stroke(
+            opacity=interpolate(0, start.get_stroke_opacity(), alpha)
+        )
+        submob.set_fill(
+            opacity=interpolate(0, start.get_fill_opacity(), alpha)
+        )
+
+
+class VFadeOut(VFadeIn):
+    CONFIG = {
+        &#34;remover&#34;: True
+    }
+
+    def interpolate_submobject(self, submob, start, alpha):
+        super().interpolate_submobject(submob, start, 1 - alpha)
+
+
+class VFadeInThenOut(VFadeIn):
+    CONFIG = {
+        &#34;rate_func&#34;: there_and_back,
+        &#34;remover&#34;: True,
+    }</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="manimlib.animation.fading.FadeIn"><code class="flex name class">
+<span>class <span class="ident">FadeIn</span></span>
+<span>(</span><span>mobject, target_mobject=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FadeIn(Transform):
+    CONFIG = {
+        &#34;lag_ratio&#34;: DEFAULT_FADE_LAG_RATIO,
+    }
+
+    def create_target(self):
+        return self.mobject
+
+    def create_starting_mobject(self):
+        start = super().create_starting_mobject()
+        start.fade(1)
+        if isinstance(start, VMobject):
+            start.set_stroke(width=0)
+            start.set_fill(opacity=0)
+        return start</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.transform.Transform" href="transform.html#manimlib.animation.transform.Transform">Transform</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.fading.FadeInFromLarge" href="#manimlib.animation.fading.FadeInFromLarge">FadeInFromLarge</a></li>
+<li><a title="manimlib.animation.fading.FadeInFromPoint" href="#manimlib.animation.fading.FadeInFromPoint">FadeInFromPoint</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeIn.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeIn.create_starting_mobject"><code class="name flex">
+<span>def <span class="ident">create_starting_mobject</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_starting_mobject(self):
+    start = super().create_starting_mobject()
+    start.fade(1)
+    if isinstance(start, VMobject):
+        start.set_stroke(width=0)
+        start.set_fill(opacity=0)
+    return start</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.fading.FadeIn.create_target"><code class="name flex">
+<span>def <span class="ident">create_target</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_target(self):
+    return self.mobject</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.transform.Transform" href="transform.html#manimlib.animation.transform.Transform">Transform</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.transform.Transform.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.transform.Transform.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.transform.Transform.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.fading.FadeInFrom"><code class="flex name class">
+<span>class <span class="ident">FadeInFrom</span></span>
+<span>(</span><span>mobject, direction=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FadeInFrom(Transform):
+    CONFIG = {
+        &#34;direction&#34;: DOWN,
+        &#34;lag_ratio&#34;: DEFAULT_ANIMATION_LAG_RATIO,
+    }
+
+    def __init__(self, mobject, direction=None, **kwargs):
+        if direction is not None:
+            self.direction = direction
+        super().__init__(mobject, **kwargs)
+
+    def create_target(self):
+        return self.mobject.copy()
+
+    def begin(self):
+        super().begin()
+        self.starting_mobject.shift(self.direction)
+        self.starting_mobject.fade(1)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.transform.Transform" href="transform.html#manimlib.animation.transform.Transform">Transform</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.fading.FadeInFromDown" href="#manimlib.animation.fading.FadeInFromDown">FadeInFromDown</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeInFrom.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeInFrom.begin"><code class="name flex">
+<span>def <span class="ident">begin</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def begin(self):
+    super().begin()
+    self.starting_mobject.shift(self.direction)
+    self.starting_mobject.fade(1)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.fading.FadeInFrom.create_target"><code class="name flex">
+<span>def <span class="ident">create_target</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_target(self):
+    return self.mobject.copy()</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.transform.Transform" href="transform.html#manimlib.animation.transform.Transform">Transform</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.transform.Transform.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.transform.Transform.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.transform.Transform.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.fading.FadeInFromDown"><code class="flex name class">
+<span>class <span class="ident">FadeInFromDown</span></span>
+<span>(</span><span>mobject, direction=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Identical to FadeInFrom, just with a name that
+communicates the default</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FadeInFromDown(FadeInFrom):
+    &#34;&#34;&#34;
+    Identical to FadeInFrom, just with a name that
+    communicates the default
+    &#34;&#34;&#34;
+    CONFIG = {
+        &#34;direction&#34;: DOWN,
+        &#34;lag_ratio&#34;: DEFAULT_ANIMATION_LAG_RATIO,
+    }</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.fading.FadeInFrom" href="#manimlib.animation.fading.FadeInFrom">FadeInFrom</a></li>
+<li><a title="manimlib.animation.transform.Transform" href="transform.html#manimlib.animation.transform.Transform">Transform</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeInFromDown.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.fading.FadeInFrom" href="#manimlib.animation.fading.FadeInFrom">FadeInFrom</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.fading.FadeInFrom.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeInFrom.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeInFrom.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.fading.FadeInFromLarge"><code class="flex name class">
+<span>class <span class="ident">FadeInFromLarge</span></span>
+<span>(</span><span>mobject, scale_factor=2, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FadeInFromLarge(FadeIn):
+    CONFIG = {
+        &#34;scale_factor&#34;: 2,
+    }
+
+    def __init__(self, mobject, scale_factor=2, **kwargs):
+        if scale_factor is not None:
+            self.scale_factor = scale_factor
+        super().__init__(mobject, **kwargs)
+
+    def create_starting_mobject(self):
+        start = super().create_starting_mobject()
+        start.scale(self.scale_factor)
+        return start</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.fading.FadeIn" href="#manimlib.animation.fading.FadeIn">FadeIn</a></li>
+<li><a title="manimlib.animation.transform.Transform" href="transform.html#manimlib.animation.transform.Transform">Transform</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeInFromLarge.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeInFromLarge.create_starting_mobject"><code class="name flex">
+<span>def <span class="ident">create_starting_mobject</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_starting_mobject(self):
+    start = super().create_starting_mobject()
+    start.scale(self.scale_factor)
+    return start</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.fading.FadeIn" href="#manimlib.animation.fading.FadeIn">FadeIn</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.fading.FadeIn.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeIn.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeIn.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.fading.FadeInFromPoint"><code class="flex name class">
+<span>class <span class="ident">FadeInFromPoint</span></span>
+<span>(</span><span>mobject, point, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FadeInFromPoint(FadeIn):
+    def __init__(self, mobject, point, **kwargs):
+        self.point = point
+        super().__init__(mobject, **kwargs)
+
+    def create_starting_mobject(self):
+        start = super().create_starting_mobject()
+        start.scale(0)
+        start.move_to(self.point)
+        return start</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.fading.FadeIn" href="#manimlib.animation.fading.FadeIn">FadeIn</a></li>
+<li><a title="manimlib.animation.transform.Transform" href="transform.html#manimlib.animation.transform.Transform">Transform</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeInFromPoint.create_starting_mobject"><code class="name flex">
+<span>def <span class="ident">create_starting_mobject</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_starting_mobject(self):
+    start = super().create_starting_mobject()
+    start.scale(0)
+    start.move_to(self.point)
+    return start</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.fading.FadeIn" href="#manimlib.animation.fading.FadeIn">FadeIn</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.fading.FadeIn.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeIn.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeIn.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.fading.FadeOut"><code class="flex name class">
+<span>class <span class="ident">FadeOut</span></span>
+<span>(</span><span>mobject, target_mobject=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FadeOut(Transform):
+    CONFIG = {
+        &#34;remover&#34;: True,
+        &#34;lag_ratio&#34;: DEFAULT_FADE_LAG_RATIO,
+    }
+
+    def create_target(self):
+        return self.mobject.copy().fade(1)
+
+    def clean_up_from_scene(self, scene=None):
+        super().clean_up_from_scene(scene)
+        self.interpolate(0)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.transform.Transform" href="transform.html#manimlib.animation.transform.Transform">Transform</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.fading.FadeOutAndShift" href="#manimlib.animation.fading.FadeOutAndShift">FadeOutAndShift</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeOut.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeOut.clean_up_from_scene"><code class="name flex">
+<span>def <span class="ident">clean_up_from_scene</span></span>(<span>self, scene=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clean_up_from_scene(self, scene=None):
+    super().clean_up_from_scene(scene)
+    self.interpolate(0)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.fading.FadeOut.create_target"><code class="name flex">
+<span>def <span class="ident">create_target</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_target(self):
+    return self.mobject.copy().fade(1)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.transform.Transform" href="transform.html#manimlib.animation.transform.Transform">Transform</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.transform.Transform.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.transform.Transform.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.transform.Transform.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.fading.FadeOutAndShift"><code class="flex name class">
+<span>class <span class="ident">FadeOutAndShift</span></span>
+<span>(</span><span>mobject, direction=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FadeOutAndShift(FadeOut):
+    CONFIG = {
+        &#34;direction&#34;: DOWN,
+    }
+
+    def __init__(self, mobject, direction=None, **kwargs):
+        if direction is not None:
+            self.direction = direction
+        super().__init__(mobject, **kwargs)
+
+    def create_target(self):
+        target = super().create_target()
+        target.shift(self.direction)
+        return target</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.fading.FadeOut" href="#manimlib.animation.fading.FadeOut">FadeOut</a></li>
+<li><a title="manimlib.animation.transform.Transform" href="transform.html#manimlib.animation.transform.Transform">Transform</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.fading.FadeOutAndShiftDown" href="#manimlib.animation.fading.FadeOutAndShiftDown">FadeOutAndShiftDown</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeOutAndShift.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeOutAndShift.create_target"><code class="name flex">
+<span>def <span class="ident">create_target</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_target(self):
+    target = super().create_target()
+    target.shift(self.direction)
+    return target</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.fading.FadeOut" href="#manimlib.animation.fading.FadeOut">FadeOut</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.fading.FadeOut.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeOut.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeOut.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.fading.FadeOutAndShiftDown"><code class="flex name class">
+<span>class <span class="ident">FadeOutAndShiftDown</span></span>
+<span>(</span><span>mobject, direction=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Identical to FadeOutAndShift, just with a name that
+communicates the default</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FadeOutAndShiftDown(FadeOutAndShift):
+    &#34;&#34;&#34;
+    Identical to FadeOutAndShift, just with a name that
+    communicates the default
+    &#34;&#34;&#34;
+    CONFIG = {
+        &#34;direction&#34;: DOWN,
+    }</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.fading.FadeOutAndShift" href="#manimlib.animation.fading.FadeOutAndShift">FadeOutAndShift</a></li>
+<li><a title="manimlib.animation.fading.FadeOut" href="#manimlib.animation.fading.FadeOut">FadeOut</a></li>
+<li><a title="manimlib.animation.transform.Transform" href="transform.html#manimlib.animation.transform.Transform">Transform</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.fading.FadeOutAndShiftDown.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.fading.FadeOutAndShift" href="#manimlib.animation.fading.FadeOutAndShift">FadeOutAndShift</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.fading.FadeOutAndShift.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeOutAndShift.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeOutAndShift.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.fading.VFadeIn"><code class="flex name class">
+<span>class <span class="ident">VFadeIn</span></span>
+<span>(</span><span>mobject, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>VFadeIn and VFadeOut only work for VMobjects,</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class VFadeIn(Animation):
+    &#34;&#34;&#34;
+    VFadeIn and VFadeOut only work for VMobjects,
+    &#34;&#34;&#34;
+    CONFIG = {
+        &#34;suspend_mobject_updating&#34;: False,
+    }
+
+    def interpolate_submobject(self, submob, start, alpha):
+        submob.set_stroke(
+            opacity=interpolate(0, start.get_stroke_opacity(), alpha)
+        )
+        submob.set_fill(
+            opacity=interpolate(0, start.get_fill_opacity(), alpha)
+        )</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.fading.VFadeInThenOut" href="#manimlib.animation.fading.VFadeInThenOut">VFadeInThenOut</a></li>
+<li><a title="manimlib.animation.fading.VFadeOut" href="#manimlib.animation.fading.VFadeOut">VFadeOut</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.fading.VFadeIn.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.fading.VFadeIn.interpolate_submobject"><code class="name flex">
+<span>def <span class="ident">interpolate_submobject</span></span>(<span>self, submob, start, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate_submobject(self, submob, start, alpha):
+    submob.set_stroke(
+        opacity=interpolate(0, start.get_stroke_opacity(), alpha)
+    )
+    submob.set_fill(
+        opacity=interpolate(0, start.get_fill_opacity(), alpha)
+    )</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.animation.Animation.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.fading.VFadeInThenOut"><code class="flex name class">
+<span>class <span class="ident">VFadeInThenOut</span></span>
+<span>(</span><span>mobject, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>VFadeIn and VFadeOut only work for VMobjects,</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class VFadeInThenOut(VFadeIn):
+    CONFIG = {
+        &#34;rate_func&#34;: there_and_back,
+        &#34;remover&#34;: True,
+    }</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.fading.VFadeIn" href="#manimlib.animation.fading.VFadeIn">VFadeIn</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.fading.VFadeInThenOut.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.fading.VFadeIn" href="#manimlib.animation.fading.VFadeIn">VFadeIn</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.fading.VFadeIn.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.fading.VFadeIn.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.fading.VFadeIn.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.fading.VFadeOut"><code class="flex name class">
+<span>class <span class="ident">VFadeOut</span></span>
+<span>(</span><span>mobject, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>VFadeIn and VFadeOut only work for VMobjects,</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class VFadeOut(VFadeIn):
+    CONFIG = {
+        &#34;remover&#34;: True
+    }
+
+    def interpolate_submobject(self, submob, start, alpha):
+        super().interpolate_submobject(submob, start, 1 - alpha)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.fading.VFadeIn" href="#manimlib.animation.fading.VFadeIn">VFadeIn</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.fading.VFadeOut.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.fading.VFadeOut.interpolate_submobject"><code class="name flex">
+<span>def <span class="ident">interpolate_submobject</span></span>(<span>self, submob, start, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate_submobject(self, submob, start, alpha):
+    super().interpolate_submobject(submob, start, 1 - alpha)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.fading.VFadeIn" href="#manimlib.animation.fading.VFadeIn">VFadeIn</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.fading.VFadeIn.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.fading.VFadeIn.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.fading.VFadeIn.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="manimlib.animation" href="index.html">manimlib.animation</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="manimlib.animation.fading.FadeIn" href="#manimlib.animation.fading.FadeIn">FadeIn</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.fading.FadeIn.CONFIG" href="#manimlib.animation.fading.FadeIn.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeIn.create_starting_mobject" href="#manimlib.animation.fading.FadeIn.create_starting_mobject">create_starting_mobject</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeIn.create_target" href="#manimlib.animation.fading.FadeIn.create_target">create_target</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.fading.FadeInFrom" href="#manimlib.animation.fading.FadeInFrom">FadeInFrom</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.fading.FadeInFrom.CONFIG" href="#manimlib.animation.fading.FadeInFrom.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeInFrom.begin" href="#manimlib.animation.fading.FadeInFrom.begin">begin</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeInFrom.create_target" href="#manimlib.animation.fading.FadeInFrom.create_target">create_target</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.fading.FadeInFromDown" href="#manimlib.animation.fading.FadeInFromDown">FadeInFromDown</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.fading.FadeInFromDown.CONFIG" href="#manimlib.animation.fading.FadeInFromDown.CONFIG">CONFIG</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.fading.FadeInFromLarge" href="#manimlib.animation.fading.FadeInFromLarge">FadeInFromLarge</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.fading.FadeInFromLarge.CONFIG" href="#manimlib.animation.fading.FadeInFromLarge.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeInFromLarge.create_starting_mobject" href="#manimlib.animation.fading.FadeInFromLarge.create_starting_mobject">create_starting_mobject</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.fading.FadeInFromPoint" href="#manimlib.animation.fading.FadeInFromPoint">FadeInFromPoint</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.fading.FadeInFromPoint.create_starting_mobject" href="#manimlib.animation.fading.FadeInFromPoint.create_starting_mobject">create_starting_mobject</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.fading.FadeOut" href="#manimlib.animation.fading.FadeOut">FadeOut</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.fading.FadeOut.CONFIG" href="#manimlib.animation.fading.FadeOut.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeOut.clean_up_from_scene" href="#manimlib.animation.fading.FadeOut.clean_up_from_scene">clean_up_from_scene</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeOut.create_target" href="#manimlib.animation.fading.FadeOut.create_target">create_target</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.fading.FadeOutAndShift" href="#manimlib.animation.fading.FadeOutAndShift">FadeOutAndShift</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.fading.FadeOutAndShift.CONFIG" href="#manimlib.animation.fading.FadeOutAndShift.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.fading.FadeOutAndShift.create_target" href="#manimlib.animation.fading.FadeOutAndShift.create_target">create_target</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.fading.FadeOutAndShiftDown" href="#manimlib.animation.fading.FadeOutAndShiftDown">FadeOutAndShiftDown</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.fading.FadeOutAndShiftDown.CONFIG" href="#manimlib.animation.fading.FadeOutAndShiftDown.CONFIG">CONFIG</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.fading.VFadeIn" href="#manimlib.animation.fading.VFadeIn">VFadeIn</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.fading.VFadeIn.CONFIG" href="#manimlib.animation.fading.VFadeIn.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.fading.VFadeIn.interpolate_submobject" href="#manimlib.animation.fading.VFadeIn.interpolate_submobject">interpolate_submobject</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.fading.VFadeInThenOut" href="#manimlib.animation.fading.VFadeInThenOut">VFadeInThenOut</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.fading.VFadeInThenOut.CONFIG" href="#manimlib.animation.fading.VFadeInThenOut.CONFIG">CONFIG</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.fading.VFadeOut" href="#manimlib.animation.fading.VFadeOut">VFadeOut</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.fading.VFadeOut.CONFIG" href="#manimlib.animation.fading.VFadeOut.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.fading.VFadeOut.interpolate_submobject" href="#manimlib.animation.fading.VFadeOut.interpolate_submobject">interpolate_submobject</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

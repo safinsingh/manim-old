@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>manimlib.scene.sample_space_scene API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>manimlib.scene.sample_space_scene</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from manimlib.animation.animation import Animation
+from manimlib.animation.transform import MoveToTarget
+from manimlib.animation.transform import Transform
+from manimlib.animation.update import UpdateFromFunc
+from manimlib.constants import *
+from manimlib.scene.scene import Scene
+from manimlib.mobject.probability import SampleSpace
+from manimlib.mobject.types.vectorized_mobject import VGroup
+
+
+class SampleSpaceScene(Scene):
+    def get_sample_space(self, **config):
+        self.sample_space = SampleSpace(**config)
+        return self.sample_space
+
+    def add_sample_space(self, **config):
+        self.add(self.get_sample_space(**config))
+
+    def get_division_change_animations(
+        self, sample_space, parts, p_list,
+        dimension=1,
+        new_label_kwargs=None,
+        **kwargs
+    ):
+        if new_label_kwargs is None:
+            new_label_kwargs = {}
+        anims = []
+        p_list = sample_space.complete_p_list(p_list)
+        space_copy = sample_space.copy()
+
+        vect = DOWN if dimension == 1 else RIGHT
+        parts.generate_target()
+        for part, p in zip(parts.target, p_list):
+            part.replace(space_copy, stretch=True)
+            part.stretch(p, dimension)
+        parts.target.arrange(vect, buff=0)
+        parts.target.move_to(space_copy)
+        anims.append(MoveToTarget(parts))
+        if hasattr(parts, &#34;labels&#34;) and parts.labels is not None:
+            label_kwargs = parts.label_kwargs
+            label_kwargs.update(new_label_kwargs)
+            new_braces, new_labels = sample_space.get_subdivision_braces_and_labels(
+                parts.target, **label_kwargs
+            )
+            anims += [
+                Transform(parts.braces, new_braces),
+                Transform(parts.labels, new_labels),
+            ]
+        return anims
+
+    def get_horizontal_division_change_animations(self, p_list, **kwargs):
+        assert(hasattr(self.sample_space, &#34;horizontal_parts&#34;))
+        return self.get_division_change_animations(
+            self.sample_space, self.sample_space.horizontal_parts, p_list,
+            dimension=1,
+            **kwargs
+        )
+
+    def get_vertical_division_change_animations(self, p_list, **kwargs):
+        assert(hasattr(self.sample_space, &#34;vertical_parts&#34;))
+        return self.get_division_change_animations(
+            self.sample_space, self.sample_space.vertical_parts, p_list,
+            dimension=0,
+            **kwargs
+        )
+
+    def get_conditional_change_anims(
+        self, sub_sample_space_index, value, post_rects=None,
+        **kwargs
+    ):
+        parts = self.sample_space.horizontal_parts
+        sub_sample_space = parts[sub_sample_space_index]
+        anims = self.get_division_change_animations(
+            sub_sample_space, sub_sample_space.vertical_parts, value,
+            dimension=0,
+            **kwargs
+        )
+        if post_rects is not None:
+            anims += self.get_posterior_rectangle_change_anims(post_rects)
+        return anims
+
+    def get_top_conditional_change_anims(self, *args, **kwargs):
+        return self.get_conditional_change_anims(0, *args, **kwargs)
+
+    def get_bottom_conditional_change_anims(self, *args, **kwargs):
+        return self.get_conditional_change_anims(1, *args, **kwargs)
+
+    def get_prior_rectangles(self):
+        return VGroup(*[
+            self.sample_space.horizontal_parts[i].vertical_parts[0]
+            for i in range(2)
+        ])
+
+    def get_posterior_rectangles(self, buff=MED_LARGE_BUFF):
+        prior_rects = self.get_prior_rectangles()
+        areas = [
+            rect.get_width() * rect.get_height()
+            for rect in prior_rects
+        ]
+        total_area = sum(areas)
+        total_height = prior_rects.get_height()
+
+        post_rects = prior_rects.copy()
+        for rect, area in zip(post_rects, areas):
+            rect.stretch_to_fit_height(total_height * area / total_area)
+            rect.stretch_to_fit_width(
+                area / rect.get_height()
+            )
+        post_rects.arrange(DOWN, buff=0)
+        post_rects.next_to(
+            self.sample_space, RIGHT, buff
+        )
+        return post_rects
+
+    def get_posterior_rectangle_braces_and_labels(
+        self, post_rects, labels, direction=RIGHT, **kwargs
+    ):
+        return self.sample_space.get_subdivision_braces_and_labels(
+            post_rects, labels, direction, **kwargs
+        )
+
+    def update_posterior_braces(self, post_rects):
+        braces = post_rects.braces
+        labels = post_rects.labels
+        for rect, brace, label in zip(post_rects, braces, labels):
+            brace.stretch_to_fit_height(rect.get_height())
+            brace.next_to(rect, RIGHT, SMALL_BUFF)
+            label.next_to(brace, RIGHT, SMALL_BUFF)
+
+    def get_posterior_rectangle_change_anims(self, post_rects):
+        def update_rects(rects):
+            new_rects = self.get_posterior_rectangles()
+            Transform(rects, new_rects).update(1)
+            if hasattr(rects, &#34;braces&#34;):
+                self.update_posterior_braces(rects)
+            return rects
+
+        anims = [UpdateFromFunc(post_rects, update_rects)]
+        if hasattr(post_rects, &#34;braces&#34;):
+            anims += list(map(Animation, [
+                post_rects.labels, post_rects.braces
+            ]))
+        return anims</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene"><code class="flex name class">
+<span>class <span class="ident">SampleSpaceScene</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A Scene can be thought of as the Canvas of your animation.
+All of your own named Scenes will be subclasses of this Scene, or
+other named scenes.</p>
+<p>Use a construct() function to tell Manim what should go on in the Scene.</p>
+<p>E.G:</p>
+<pre><code>class MyScene(Scene):
+    def construct(self):
+        self.play(
+            Write(Text("Hello World!"))
+        )
+</code></pre>
+<p>Some important variables to note are:
+camera: The camera object to be used for the scene.
+file_writer : The object that writes the animations in the scene to a video file.
+mobjects : The list of mobjects present in the scene.
+foreground_mobjects : List of mobjects explicitly in the foreground.
+num_plays : Number of play() functions in the scene.
+time: time elapsed since initialisation of scene.
+random_seed: The seed with which all random operations are done.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SampleSpaceScene(Scene):
+    def get_sample_space(self, **config):
+        self.sample_space = SampleSpace(**config)
+        return self.sample_space
+
+    def add_sample_space(self, **config):
+        self.add(self.get_sample_space(**config))
+
+    def get_division_change_animations(
+        self, sample_space, parts, p_list,
+        dimension=1,
+        new_label_kwargs=None,
+        **kwargs
+    ):
+        if new_label_kwargs is None:
+            new_label_kwargs = {}
+        anims = []
+        p_list = sample_space.complete_p_list(p_list)
+        space_copy = sample_space.copy()
+
+        vect = DOWN if dimension == 1 else RIGHT
+        parts.generate_target()
+        for part, p in zip(parts.target, p_list):
+            part.replace(space_copy, stretch=True)
+            part.stretch(p, dimension)
+        parts.target.arrange(vect, buff=0)
+        parts.target.move_to(space_copy)
+        anims.append(MoveToTarget(parts))
+        if hasattr(parts, &#34;labels&#34;) and parts.labels is not None:
+            label_kwargs = parts.label_kwargs
+            label_kwargs.update(new_label_kwargs)
+            new_braces, new_labels = sample_space.get_subdivision_braces_and_labels(
+                parts.target, **label_kwargs
+            )
+            anims += [
+                Transform(parts.braces, new_braces),
+                Transform(parts.labels, new_labels),
+            ]
+        return anims
+
+    def get_horizontal_division_change_animations(self, p_list, **kwargs):
+        assert(hasattr(self.sample_space, &#34;horizontal_parts&#34;))
+        return self.get_division_change_animations(
+            self.sample_space, self.sample_space.horizontal_parts, p_list,
+            dimension=1,
+            **kwargs
+        )
+
+    def get_vertical_division_change_animations(self, p_list, **kwargs):
+        assert(hasattr(self.sample_space, &#34;vertical_parts&#34;))
+        return self.get_division_change_animations(
+            self.sample_space, self.sample_space.vertical_parts, p_list,
+            dimension=0,
+            **kwargs
+        )
+
+    def get_conditional_change_anims(
+        self, sub_sample_space_index, value, post_rects=None,
+        **kwargs
+    ):
+        parts = self.sample_space.horizontal_parts
+        sub_sample_space = parts[sub_sample_space_index]
+        anims = self.get_division_change_animations(
+            sub_sample_space, sub_sample_space.vertical_parts, value,
+            dimension=0,
+            **kwargs
+        )
+        if post_rects is not None:
+            anims += self.get_posterior_rectangle_change_anims(post_rects)
+        return anims
+
+    def get_top_conditional_change_anims(self, *args, **kwargs):
+        return self.get_conditional_change_anims(0, *args, **kwargs)
+
+    def get_bottom_conditional_change_anims(self, *args, **kwargs):
+        return self.get_conditional_change_anims(1, *args, **kwargs)
+
+    def get_prior_rectangles(self):
+        return VGroup(*[
+            self.sample_space.horizontal_parts[i].vertical_parts[0]
+            for i in range(2)
+        ])
+
+    def get_posterior_rectangles(self, buff=MED_LARGE_BUFF):
+        prior_rects = self.get_prior_rectangles()
+        areas = [
+            rect.get_width() * rect.get_height()
+            for rect in prior_rects
+        ]
+        total_area = sum(areas)
+        total_height = prior_rects.get_height()
+
+        post_rects = prior_rects.copy()
+        for rect, area in zip(post_rects, areas):
+            rect.stretch_to_fit_height(total_height * area / total_area)
+            rect.stretch_to_fit_width(
+                area / rect.get_height()
+            )
+        post_rects.arrange(DOWN, buff=0)
+        post_rects.next_to(
+            self.sample_space, RIGHT, buff
+        )
+        return post_rects
+
+    def get_posterior_rectangle_braces_and_labels(
+        self, post_rects, labels, direction=RIGHT, **kwargs
+    ):
+        return self.sample_space.get_subdivision_braces_and_labels(
+            post_rects, labels, direction, **kwargs
+        )
+
+    def update_posterior_braces(self, post_rects):
+        braces = post_rects.braces
+        labels = post_rects.labels
+        for rect, brace, label in zip(post_rects, braces, labels):
+            brace.stretch_to_fit_height(rect.get_height())
+            brace.next_to(rect, RIGHT, SMALL_BUFF)
+            label.next_to(brace, RIGHT, SMALL_BUFF)
+
+    def get_posterior_rectangle_change_anims(self, post_rects):
+        def update_rects(rects):
+            new_rects = self.get_posterior_rectangles()
+            Transform(rects, new_rects).update(1)
+            if hasattr(rects, &#34;braces&#34;):
+                self.update_posterior_braces(rects)
+            return rects
+
+        anims = [UpdateFromFunc(post_rects, update_rects)]
+        if hasattr(post_rects, &#34;braces&#34;):
+            anims += list(map(Animation, [
+                post_rects.labels, post_rects.braces
+            ]))
+        return anims</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.scene.scene.Scene" href="scene.html#manimlib.scene.scene.Scene">Scene</a></li>
+<li><a title="manimlib.container.container.Container" href="../container/container.html#manimlib.container.container.Container">Container</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.add_sample_space"><code class="name flex">
+<span>def <span class="ident">add_sample_space</span></span>(<span>self, **config)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_sample_space(self, **config):
+    self.add(self.get_sample_space(**config))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.get_bottom_conditional_change_anims"><code class="name flex">
+<span>def <span class="ident">get_bottom_conditional_change_anims</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_bottom_conditional_change_anims(self, *args, **kwargs):
+    return self.get_conditional_change_anims(1, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.get_conditional_change_anims"><code class="name flex">
+<span>def <span class="ident">get_conditional_change_anims</span></span>(<span>self, sub_sample_space_index, value, post_rects=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_conditional_change_anims(
+    self, sub_sample_space_index, value, post_rects=None,
+    **kwargs
+):
+    parts = self.sample_space.horizontal_parts
+    sub_sample_space = parts[sub_sample_space_index]
+    anims = self.get_division_change_animations(
+        sub_sample_space, sub_sample_space.vertical_parts, value,
+        dimension=0,
+        **kwargs
+    )
+    if post_rects is not None:
+        anims += self.get_posterior_rectangle_change_anims(post_rects)
+    return anims</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.get_division_change_animations"><code class="name flex">
+<span>def <span class="ident">get_division_change_animations</span></span>(<span>self, sample_space, parts, p_list, dimension=1, new_label_kwargs=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_division_change_animations(
+    self, sample_space, parts, p_list,
+    dimension=1,
+    new_label_kwargs=None,
+    **kwargs
+):
+    if new_label_kwargs is None:
+        new_label_kwargs = {}
+    anims = []
+    p_list = sample_space.complete_p_list(p_list)
+    space_copy = sample_space.copy()
+
+    vect = DOWN if dimension == 1 else RIGHT
+    parts.generate_target()
+    for part, p in zip(parts.target, p_list):
+        part.replace(space_copy, stretch=True)
+        part.stretch(p, dimension)
+    parts.target.arrange(vect, buff=0)
+    parts.target.move_to(space_copy)
+    anims.append(MoveToTarget(parts))
+    if hasattr(parts, &#34;labels&#34;) and parts.labels is not None:
+        label_kwargs = parts.label_kwargs
+        label_kwargs.update(new_label_kwargs)
+        new_braces, new_labels = sample_space.get_subdivision_braces_and_labels(
+            parts.target, **label_kwargs
+        )
+        anims += [
+            Transform(parts.braces, new_braces),
+            Transform(parts.labels, new_labels),
+        ]
+    return anims</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.get_horizontal_division_change_animations"><code class="name flex">
+<span>def <span class="ident">get_horizontal_division_change_animations</span></span>(<span>self, p_list, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_horizontal_division_change_animations(self, p_list, **kwargs):
+    assert(hasattr(self.sample_space, &#34;horizontal_parts&#34;))
+    return self.get_division_change_animations(
+        self.sample_space, self.sample_space.horizontal_parts, p_list,
+        dimension=1,
+        **kwargs
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.get_posterior_rectangle_braces_and_labels"><code class="name flex">
+<span>def <span class="ident">get_posterior_rectangle_braces_and_labels</span></span>(<span>self, post_rects, labels, direction=array([1., 0., 0.]), **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_posterior_rectangle_braces_and_labels(
+    self, post_rects, labels, direction=RIGHT, **kwargs
+):
+    return self.sample_space.get_subdivision_braces_and_labels(
+        post_rects, labels, direction, **kwargs
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.get_posterior_rectangle_change_anims"><code class="name flex">
+<span>def <span class="ident">get_posterior_rectangle_change_anims</span></span>(<span>self, post_rects)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_posterior_rectangle_change_anims(self, post_rects):
+    def update_rects(rects):
+        new_rects = self.get_posterior_rectangles()
+        Transform(rects, new_rects).update(1)
+        if hasattr(rects, &#34;braces&#34;):
+            self.update_posterior_braces(rects)
+        return rects
+
+    anims = [UpdateFromFunc(post_rects, update_rects)]
+    if hasattr(post_rects, &#34;braces&#34;):
+        anims += list(map(Animation, [
+            post_rects.labels, post_rects.braces
+        ]))
+    return anims</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.get_posterior_rectangles"><code class="name flex">
+<span>def <span class="ident">get_posterior_rectangles</span></span>(<span>self, buff=0.5)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_posterior_rectangles(self, buff=MED_LARGE_BUFF):
+    prior_rects = self.get_prior_rectangles()
+    areas = [
+        rect.get_width() * rect.get_height()
+        for rect in prior_rects
+    ]
+    total_area = sum(areas)
+    total_height = prior_rects.get_height()
+
+    post_rects = prior_rects.copy()
+    for rect, area in zip(post_rects, areas):
+        rect.stretch_to_fit_height(total_height * area / total_area)
+        rect.stretch_to_fit_width(
+            area / rect.get_height()
+        )
+    post_rects.arrange(DOWN, buff=0)
+    post_rects.next_to(
+        self.sample_space, RIGHT, buff
+    )
+    return post_rects</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.get_prior_rectangles"><code class="name flex">
+<span>def <span class="ident">get_prior_rectangles</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_prior_rectangles(self):
+    return VGroup(*[
+        self.sample_space.horizontal_parts[i].vertical_parts[0]
+        for i in range(2)
+    ])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.get_sample_space"><code class="name flex">
+<span>def <span class="ident">get_sample_space</span></span>(<span>self, **config)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_sample_space(self, **config):
+    self.sample_space = SampleSpace(**config)
+    return self.sample_space</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.get_top_conditional_change_anims"><code class="name flex">
+<span>def <span class="ident">get_top_conditional_change_anims</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_top_conditional_change_anims(self, *args, **kwargs):
+    return self.get_conditional_change_anims(0, *args, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.get_vertical_division_change_animations"><code class="name flex">
+<span>def <span class="ident">get_vertical_division_change_animations</span></span>(<span>self, p_list, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_vertical_division_change_animations(self, p_list, **kwargs):
+    assert(hasattr(self.sample_space, &#34;vertical_parts&#34;))
+    return self.get_division_change_animations(
+        self.sample_space, self.sample_space.vertical_parts, p_list,
+        dimension=0,
+        **kwargs
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.sample_space_scene.SampleSpaceScene.update_posterior_braces"><code class="name flex">
+<span>def <span class="ident">update_posterior_braces</span></span>(<span>self, post_rects)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_posterior_braces(self, post_rects):
+    braces = post_rects.braces
+    labels = post_rects.labels
+    for rect, brace, label in zip(post_rects, braces, labels):
+        brace.stretch_to_fit_height(rect.get_height())
+        brace.next_to(rect, RIGHT, SMALL_BUFF)
+        label.next_to(brace, RIGHT, SMALL_BUFF)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.scene.scene.Scene" href="scene.html#manimlib.scene.scene.Scene">Scene</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.scene.scene.Scene.add" href="scene.html#manimlib.scene.scene.Scene.add">add</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_foreground_mobject" href="scene.html#manimlib.scene.scene.Scene.add_foreground_mobject">add_foreground_mobject</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_foreground_mobjects" href="scene.html#manimlib.scene.scene.Scene.add_foreground_mobjects">add_foreground_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_frames" href="scene.html#manimlib.scene.scene.Scene.add_frames">add_frames</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_mobjects_among" href="scene.html#manimlib.scene.scene.Scene.add_mobjects_among">add_mobjects_among</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_sound" href="scene.html#manimlib.scene.scene.Scene.add_sound">add_sound</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.begin_animations" href="scene.html#manimlib.scene.scene.Scene.begin_animations">begin_animations</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.bring_to_back" href="scene.html#manimlib.scene.scene.Scene.bring_to_back">bring_to_back</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.bring_to_front" href="scene.html#manimlib.scene.scene.Scene.bring_to_front">bring_to_front</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.capture_mobjects_in_camera" href="scene.html#manimlib.scene.scene.Scene.capture_mobjects_in_camera">capture_mobjects_in_camera</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.clean_up_animations" href="scene.html#manimlib.scene.scene.Scene.clean_up_animations">clean_up_animations</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.clear" href="scene.html#manimlib.scene.scene.Scene.clear">clear</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.compile_play_args_to_animation_list" href="scene.html#manimlib.scene.scene.Scene.compile_play_args_to_animation_list">compile_play_args_to_animation_list</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.construct" href="scene.html#manimlib.scene.scene.Scene.construct">construct</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.finish_animations" href="scene.html#manimlib.scene.scene.Scene.finish_animations">finish_animations</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.force_skipping" href="scene.html#manimlib.scene.scene.Scene.force_skipping">force_skipping</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_animation_time_progression" href="scene.html#manimlib.scene.scene.Scene.get_animation_time_progression">get_animation_time_progression</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_attrs" href="scene.html#manimlib.scene.scene.Scene.get_attrs">get_attrs</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_frame" href="scene.html#manimlib.scene.scene.Scene.get_frame">get_frame</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_image" href="scene.html#manimlib.scene.scene.Scene.get_image">get_image</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_mobject_copies" href="scene.html#manimlib.scene.scene.Scene.get_mobject_copies">get_mobject_copies</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_mobject_family_members" href="scene.html#manimlib.scene.scene.Scene.get_mobject_family_members">get_mobject_family_members</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_mobjects" href="scene.html#manimlib.scene.scene.Scene.get_mobjects">get_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_mobjects_from_last_animation" href="scene.html#manimlib.scene.scene.Scene.get_mobjects_from_last_animation">get_mobjects_from_last_animation</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_moving_mobjects" href="scene.html#manimlib.scene.scene.Scene.get_moving_mobjects">get_moving_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_restructured_mobject_list" href="scene.html#manimlib.scene.scene.Scene.get_restructured_mobject_list">get_restructured_mobject_list</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_run_time" href="scene.html#manimlib.scene.scene.Scene.get_run_time">get_run_time</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_time" href="scene.html#manimlib.scene.scene.Scene.get_time">get_time</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_time_progression" href="scene.html#manimlib.scene.scene.Scene.get_time_progression">get_time_progression</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_top_level_mobjects" href="scene.html#manimlib.scene.scene.Scene.get_top_level_mobjects">get_top_level_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_wait_time_progression" href="scene.html#manimlib.scene.scene.Scene.get_wait_time_progression">get_wait_time_progression</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.handle_play_like_call" href="scene.html#manimlib.scene.scene.Scene.handle_play_like_call">handle_play_like_call</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.idle_stream" href="scene.html#manimlib.scene.scene.Scene.idle_stream">idle_stream</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.increment_time" href="scene.html#manimlib.scene.scene.Scene.increment_time">increment_time</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.print_end_message" href="scene.html#manimlib.scene.scene.Scene.print_end_message">print_end_message</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.progress_through_animations" href="scene.html#manimlib.scene.scene.Scene.progress_through_animations">progress_through_animations</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.remove" href="scene.html#manimlib.scene.scene.Scene.remove">remove</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.remove_foreground_mobject" href="scene.html#manimlib.scene.scene.Scene.remove_foreground_mobject">remove_foreground_mobject</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.remove_foreground_mobjects" href="scene.html#manimlib.scene.scene.Scene.remove_foreground_mobjects">remove_foreground_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.reset_camera" href="scene.html#manimlib.scene.scene.Scene.reset_camera">reset_camera</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.restructure_mobjects" href="scene.html#manimlib.scene.scene.Scene.restructure_mobjects">restructure_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.revert_to_original_skipping_status" href="scene.html#manimlib.scene.scene.Scene.revert_to_original_skipping_status">revert_to_original_skipping_status</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.set_camera" href="scene.html#manimlib.scene.scene.Scene.set_camera">set_camera</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.set_camera_background" href="scene.html#manimlib.scene.scene.Scene.set_camera_background">set_camera_background</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.set_camera_pixel_array" href="scene.html#manimlib.scene.scene.Scene.set_camera_pixel_array">set_camera_pixel_array</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.set_variables_as_attrs" href="scene.html#manimlib.scene.scene.Scene.set_variables_as_attrs">set_variables_as_attrs</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.setup" href="scene.html#manimlib.scene.scene.Scene.setup">setup</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.should_update_mobjects" href="scene.html#manimlib.scene.scene.Scene.should_update_mobjects">should_update_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.show_frame" href="scene.html#manimlib.scene.scene.Scene.show_frame">show_frame</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.tear_down" href="scene.html#manimlib.scene.scene.Scene.tear_down">tear_down</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.update_frame" href="scene.html#manimlib.scene.scene.Scene.update_frame">update_frame</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.update_mobjects" href="scene.html#manimlib.scene.scene.Scene.update_mobjects">update_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.update_skipping_status" href="scene.html#manimlib.scene.scene.Scene.update_skipping_status">update_skipping_status</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.wait_until" href="scene.html#manimlib.scene.scene.Scene.wait_until">wait_until</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="manimlib.scene" href="index.html">manimlib.scene</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene" href="#manimlib.scene.sample_space_scene.SampleSpaceScene">SampleSpaceScene</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.add_sample_space" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.add_sample_space">add_sample_space</a></code></li>
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.get_bottom_conditional_change_anims" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.get_bottom_conditional_change_anims">get_bottom_conditional_change_anims</a></code></li>
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.get_conditional_change_anims" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.get_conditional_change_anims">get_conditional_change_anims</a></code></li>
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.get_division_change_animations" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.get_division_change_animations">get_division_change_animations</a></code></li>
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.get_horizontal_division_change_animations" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.get_horizontal_division_change_animations">get_horizontal_division_change_animations</a></code></li>
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.get_posterior_rectangle_braces_and_labels" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.get_posterior_rectangle_braces_and_labels">get_posterior_rectangle_braces_and_labels</a></code></li>
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.get_posterior_rectangle_change_anims" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.get_posterior_rectangle_change_anims">get_posterior_rectangle_change_anims</a></code></li>
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.get_posterior_rectangles" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.get_posterior_rectangles">get_posterior_rectangles</a></code></li>
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.get_prior_rectangles" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.get_prior_rectangles">get_prior_rectangles</a></code></li>
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.get_sample_space" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.get_sample_space">get_sample_space</a></code></li>
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.get_top_conditional_change_anims" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.get_top_conditional_change_anims">get_top_conditional_change_anims</a></code></li>
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.get_vertical_division_change_animations" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.get_vertical_division_change_animations">get_vertical_division_change_animations</a></code></li>
+<li><code><a title="manimlib.scene.sample_space_scene.SampleSpaceScene.update_posterior_braces" href="#manimlib.scene.sample_space_scene.SampleSpaceScene.update_posterior_braces">update_posterior_braces</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

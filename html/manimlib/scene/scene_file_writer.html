@@ -1,0 +1,1968 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>manimlib.scene.scene_file_writer API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>manimlib.scene.scene_file_writer</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import numpy as np
+from pydub import AudioSegment
+import shutil
+import subprocess
+import os
+import _thread as thread
+from time import sleep
+import datetime
+
+import manimlib.constants as consts
+from manimlib.constants import FFMPEG_BIN
+from manimlib.constants import STREAMING_IP
+from manimlib.constants import STREAMING_PORT
+from manimlib.constants import STREAMING_PROTOCOL
+from manimlib.utils.config_ops import digest_config
+from manimlib.utils.file_ops import guarantee_existence
+from manimlib.utils.file_ops import add_extension_if_not_present
+from manimlib.utils.file_ops import get_sorted_integer_files
+from manimlib.utils.sounds import get_full_sound_file_path
+
+
+class SceneFileWriter(object):
+    &#34;&#34;&#34;
+    SceneFileWriter is the object that actually writes the animations
+    played, into video files, using FFMPEG, and Sox, if sound is needed.
+    This is mostly for Manim&#39;s internal use. You will rarely, if ever,
+    have to use the methods for this class, unless tinkering with the very
+    fabric of Manim&#39;s reality.
+
+    Some useful attributes are:
+        &#34;write_to_movie&#34; (bool=False)
+            Whether or not to write the animations into a video file.
+        &#34;png_mode&#34; (str=&#34;RGBA&#34;)
+            The PIL image mode to use when outputting PNGs
+        &#34;movie_file_extension&#34; (str=&#34;.mp4&#34;)
+            The file-type extension of the outputted video.
+    &#34;&#34;&#34;
+    CONFIG = {
+        &#34;write_to_movie&#34;: False,
+        # TODO, save_pngs is doing nothing
+        &#34;save_pngs&#34;: False,
+        &#34;png_mode&#34;: &#34;RGBA&#34;,
+        &#34;save_last_frame&#34;: False,
+        &#34;movie_file_extension&#34;: &#34;.mp4&#34;,
+        &#34;gif_file_extension&#34;: &#34;.gif&#34;,
+        # Previous output_file_name
+        # TODO, address this in extract_scene et. al.
+        &#34;file_name&#34;: None,
+        &#34;input_file_path&#34;: &#34;&#34;,  # ??
+        &#34;output_directory&#34;: None,
+    }
+
+    def __init__(self, scene, **kwargs):
+        digest_config(self, kwargs)
+        self.scene = scene
+        self.stream_lock = False
+        self.init_output_directories()
+        self.init_audio()
+
+    # Output directories and files
+    def init_output_directories(self):
+        &#34;&#34;&#34;
+        This method initialises the directories to which video
+        files will be written to and read from (within MEDIA_DIR).
+        If they don&#39;t already exist, they will be created.
+        &#34;&#34;&#34;
+        module_directory = self.output_directory or self.get_default_module_directory()
+        scene_name = self.file_name or self.get_default_scene_name()
+        if self.save_last_frame:
+            if consts.VIDEO_DIR != &#34;&#34;:
+                image_dir = guarantee_existence(os.path.join(
+                    consts.VIDEO_DIR,
+                    module_directory,
+                    &#34;images&#34;,
+                ))
+            else:
+                image_dir = guarantee_existence(os.path.join(
+                    consts.VIDEO_OUTPUT_DIR,
+                    &#34;images&#34;,
+                ))
+            self.image_file_path = os.path.join(
+                image_dir,
+                add_extension_if_not_present(scene_name, &#34;.png&#34;)
+            )
+        if self.write_to_movie:
+            if consts.VIDEO_DIR != &#34;&#34;:
+                movie_dir = guarantee_existence(os.path.join(
+                    consts.VIDEO_DIR,
+                    module_directory,
+                    self.get_resolution_directory(),
+                ))
+            else:
+                movie_dir = guarantee_existence(consts.VIDEO_OUTPUT_DIR)
+            self.movie_file_path = os.path.join(
+                movie_dir,
+                add_extension_if_not_present(
+                    scene_name, self.movie_file_extension
+                )
+            )
+            self.gif_file_path = os.path.join(
+                movie_dir,
+                add_extension_if_not_present(
+                    scene_name, self.gif_file_extension
+                )
+            )
+            self.partial_movie_directory = guarantee_existence(os.path.join(
+                movie_dir,
+                &#34;partial_movie_files&#34;,
+                scene_name,
+            ))
+
+    def get_default_module_directory(self):
+        &#34;&#34;&#34;
+        This method gets the name of the directory containing
+        the file that has the Scene that is being rendered.
+
+        Returns
+        -------
+        str
+            The name of the directory.
+        &#34;&#34;&#34;
+        filename = os.path.basename(self.input_file_path)
+        root, _ = os.path.splitext(filename)
+        return root
+
+    def get_default_scene_name(self):
+        &#34;&#34;&#34;
+        This method returns the default scene name
+        which is the value of &#34;file_name&#34;, if it exists and
+        the actual name of the class that inherited from
+        Scene in your animation script, if &#34;file_name&#34; is None.
+
+        Returns
+        -------
+        str
+            The default scene name.
+        &#34;&#34;&#34;
+        if self.file_name is None:
+            return self.scene.__class__.__name__
+        else:
+            return self.file_name
+
+    def get_resolution_directory(self):
+        &#34;&#34;&#34;
+        This method gets the name of the directory that immediately contains the
+        video file. This name is &lt;height_in_pixels_of_video&gt;p&lt;frame_rate&gt;
+        E.G:
+            If you are rendering an 854x480 px animation at 15fps, the name of the directory
+            that immediately contains the video file will be
+            480p15.
+            The file structure should look something like:
+            
+            MEDIA_DIR
+                |--Tex
+                |--texts
+                |--videos
+                |--&lt;name_of_file_containing_scene&gt;
+                    |--&lt;height_in_pixels_of_video&gt;p&lt;frame_rate&gt;
+                        |--&lt;scene_name&gt;.mp4
+        Returns
+        -------
+        str
+            The name of the directory.
+        &#34;&#34;&#34;
+        pixel_height = self.scene.camera.pixel_height
+        frame_rate = self.scene.camera.frame_rate
+        return &#34;{}p{}&#34;.format(
+            pixel_height, frame_rate
+        )
+
+    # Directory getters
+    def get_image_file_path(self):
+        &#34;&#34;&#34;
+        This returns the directory path to which any images will be
+        written to.
+        It is usually named &#34;images&#34;, but can be changed by changing
+        &#34;image_file_path&#34;.
+        
+        Returns
+        -------
+        str
+            The path of the directory.
+        &#34;&#34;&#34;
+        return self.image_file_path
+
+    def get_next_partial_movie_path(self):
+        &#34;&#34;&#34;
+        Manim renders each play-like call in a short partial
+        video file. All such files are then concatenated with 
+        the help of FFMPEG.
+
+        This method returns the path of the next partial movie.
+
+        Returns
+        -------
+        str
+            The path of the next partial movie.
+        &#34;&#34;&#34;
+        result = os.path.join(
+            self.partial_movie_directory,
+            &#34;{:05}{}&#34;.format(
+                self.scene.num_plays,
+                self.movie_file_extension,
+            )
+        )
+        return result
+
+    def get_movie_file_path(self):
+        &#34;&#34;&#34;
+        Returns the final path of the written video file.
+
+        Returns
+        -------
+        str
+            The path of the movie file.
+        &#34;&#34;&#34;
+        return self.movie_file_path
+
+    # Sound
+    def init_audio(self):
+        &#34;&#34;&#34;
+        Preps the writer for adding audio to the movie.
+        &#34;&#34;&#34;
+        self.includes_sound = False
+
+    def create_audio_segment(self):
+        &#34;&#34;&#34;
+        Creates an empty, silent, Audio Segment.
+        &#34;&#34;&#34;
+        self.audio_segment = AudioSegment.silent()
+
+    def add_audio_segment(self, new_segment,
+                          time=None,
+                          gain_to_background=None):
+        &#34;&#34;&#34;
+        This method adds an audio segment from an 
+        AudioSegment type object and suitable parameters.
+        
+        Parameters
+        ----------
+        new_segment (AudioSegment)
+            The audio segment to add
+        time (Union[int, float])
+            the timestamp at which the
+            sound should be added.
+        gain_to_background
+            The gain of the segment from the background.
+        &#34;&#34;&#34;
+        if not self.includes_sound:
+            self.includes_sound = True
+            self.create_audio_segment()
+        segment = self.audio_segment
+        curr_end = segment.duration_seconds
+        if time is None:
+            time = curr_end
+        if time &lt; 0:
+            raise Exception(&#34;Adding sound at timestamp &lt; 0&#34;)
+
+        new_end = time + new_segment.duration_seconds
+        diff = new_end - curr_end
+        if diff &gt; 0:
+            segment = segment.append(
+                AudioSegment.silent(int(np.ceil(diff * 1000))),
+                crossfade=0,
+            )
+        self.audio_segment = segment.overlay(
+            new_segment,
+            position=int(1000 * time),
+            gain_during_overlay=gain_to_background,
+        )
+
+    def add_sound(self, sound_file, time=None, gain=None, **kwargs):
+        &#34;&#34;&#34;
+        This method adds an audio segment from a sound file.
+
+        Parameters
+        ----------
+        sound_file (str)
+            The path to the sound file.
+        
+        time (Union[float, int])
+            The timestamp at which the audio should be added.
+
+        gain
+            The gain of the given audio segment.
+
+        **kwargs
+            This method uses add_audio_segment, so any keyword arguments
+            used there can be referenced here.
+
+        &#34;&#34;&#34;
+        file_path = get_full_sound_file_path(sound_file)
+        new_segment = AudioSegment.from_file(file_path)
+        if gain:
+            new_segment = new_segment.apply_gain(gain)
+        self.add_audio_segment(new_segment, time, **kwargs)
+
+    # Writers
+    def begin_animation(self, allow_write=False):
+        &#34;&#34;&#34;
+        Used internally by manim to stream the animation to FFMPEG for
+        displaying or writing to a file.
+
+        Parameters
+        ----------
+        allow_write (bool=False)
+            Whether or not to write to a video file.
+        &#34;&#34;&#34;
+        if self.write_to_movie and allow_write:
+            self.open_movie_pipe()
+
+    def end_animation(self, allow_write=False):
+        &#34;&#34;&#34;
+        Internally used by Manim to stop streaming to
+        FFMPEG gracefully.
+
+        Parameters
+        ----------
+        allow_write (bool=False)
+            Whether or not to write to a video file.
+        &#34;&#34;&#34;
+        if self.write_to_movie and allow_write:
+            self.close_movie_pipe()
+
+    def write_frame(self, frame):
+        &#34;&#34;&#34;
+        Used internally by Manim to write a frame to
+        the FFMPEG input buffer.
+
+        Parameters
+        ----------
+        frame (np.ndarray)
+            Pixel array of the frame.
+        &#34;&#34;&#34;
+        if self.write_to_movie:
+            self.writing_process.stdin.write(frame.tostring())
+
+    def save_final_image(self, image):
+        &#34;&#34;&#34;
+        The name is a misnomer. This method saves the image
+        passed to it as an in the default image directory.
+
+        Parameters
+        ----------
+        image (np.ndarray)
+            The pixel array of the image to save.
+        &#34;&#34;&#34;
+        file_path = self.get_image_file_path()
+        image.save(file_path)
+        self.print_file_ready_message(file_path)
+
+    def idle_stream(self):
+        &#34;&#34;&#34;
+        Doesn&#39;t write anything to the FFMPEG frame buffer.
+        &#34;&#34;&#34;
+        while self.stream_lock:
+            a = datetime.datetime.now()
+            self.update_frame()
+            n_frames = 1
+            frame = self.get_frame()
+            self.add_frames(*[frame] * n_frames)
+            b = datetime.datetime.now()
+            time_diff = (b - a).total_seconds()
+            frame_duration = 1 / self.scene.camera.frame_rate
+            if time_diff &lt; frame_duration:
+                sleep(frame_duration - time_diff)
+
+    def finish(self):
+        &#34;&#34;&#34;
+        Finishes writing to the FFMPEG buffer.
+        Combines the partial movie files into the
+        whole scene.
+        If save_last_frame is True, saves the last
+        frame in the default image directory.
+        &#34;&#34;&#34;
+        if self.write_to_movie:
+            if hasattr(self, &#34;writing_process&#34;):
+                self.writing_process.terminate()
+            self.combine_movie_files()
+        if self.save_last_frame:
+            self.scene.update_frame(ignore_skipping=True)
+            self.save_final_image(self.scene.get_image())
+
+    def open_movie_pipe(self):
+        &#34;&#34;&#34;
+        Used internally by Manim to initalise
+        FFMPEG and begin writing to FFMPEG&#39;s input
+        buffer.
+        &#34;&#34;&#34;
+        file_path = self.get_next_partial_movie_path()
+        temp_file_path = os.path.splitext(file_path)[0] + &#39;_temp&#39; + self.movie_file_extension
+
+        self.partial_movie_file_path = file_path
+        self.temp_partial_movie_file_path = temp_file_path
+
+        fps = self.scene.camera.frame_rate
+        height = self.scene.camera.get_pixel_height()
+        width = self.scene.camera.get_pixel_width()
+
+        command = [
+            FFMPEG_BIN,
+            &#39;-y&#39;,  # overwrite output file if it exists
+            &#39;-f&#39;, &#39;rawvideo&#39;,
+            &#39;-s&#39;, &#39;%dx%d&#39; % (width, height),  # size of one frame
+            &#39;-pix_fmt&#39;, &#39;rgba&#39;,
+            &#39;-r&#39;, str(fps),  # frames per second
+            &#39;-i&#39;, &#39;-&#39;,  # The imput comes from a pipe
+            &#39;-an&#39;,  # Tells FFMPEG not to expect any audio
+            &#39;-loglevel&#39;, &#39;error&#39;,
+        ]
+        # TODO, the test for a transparent background should not be based on
+        # the file extension.
+        if self.movie_file_extension == &#34;.mov&#34;:
+            # This is if the background of the exported
+            # video should be transparent.
+            command += [
+                &#39;-vcodec&#39;, &#39;qtrle&#39;,
+            ]
+        else:
+            command += [
+                &#39;-vcodec&#39;, &#39;libx264&#39;,
+                &#39;-pix_fmt&#39;, &#39;yuv420p&#39;,
+            ]
+        command += [temp_file_path]
+        self.writing_process = subprocess.Popen(command, stdin=subprocess.PIPE)
+
+    def close_movie_pipe(self):
+        &#34;&#34;&#34;
+        Used internally by Manim to gracefully stop writing to FFMPEG&#39;s
+        input buffer, and move the temporary files into their permananant
+        locations
+        &#34;&#34;&#34;
+        self.writing_process.stdin.close()
+        self.writing_process.wait()
+        shutil.move(
+            self.temp_partial_movie_file_path,
+            self.partial_movie_file_path,
+        )
+
+    def combine_movie_files(self):
+        &#34;&#34;&#34;
+        Used internally by Manim to combine the separate
+        partial movie files that make up a Scene into a single
+        video file for that Scene.
+        &#34;&#34;&#34;
+        # Manim renders the scene as many smaller movie files
+        # which are then concatenated to a larger one.  The reason
+        # for this is that sometimes video-editing is made easier when
+        # one works with the broken up scene, which effectively has
+        # cuts at all the places you might want.  But for viewing
+        # the scene as a whole, one of course wants to see it as a
+        # single piece.
+        kwargs = {
+            &#34;remove_non_integer_files&#34;: True,
+            &#34;extension&#34;: self.movie_file_extension,
+        }
+        if self.scene.start_at_animation_number is not None:
+            kwargs[&#34;min_index&#34;] = self.scene.start_at_animation_number
+        if self.scene.end_at_animation_number is not None:
+            kwargs[&#34;max_index&#34;] = self.scene.end_at_animation_number
+        else:
+            kwargs[&#34;remove_indices_greater_than&#34;] = self.scene.num_plays - 1
+        partial_movie_files = get_sorted_integer_files(
+            self.partial_movie_directory,
+            **kwargs
+        )
+        if len(partial_movie_files) == 0:
+            print(&#34;No animations in this scene&#34;)
+            return
+
+        # Write a file partial_file_list.txt containing all
+        # partial movie files
+        file_list = os.path.join(
+            self.partial_movie_directory,
+            &#34;partial_movie_file_list.txt&#34;
+        )
+        with open(file_list, &#39;w&#39;) as fp:
+            for pf_path in partial_movie_files:
+                if os.name == &#39;nt&#39;:
+                    pf_path = pf_path.replace(&#39;\\&#39;, &#39;/&#39;)
+                fp.write(&#34;file \&#39;file:{}\&#39;\n&#34;.format(pf_path))
+
+        movie_file_path = self.get_movie_file_path()
+        commands = [
+            FFMPEG_BIN,
+            &#39;-y&#39;,  # overwrite output file if it exists
+            &#39;-f&#39;, &#39;concat&#39;,
+            &#39;-safe&#39;, &#39;0&#39;,
+            &#39;-i&#39;, file_list,
+            &#39;-loglevel&#39;, &#39;error&#39;,
+            &#39;-c&#39;, &#39;copy&#39;,
+            movie_file_path
+        ]
+        if not self.includes_sound:
+            commands.insert(-1, &#39;-an&#39;)
+
+        combine_process = subprocess.Popen(commands)
+        combine_process.wait()
+
+        if self.includes_sound:
+            sound_file_path = movie_file_path.replace(
+                self.movie_file_extension, &#34;.wav&#34;
+            )
+            # Makes sure sound file length will match video file
+            self.add_audio_segment(AudioSegment.silent(0))
+            self.audio_segment.export(
+                sound_file_path,
+                bitrate=&#39;312k&#39;,
+            )
+            temp_file_path = movie_file_path.replace(&#34;.&#34;, &#34;_temp.&#34;)
+            commands = [
+                &#34;ffmpeg&#34;,
+                &#34;-i&#34;, movie_file_path,
+                &#34;-i&#34;, sound_file_path,
+                &#39;-y&#39;,  # overwrite output file if it exists
+                &#34;-c:v&#34;, &#34;copy&#34;,
+                &#34;-c:a&#34;, &#34;aac&#34;,
+                &#34;-b:a&#34;, &#34;320k&#34;,
+                # select video stream from first file
+                &#34;-map&#34;, &#34;0:v:0&#34;,
+                # select audio stream from second file
+                &#34;-map&#34;, &#34;1:a:0&#34;,
+                &#39;-loglevel&#39;, &#39;error&#39;,
+                # &#34;-shortest&#34;,
+                temp_file_path,
+            ]
+            subprocess.call(commands)
+            shutil.move(temp_file_path, movie_file_path)
+            os.remove(sound_file_path)
+
+        self.print_file_ready_message(movie_file_path)
+
+    def print_file_ready_message(self, file_path):
+        &#34;&#34;&#34;
+        Prints the &#34;File Ready&#34; message to STDOUT.
+        &#34;&#34;&#34;
+        print(&#34;\nFile ready at {}\n&#34;.format(file_path))</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter"><code class="flex name class">
+<span>class <span class="ident">SceneFileWriter</span></span>
+<span>(</span><span>scene, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>SceneFileWriter is the object that actually writes the animations
+played, into video files, using FFMPEG, and Sox, if sound is needed.
+This is mostly for Manim's internal use. You will rarely, if ever,
+have to use the methods for this class, unless tinkering with the very
+fabric of Manim's reality.</p>
+<p>Some useful attributes are:
+"write_to_movie" (bool=False)
+Whether or not to write the animations into a video file.
+"png_mode" (str="RGBA")
+The PIL image mode to use when outputting PNGs
+"movie_file_extension" (str=".mp4")
+The file-type extension of the outputted video.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SceneFileWriter(object):
+    &#34;&#34;&#34;
+    SceneFileWriter is the object that actually writes the animations
+    played, into video files, using FFMPEG, and Sox, if sound is needed.
+    This is mostly for Manim&#39;s internal use. You will rarely, if ever,
+    have to use the methods for this class, unless tinkering with the very
+    fabric of Manim&#39;s reality.
+
+    Some useful attributes are:
+        &#34;write_to_movie&#34; (bool=False)
+            Whether or not to write the animations into a video file.
+        &#34;png_mode&#34; (str=&#34;RGBA&#34;)
+            The PIL image mode to use when outputting PNGs
+        &#34;movie_file_extension&#34; (str=&#34;.mp4&#34;)
+            The file-type extension of the outputted video.
+    &#34;&#34;&#34;
+    CONFIG = {
+        &#34;write_to_movie&#34;: False,
+        # TODO, save_pngs is doing nothing
+        &#34;save_pngs&#34;: False,
+        &#34;png_mode&#34;: &#34;RGBA&#34;,
+        &#34;save_last_frame&#34;: False,
+        &#34;movie_file_extension&#34;: &#34;.mp4&#34;,
+        &#34;gif_file_extension&#34;: &#34;.gif&#34;,
+        # Previous output_file_name
+        # TODO, address this in extract_scene et. al.
+        &#34;file_name&#34;: None,
+        &#34;input_file_path&#34;: &#34;&#34;,  # ??
+        &#34;output_directory&#34;: None,
+    }
+
+    def __init__(self, scene, **kwargs):
+        digest_config(self, kwargs)
+        self.scene = scene
+        self.stream_lock = False
+        self.init_output_directories()
+        self.init_audio()
+
+    # Output directories and files
+    def init_output_directories(self):
+        &#34;&#34;&#34;
+        This method initialises the directories to which video
+        files will be written to and read from (within MEDIA_DIR).
+        If they don&#39;t already exist, they will be created.
+        &#34;&#34;&#34;
+        module_directory = self.output_directory or self.get_default_module_directory()
+        scene_name = self.file_name or self.get_default_scene_name()
+        if self.save_last_frame:
+            if consts.VIDEO_DIR != &#34;&#34;:
+                image_dir = guarantee_existence(os.path.join(
+                    consts.VIDEO_DIR,
+                    module_directory,
+                    &#34;images&#34;,
+                ))
+            else:
+                image_dir = guarantee_existence(os.path.join(
+                    consts.VIDEO_OUTPUT_DIR,
+                    &#34;images&#34;,
+                ))
+            self.image_file_path = os.path.join(
+                image_dir,
+                add_extension_if_not_present(scene_name, &#34;.png&#34;)
+            )
+        if self.write_to_movie:
+            if consts.VIDEO_DIR != &#34;&#34;:
+                movie_dir = guarantee_existence(os.path.join(
+                    consts.VIDEO_DIR,
+                    module_directory,
+                    self.get_resolution_directory(),
+                ))
+            else:
+                movie_dir = guarantee_existence(consts.VIDEO_OUTPUT_DIR)
+            self.movie_file_path = os.path.join(
+                movie_dir,
+                add_extension_if_not_present(
+                    scene_name, self.movie_file_extension
+                )
+            )
+            self.gif_file_path = os.path.join(
+                movie_dir,
+                add_extension_if_not_present(
+                    scene_name, self.gif_file_extension
+                )
+            )
+            self.partial_movie_directory = guarantee_existence(os.path.join(
+                movie_dir,
+                &#34;partial_movie_files&#34;,
+                scene_name,
+            ))
+
+    def get_default_module_directory(self):
+        &#34;&#34;&#34;
+        This method gets the name of the directory containing
+        the file that has the Scene that is being rendered.
+
+        Returns
+        -------
+        str
+            The name of the directory.
+        &#34;&#34;&#34;
+        filename = os.path.basename(self.input_file_path)
+        root, _ = os.path.splitext(filename)
+        return root
+
+    def get_default_scene_name(self):
+        &#34;&#34;&#34;
+        This method returns the default scene name
+        which is the value of &#34;file_name&#34;, if it exists and
+        the actual name of the class that inherited from
+        Scene in your animation script, if &#34;file_name&#34; is None.
+
+        Returns
+        -------
+        str
+            The default scene name.
+        &#34;&#34;&#34;
+        if self.file_name is None:
+            return self.scene.__class__.__name__
+        else:
+            return self.file_name
+
+    def get_resolution_directory(self):
+        &#34;&#34;&#34;
+        This method gets the name of the directory that immediately contains the
+        video file. This name is &lt;height_in_pixels_of_video&gt;p&lt;frame_rate&gt;
+        E.G:
+            If you are rendering an 854x480 px animation at 15fps, the name of the directory
+            that immediately contains the video file will be
+            480p15.
+            The file structure should look something like:
+            
+            MEDIA_DIR
+                |--Tex
+                |--texts
+                |--videos
+                |--&lt;name_of_file_containing_scene&gt;
+                    |--&lt;height_in_pixels_of_video&gt;p&lt;frame_rate&gt;
+                        |--&lt;scene_name&gt;.mp4
+        Returns
+        -------
+        str
+            The name of the directory.
+        &#34;&#34;&#34;
+        pixel_height = self.scene.camera.pixel_height
+        frame_rate = self.scene.camera.frame_rate
+        return &#34;{}p{}&#34;.format(
+            pixel_height, frame_rate
+        )
+
+    # Directory getters
+    def get_image_file_path(self):
+        &#34;&#34;&#34;
+        This returns the directory path to which any images will be
+        written to.
+        It is usually named &#34;images&#34;, but can be changed by changing
+        &#34;image_file_path&#34;.
+        
+        Returns
+        -------
+        str
+            The path of the directory.
+        &#34;&#34;&#34;
+        return self.image_file_path
+
+    def get_next_partial_movie_path(self):
+        &#34;&#34;&#34;
+        Manim renders each play-like call in a short partial
+        video file. All such files are then concatenated with 
+        the help of FFMPEG.
+
+        This method returns the path of the next partial movie.
+
+        Returns
+        -------
+        str
+            The path of the next partial movie.
+        &#34;&#34;&#34;
+        result = os.path.join(
+            self.partial_movie_directory,
+            &#34;{:05}{}&#34;.format(
+                self.scene.num_plays,
+                self.movie_file_extension,
+            )
+        )
+        return result
+
+    def get_movie_file_path(self):
+        &#34;&#34;&#34;
+        Returns the final path of the written video file.
+
+        Returns
+        -------
+        str
+            The path of the movie file.
+        &#34;&#34;&#34;
+        return self.movie_file_path
+
+    # Sound
+    def init_audio(self):
+        &#34;&#34;&#34;
+        Preps the writer for adding audio to the movie.
+        &#34;&#34;&#34;
+        self.includes_sound = False
+
+    def create_audio_segment(self):
+        &#34;&#34;&#34;
+        Creates an empty, silent, Audio Segment.
+        &#34;&#34;&#34;
+        self.audio_segment = AudioSegment.silent()
+
+    def add_audio_segment(self, new_segment,
+                          time=None,
+                          gain_to_background=None):
+        &#34;&#34;&#34;
+        This method adds an audio segment from an 
+        AudioSegment type object and suitable parameters.
+        
+        Parameters
+        ----------
+        new_segment (AudioSegment)
+            The audio segment to add
+        time (Union[int, float])
+            the timestamp at which the
+            sound should be added.
+        gain_to_background
+            The gain of the segment from the background.
+        &#34;&#34;&#34;
+        if not self.includes_sound:
+            self.includes_sound = True
+            self.create_audio_segment()
+        segment = self.audio_segment
+        curr_end = segment.duration_seconds
+        if time is None:
+            time = curr_end
+        if time &lt; 0:
+            raise Exception(&#34;Adding sound at timestamp &lt; 0&#34;)
+
+        new_end = time + new_segment.duration_seconds
+        diff = new_end - curr_end
+        if diff &gt; 0:
+            segment = segment.append(
+                AudioSegment.silent(int(np.ceil(diff * 1000))),
+                crossfade=0,
+            )
+        self.audio_segment = segment.overlay(
+            new_segment,
+            position=int(1000 * time),
+            gain_during_overlay=gain_to_background,
+        )
+
+    def add_sound(self, sound_file, time=None, gain=None, **kwargs):
+        &#34;&#34;&#34;
+        This method adds an audio segment from a sound file.
+
+        Parameters
+        ----------
+        sound_file (str)
+            The path to the sound file.
+        
+        time (Union[float, int])
+            The timestamp at which the audio should be added.
+
+        gain
+            The gain of the given audio segment.
+
+        **kwargs
+            This method uses add_audio_segment, so any keyword arguments
+            used there can be referenced here.
+
+        &#34;&#34;&#34;
+        file_path = get_full_sound_file_path(sound_file)
+        new_segment = AudioSegment.from_file(file_path)
+        if gain:
+            new_segment = new_segment.apply_gain(gain)
+        self.add_audio_segment(new_segment, time, **kwargs)
+
+    # Writers
+    def begin_animation(self, allow_write=False):
+        &#34;&#34;&#34;
+        Used internally by manim to stream the animation to FFMPEG for
+        displaying or writing to a file.
+
+        Parameters
+        ----------
+        allow_write (bool=False)
+            Whether or not to write to a video file.
+        &#34;&#34;&#34;
+        if self.write_to_movie and allow_write:
+            self.open_movie_pipe()
+
+    def end_animation(self, allow_write=False):
+        &#34;&#34;&#34;
+        Internally used by Manim to stop streaming to
+        FFMPEG gracefully.
+
+        Parameters
+        ----------
+        allow_write (bool=False)
+            Whether or not to write to a video file.
+        &#34;&#34;&#34;
+        if self.write_to_movie and allow_write:
+            self.close_movie_pipe()
+
+    def write_frame(self, frame):
+        &#34;&#34;&#34;
+        Used internally by Manim to write a frame to
+        the FFMPEG input buffer.
+
+        Parameters
+        ----------
+        frame (np.ndarray)
+            Pixel array of the frame.
+        &#34;&#34;&#34;
+        if self.write_to_movie:
+            self.writing_process.stdin.write(frame.tostring())
+
+    def save_final_image(self, image):
+        &#34;&#34;&#34;
+        The name is a misnomer. This method saves the image
+        passed to it as an in the default image directory.
+
+        Parameters
+        ----------
+        image (np.ndarray)
+            The pixel array of the image to save.
+        &#34;&#34;&#34;
+        file_path = self.get_image_file_path()
+        image.save(file_path)
+        self.print_file_ready_message(file_path)
+
+    def idle_stream(self):
+        &#34;&#34;&#34;
+        Doesn&#39;t write anything to the FFMPEG frame buffer.
+        &#34;&#34;&#34;
+        while self.stream_lock:
+            a = datetime.datetime.now()
+            self.update_frame()
+            n_frames = 1
+            frame = self.get_frame()
+            self.add_frames(*[frame] * n_frames)
+            b = datetime.datetime.now()
+            time_diff = (b - a).total_seconds()
+            frame_duration = 1 / self.scene.camera.frame_rate
+            if time_diff &lt; frame_duration:
+                sleep(frame_duration - time_diff)
+
+    def finish(self):
+        &#34;&#34;&#34;
+        Finishes writing to the FFMPEG buffer.
+        Combines the partial movie files into the
+        whole scene.
+        If save_last_frame is True, saves the last
+        frame in the default image directory.
+        &#34;&#34;&#34;
+        if self.write_to_movie:
+            if hasattr(self, &#34;writing_process&#34;):
+                self.writing_process.terminate()
+            self.combine_movie_files()
+        if self.save_last_frame:
+            self.scene.update_frame(ignore_skipping=True)
+            self.save_final_image(self.scene.get_image())
+
+    def open_movie_pipe(self):
+        &#34;&#34;&#34;
+        Used internally by Manim to initalise
+        FFMPEG and begin writing to FFMPEG&#39;s input
+        buffer.
+        &#34;&#34;&#34;
+        file_path = self.get_next_partial_movie_path()
+        temp_file_path = os.path.splitext(file_path)[0] + &#39;_temp&#39; + self.movie_file_extension
+
+        self.partial_movie_file_path = file_path
+        self.temp_partial_movie_file_path = temp_file_path
+
+        fps = self.scene.camera.frame_rate
+        height = self.scene.camera.get_pixel_height()
+        width = self.scene.camera.get_pixel_width()
+
+        command = [
+            FFMPEG_BIN,
+            &#39;-y&#39;,  # overwrite output file if it exists
+            &#39;-f&#39;, &#39;rawvideo&#39;,
+            &#39;-s&#39;, &#39;%dx%d&#39; % (width, height),  # size of one frame
+            &#39;-pix_fmt&#39;, &#39;rgba&#39;,
+            &#39;-r&#39;, str(fps),  # frames per second
+            &#39;-i&#39;, &#39;-&#39;,  # The imput comes from a pipe
+            &#39;-an&#39;,  # Tells FFMPEG not to expect any audio
+            &#39;-loglevel&#39;, &#39;error&#39;,
+        ]
+        # TODO, the test for a transparent background should not be based on
+        # the file extension.
+        if self.movie_file_extension == &#34;.mov&#34;:
+            # This is if the background of the exported
+            # video should be transparent.
+            command += [
+                &#39;-vcodec&#39;, &#39;qtrle&#39;,
+            ]
+        else:
+            command += [
+                &#39;-vcodec&#39;, &#39;libx264&#39;,
+                &#39;-pix_fmt&#39;, &#39;yuv420p&#39;,
+            ]
+        command += [temp_file_path]
+        self.writing_process = subprocess.Popen(command, stdin=subprocess.PIPE)
+
+    def close_movie_pipe(self):
+        &#34;&#34;&#34;
+        Used internally by Manim to gracefully stop writing to FFMPEG&#39;s
+        input buffer, and move the temporary files into their permananant
+        locations
+        &#34;&#34;&#34;
+        self.writing_process.stdin.close()
+        self.writing_process.wait()
+        shutil.move(
+            self.temp_partial_movie_file_path,
+            self.partial_movie_file_path,
+        )
+
+    def combine_movie_files(self):
+        &#34;&#34;&#34;
+        Used internally by Manim to combine the separate
+        partial movie files that make up a Scene into a single
+        video file for that Scene.
+        &#34;&#34;&#34;
+        # Manim renders the scene as many smaller movie files
+        # which are then concatenated to a larger one.  The reason
+        # for this is that sometimes video-editing is made easier when
+        # one works with the broken up scene, which effectively has
+        # cuts at all the places you might want.  But for viewing
+        # the scene as a whole, one of course wants to see it as a
+        # single piece.
+        kwargs = {
+            &#34;remove_non_integer_files&#34;: True,
+            &#34;extension&#34;: self.movie_file_extension,
+        }
+        if self.scene.start_at_animation_number is not None:
+            kwargs[&#34;min_index&#34;] = self.scene.start_at_animation_number
+        if self.scene.end_at_animation_number is not None:
+            kwargs[&#34;max_index&#34;] = self.scene.end_at_animation_number
+        else:
+            kwargs[&#34;remove_indices_greater_than&#34;] = self.scene.num_plays - 1
+        partial_movie_files = get_sorted_integer_files(
+            self.partial_movie_directory,
+            **kwargs
+        )
+        if len(partial_movie_files) == 0:
+            print(&#34;No animations in this scene&#34;)
+            return
+
+        # Write a file partial_file_list.txt containing all
+        # partial movie files
+        file_list = os.path.join(
+            self.partial_movie_directory,
+            &#34;partial_movie_file_list.txt&#34;
+        )
+        with open(file_list, &#39;w&#39;) as fp:
+            for pf_path in partial_movie_files:
+                if os.name == &#39;nt&#39;:
+                    pf_path = pf_path.replace(&#39;\\&#39;, &#39;/&#39;)
+                fp.write(&#34;file \&#39;file:{}\&#39;\n&#34;.format(pf_path))
+
+        movie_file_path = self.get_movie_file_path()
+        commands = [
+            FFMPEG_BIN,
+            &#39;-y&#39;,  # overwrite output file if it exists
+            &#39;-f&#39;, &#39;concat&#39;,
+            &#39;-safe&#39;, &#39;0&#39;,
+            &#39;-i&#39;, file_list,
+            &#39;-loglevel&#39;, &#39;error&#39;,
+            &#39;-c&#39;, &#39;copy&#39;,
+            movie_file_path
+        ]
+        if not self.includes_sound:
+            commands.insert(-1, &#39;-an&#39;)
+
+        combine_process = subprocess.Popen(commands)
+        combine_process.wait()
+
+        if self.includes_sound:
+            sound_file_path = movie_file_path.replace(
+                self.movie_file_extension, &#34;.wav&#34;
+            )
+            # Makes sure sound file length will match video file
+            self.add_audio_segment(AudioSegment.silent(0))
+            self.audio_segment.export(
+                sound_file_path,
+                bitrate=&#39;312k&#39;,
+            )
+            temp_file_path = movie_file_path.replace(&#34;.&#34;, &#34;_temp.&#34;)
+            commands = [
+                &#34;ffmpeg&#34;,
+                &#34;-i&#34;, movie_file_path,
+                &#34;-i&#34;, sound_file_path,
+                &#39;-y&#39;,  # overwrite output file if it exists
+                &#34;-c:v&#34;, &#34;copy&#34;,
+                &#34;-c:a&#34;, &#34;aac&#34;,
+                &#34;-b:a&#34;, &#34;320k&#34;,
+                # select video stream from first file
+                &#34;-map&#34;, &#34;0:v:0&#34;,
+                # select audio stream from second file
+                &#34;-map&#34;, &#34;1:a:0&#34;,
+                &#39;-loglevel&#39;, &#39;error&#39;,
+                # &#34;-shortest&#34;,
+                temp_file_path,
+            ]
+            subprocess.call(commands)
+            shutil.move(temp_file_path, movie_file_path)
+            os.remove(sound_file_path)
+
+        self.print_file_ready_message(movie_file_path)
+
+    def print_file_ready_message(self, file_path):
+        &#34;&#34;&#34;
+        Prints the &#34;File Ready&#34; message to STDOUT.
+        &#34;&#34;&#34;
+        print(&#34;\nFile ready at {}\n&#34;.format(file_path))</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.add_audio_segment"><code class="name flex">
+<span>def <span class="ident">add_audio_segment</span></span>(<span>self, new_segment, time=None, gain_to_background=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This method adds an audio segment from an
+AudioSegment type object and suitable parameters.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>new_segment (AudioSegment)</dt>
+<dt>The audio segment to add</dt>
+<dt>time (Union[int, float])</dt>
+<dt>the timestamp at which the</dt>
+<dt>sound should be added.</dt>
+<dt><strong><code>gain_to_background</code></strong></dt>
+<dd>The gain of the segment from the background.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_audio_segment(self, new_segment,
+                      time=None,
+                      gain_to_background=None):
+    &#34;&#34;&#34;
+    This method adds an audio segment from an 
+    AudioSegment type object and suitable parameters.
+    
+    Parameters
+    ----------
+    new_segment (AudioSegment)
+        The audio segment to add
+    time (Union[int, float])
+        the timestamp at which the
+        sound should be added.
+    gain_to_background
+        The gain of the segment from the background.
+    &#34;&#34;&#34;
+    if not self.includes_sound:
+        self.includes_sound = True
+        self.create_audio_segment()
+    segment = self.audio_segment
+    curr_end = segment.duration_seconds
+    if time is None:
+        time = curr_end
+    if time &lt; 0:
+        raise Exception(&#34;Adding sound at timestamp &lt; 0&#34;)
+
+    new_end = time + new_segment.duration_seconds
+    diff = new_end - curr_end
+    if diff &gt; 0:
+        segment = segment.append(
+            AudioSegment.silent(int(np.ceil(diff * 1000))),
+            crossfade=0,
+        )
+    self.audio_segment = segment.overlay(
+        new_segment,
+        position=int(1000 * time),
+        gain_during_overlay=gain_to_background,
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.add_sound"><code class="name flex">
+<span>def <span class="ident">add_sound</span></span>(<span>self, sound_file, time=None, gain=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This method adds an audio segment from a sound file.</p>
+<h2 id="parameters">Parameters</h2>
+<p>sound_file (str)
+The path to the sound file.</p>
+<p>time (Union[float, int])
+The timestamp at which the audio should be added.</p>
+<dl>
+<dt><strong><code>gain</code></strong></dt>
+<dd>The gain of the given audio segment.</dd>
+<dt><strong><code>**kwargs</code></strong></dt>
+<dd>This method uses add_audio_segment, so any keyword arguments
+used there can be referenced here.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_sound(self, sound_file, time=None, gain=None, **kwargs):
+    &#34;&#34;&#34;
+    This method adds an audio segment from a sound file.
+
+    Parameters
+    ----------
+    sound_file (str)
+        The path to the sound file.
+    
+    time (Union[float, int])
+        The timestamp at which the audio should be added.
+
+    gain
+        The gain of the given audio segment.
+
+    **kwargs
+        This method uses add_audio_segment, so any keyword arguments
+        used there can be referenced here.
+
+    &#34;&#34;&#34;
+    file_path = get_full_sound_file_path(sound_file)
+    new_segment = AudioSegment.from_file(file_path)
+    if gain:
+        new_segment = new_segment.apply_gain(gain)
+    self.add_audio_segment(new_segment, time, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.begin_animation"><code class="name flex">
+<span>def <span class="ident">begin_animation</span></span>(<span>self, allow_write=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Used internally by manim to stream the animation to FFMPEG for
+displaying or writing to a file.</p>
+<h2 id="parameters">Parameters</h2>
+<p>allow_write (bool=False)
+Whether or not to write to a video file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def begin_animation(self, allow_write=False):
+    &#34;&#34;&#34;
+    Used internally by manim to stream the animation to FFMPEG for
+    displaying or writing to a file.
+
+    Parameters
+    ----------
+    allow_write (bool=False)
+        Whether or not to write to a video file.
+    &#34;&#34;&#34;
+    if self.write_to_movie and allow_write:
+        self.open_movie_pipe()</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.close_movie_pipe"><code class="name flex">
+<span>def <span class="ident">close_movie_pipe</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Used internally by Manim to gracefully stop writing to FFMPEG's
+input buffer, and move the temporary files into their permananant
+locations</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def close_movie_pipe(self):
+    &#34;&#34;&#34;
+    Used internally by Manim to gracefully stop writing to FFMPEG&#39;s
+    input buffer, and move the temporary files into their permananant
+    locations
+    &#34;&#34;&#34;
+    self.writing_process.stdin.close()
+    self.writing_process.wait()
+    shutil.move(
+        self.temp_partial_movie_file_path,
+        self.partial_movie_file_path,
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.combine_movie_files"><code class="name flex">
+<span>def <span class="ident">combine_movie_files</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Used internally by Manim to combine the separate
+partial movie files that make up a Scene into a single
+video file for that Scene.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def combine_movie_files(self):
+    &#34;&#34;&#34;
+    Used internally by Manim to combine the separate
+    partial movie files that make up a Scene into a single
+    video file for that Scene.
+    &#34;&#34;&#34;
+    # Manim renders the scene as many smaller movie files
+    # which are then concatenated to a larger one.  The reason
+    # for this is that sometimes video-editing is made easier when
+    # one works with the broken up scene, which effectively has
+    # cuts at all the places you might want.  But for viewing
+    # the scene as a whole, one of course wants to see it as a
+    # single piece.
+    kwargs = {
+        &#34;remove_non_integer_files&#34;: True,
+        &#34;extension&#34;: self.movie_file_extension,
+    }
+    if self.scene.start_at_animation_number is not None:
+        kwargs[&#34;min_index&#34;] = self.scene.start_at_animation_number
+    if self.scene.end_at_animation_number is not None:
+        kwargs[&#34;max_index&#34;] = self.scene.end_at_animation_number
+    else:
+        kwargs[&#34;remove_indices_greater_than&#34;] = self.scene.num_plays - 1
+    partial_movie_files = get_sorted_integer_files(
+        self.partial_movie_directory,
+        **kwargs
+    )
+    if len(partial_movie_files) == 0:
+        print(&#34;No animations in this scene&#34;)
+        return
+
+    # Write a file partial_file_list.txt containing all
+    # partial movie files
+    file_list = os.path.join(
+        self.partial_movie_directory,
+        &#34;partial_movie_file_list.txt&#34;
+    )
+    with open(file_list, &#39;w&#39;) as fp:
+        for pf_path in partial_movie_files:
+            if os.name == &#39;nt&#39;:
+                pf_path = pf_path.replace(&#39;\\&#39;, &#39;/&#39;)
+            fp.write(&#34;file \&#39;file:{}\&#39;\n&#34;.format(pf_path))
+
+    movie_file_path = self.get_movie_file_path()
+    commands = [
+        FFMPEG_BIN,
+        &#39;-y&#39;,  # overwrite output file if it exists
+        &#39;-f&#39;, &#39;concat&#39;,
+        &#39;-safe&#39;, &#39;0&#39;,
+        &#39;-i&#39;, file_list,
+        &#39;-loglevel&#39;, &#39;error&#39;,
+        &#39;-c&#39;, &#39;copy&#39;,
+        movie_file_path
+    ]
+    if not self.includes_sound:
+        commands.insert(-1, &#39;-an&#39;)
+
+    combine_process = subprocess.Popen(commands)
+    combine_process.wait()
+
+    if self.includes_sound:
+        sound_file_path = movie_file_path.replace(
+            self.movie_file_extension, &#34;.wav&#34;
+        )
+        # Makes sure sound file length will match video file
+        self.add_audio_segment(AudioSegment.silent(0))
+        self.audio_segment.export(
+            sound_file_path,
+            bitrate=&#39;312k&#39;,
+        )
+        temp_file_path = movie_file_path.replace(&#34;.&#34;, &#34;_temp.&#34;)
+        commands = [
+            &#34;ffmpeg&#34;,
+            &#34;-i&#34;, movie_file_path,
+            &#34;-i&#34;, sound_file_path,
+            &#39;-y&#39;,  # overwrite output file if it exists
+            &#34;-c:v&#34;, &#34;copy&#34;,
+            &#34;-c:a&#34;, &#34;aac&#34;,
+            &#34;-b:a&#34;, &#34;320k&#34;,
+            # select video stream from first file
+            &#34;-map&#34;, &#34;0:v:0&#34;,
+            # select audio stream from second file
+            &#34;-map&#34;, &#34;1:a:0&#34;,
+            &#39;-loglevel&#39;, &#39;error&#39;,
+            # &#34;-shortest&#34;,
+            temp_file_path,
+        ]
+        subprocess.call(commands)
+        shutil.move(temp_file_path, movie_file_path)
+        os.remove(sound_file_path)
+
+    self.print_file_ready_message(movie_file_path)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.create_audio_segment"><code class="name flex">
+<span>def <span class="ident">create_audio_segment</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates an empty, silent, Audio Segment.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_audio_segment(self):
+    &#34;&#34;&#34;
+    Creates an empty, silent, Audio Segment.
+    &#34;&#34;&#34;
+    self.audio_segment = AudioSegment.silent()</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.end_animation"><code class="name flex">
+<span>def <span class="ident">end_animation</span></span>(<span>self, allow_write=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Internally used by Manim to stop streaming to
+FFMPEG gracefully.</p>
+<h2 id="parameters">Parameters</h2>
+<p>allow_write (bool=False)
+Whether or not to write to a video file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def end_animation(self, allow_write=False):
+    &#34;&#34;&#34;
+    Internally used by Manim to stop streaming to
+    FFMPEG gracefully.
+
+    Parameters
+    ----------
+    allow_write (bool=False)
+        Whether or not to write to a video file.
+    &#34;&#34;&#34;
+    if self.write_to_movie and allow_write:
+        self.close_movie_pipe()</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.finish"><code class="name flex">
+<span>def <span class="ident">finish</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Finishes writing to the FFMPEG buffer.
+Combines the partial movie files into the
+whole scene.
+If save_last_frame is True, saves the last
+frame in the default image directory.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def finish(self):
+    &#34;&#34;&#34;
+    Finishes writing to the FFMPEG buffer.
+    Combines the partial movie files into the
+    whole scene.
+    If save_last_frame is True, saves the last
+    frame in the default image directory.
+    &#34;&#34;&#34;
+    if self.write_to_movie:
+        if hasattr(self, &#34;writing_process&#34;):
+            self.writing_process.terminate()
+        self.combine_movie_files()
+    if self.save_last_frame:
+        self.scene.update_frame(ignore_skipping=True)
+        self.save_final_image(self.scene.get_image())</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.get_default_module_directory"><code class="name flex">
+<span>def <span class="ident">get_default_module_directory</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This method gets the name of the directory containing
+the file that has the Scene that is being rendered.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The name of the directory.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_default_module_directory(self):
+    &#34;&#34;&#34;
+    This method gets the name of the directory containing
+    the file that has the Scene that is being rendered.
+
+    Returns
+    -------
+    str
+        The name of the directory.
+    &#34;&#34;&#34;
+    filename = os.path.basename(self.input_file_path)
+    root, _ = os.path.splitext(filename)
+    return root</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.get_default_scene_name"><code class="name flex">
+<span>def <span class="ident">get_default_scene_name</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This method returns the default scene name
+which is the value of "file_name", if it exists and
+the actual name of the class that inherited from
+Scene in your animation script, if "file_name" is None.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The default scene name.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_default_scene_name(self):
+    &#34;&#34;&#34;
+    This method returns the default scene name
+    which is the value of &#34;file_name&#34;, if it exists and
+    the actual name of the class that inherited from
+    Scene in your animation script, if &#34;file_name&#34; is None.
+
+    Returns
+    -------
+    str
+        The default scene name.
+    &#34;&#34;&#34;
+    if self.file_name is None:
+        return self.scene.__class__.__name__
+    else:
+        return self.file_name</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.get_image_file_path"><code class="name flex">
+<span>def <span class="ident">get_image_file_path</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This returns the directory path to which any images will be
+written to.
+It is usually named "images", but can be changed by changing
+"image_file_path".</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The path of the directory.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_image_file_path(self):
+    &#34;&#34;&#34;
+    This returns the directory path to which any images will be
+    written to.
+    It is usually named &#34;images&#34;, but can be changed by changing
+    &#34;image_file_path&#34;.
+    
+    Returns
+    -------
+    str
+        The path of the directory.
+    &#34;&#34;&#34;
+    return self.image_file_path</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.get_movie_file_path"><code class="name flex">
+<span>def <span class="ident">get_movie_file_path</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the final path of the written video file.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The path of the movie file.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_movie_file_path(self):
+    &#34;&#34;&#34;
+    Returns the final path of the written video file.
+
+    Returns
+    -------
+    str
+        The path of the movie file.
+    &#34;&#34;&#34;
+    return self.movie_file_path</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.get_next_partial_movie_path"><code class="name flex">
+<span>def <span class="ident">get_next_partial_movie_path</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Manim renders each play-like call in a short partial
+video file. All such files are then concatenated with
+the help of FFMPEG.</p>
+<p>This method returns the path of the next partial movie.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The path of the next partial movie.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_next_partial_movie_path(self):
+    &#34;&#34;&#34;
+    Manim renders each play-like call in a short partial
+    video file. All such files are then concatenated with 
+    the help of FFMPEG.
+
+    This method returns the path of the next partial movie.
+
+    Returns
+    -------
+    str
+        The path of the next partial movie.
+    &#34;&#34;&#34;
+    result = os.path.join(
+        self.partial_movie_directory,
+        &#34;{:05}{}&#34;.format(
+            self.scene.num_plays,
+            self.movie_file_extension,
+        )
+    )
+    return result</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.get_resolution_directory"><code class="name flex">
+<span>def <span class="ident">get_resolution_directory</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This method gets the name of the directory that immediately contains the
+video file. This name is <height_in_pixels_of_video>p<frame_rate>
+E.G:
+If you are rendering an 854x480 px animation at 15fps, the name of the directory
+that immediately contains the video file will be
+480p15.
+The file structure should look something like:</p>
+<pre><code>MEDIA_DIR
+    |--Tex
+    |--texts
+    |--videos
+    |--&lt;name_of_file_containing_scene&gt;
+        |--&lt;height_in_pixels_of_video&gt;p&lt;frame_rate&gt;
+            |--&lt;scene_name&gt;.mp4
+</code></pre>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The name of the directory.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_resolution_directory(self):
+    &#34;&#34;&#34;
+    This method gets the name of the directory that immediately contains the
+    video file. This name is &lt;height_in_pixels_of_video&gt;p&lt;frame_rate&gt;
+    E.G:
+        If you are rendering an 854x480 px animation at 15fps, the name of the directory
+        that immediately contains the video file will be
+        480p15.
+        The file structure should look something like:
+        
+        MEDIA_DIR
+            |--Tex
+            |--texts
+            |--videos
+            |--&lt;name_of_file_containing_scene&gt;
+                |--&lt;height_in_pixels_of_video&gt;p&lt;frame_rate&gt;
+                    |--&lt;scene_name&gt;.mp4
+    Returns
+    -------
+    str
+        The name of the directory.
+    &#34;&#34;&#34;
+    pixel_height = self.scene.camera.pixel_height
+    frame_rate = self.scene.camera.frame_rate
+    return &#34;{}p{}&#34;.format(
+        pixel_height, frame_rate
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.idle_stream"><code class="name flex">
+<span>def <span class="ident">idle_stream</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Doesn't write anything to the FFMPEG frame buffer.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def idle_stream(self):
+    &#34;&#34;&#34;
+    Doesn&#39;t write anything to the FFMPEG frame buffer.
+    &#34;&#34;&#34;
+    while self.stream_lock:
+        a = datetime.datetime.now()
+        self.update_frame()
+        n_frames = 1
+        frame = self.get_frame()
+        self.add_frames(*[frame] * n_frames)
+        b = datetime.datetime.now()
+        time_diff = (b - a).total_seconds()
+        frame_duration = 1 / self.scene.camera.frame_rate
+        if time_diff &lt; frame_duration:
+            sleep(frame_duration - time_diff)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.init_audio"><code class="name flex">
+<span>def <span class="ident">init_audio</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Preps the writer for adding audio to the movie.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_audio(self):
+    &#34;&#34;&#34;
+    Preps the writer for adding audio to the movie.
+    &#34;&#34;&#34;
+    self.includes_sound = False</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.init_output_directories"><code class="name flex">
+<span>def <span class="ident">init_output_directories</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This method initialises the directories to which video
+files will be written to and read from (within MEDIA_DIR).
+If they don't already exist, they will be created.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_output_directories(self):
+    &#34;&#34;&#34;
+    This method initialises the directories to which video
+    files will be written to and read from (within MEDIA_DIR).
+    If they don&#39;t already exist, they will be created.
+    &#34;&#34;&#34;
+    module_directory = self.output_directory or self.get_default_module_directory()
+    scene_name = self.file_name or self.get_default_scene_name()
+    if self.save_last_frame:
+        if consts.VIDEO_DIR != &#34;&#34;:
+            image_dir = guarantee_existence(os.path.join(
+                consts.VIDEO_DIR,
+                module_directory,
+                &#34;images&#34;,
+            ))
+        else:
+            image_dir = guarantee_existence(os.path.join(
+                consts.VIDEO_OUTPUT_DIR,
+                &#34;images&#34;,
+            ))
+        self.image_file_path = os.path.join(
+            image_dir,
+            add_extension_if_not_present(scene_name, &#34;.png&#34;)
+        )
+    if self.write_to_movie:
+        if consts.VIDEO_DIR != &#34;&#34;:
+            movie_dir = guarantee_existence(os.path.join(
+                consts.VIDEO_DIR,
+                module_directory,
+                self.get_resolution_directory(),
+            ))
+        else:
+            movie_dir = guarantee_existence(consts.VIDEO_OUTPUT_DIR)
+        self.movie_file_path = os.path.join(
+            movie_dir,
+            add_extension_if_not_present(
+                scene_name, self.movie_file_extension
+            )
+        )
+        self.gif_file_path = os.path.join(
+            movie_dir,
+            add_extension_if_not_present(
+                scene_name, self.gif_file_extension
+            )
+        )
+        self.partial_movie_directory = guarantee_existence(os.path.join(
+            movie_dir,
+            &#34;partial_movie_files&#34;,
+            scene_name,
+        ))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.open_movie_pipe"><code class="name flex">
+<span>def <span class="ident">open_movie_pipe</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Used internally by Manim to initalise
+FFMPEG and begin writing to FFMPEG's input
+buffer.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def open_movie_pipe(self):
+    &#34;&#34;&#34;
+    Used internally by Manim to initalise
+    FFMPEG and begin writing to FFMPEG&#39;s input
+    buffer.
+    &#34;&#34;&#34;
+    file_path = self.get_next_partial_movie_path()
+    temp_file_path = os.path.splitext(file_path)[0] + &#39;_temp&#39; + self.movie_file_extension
+
+    self.partial_movie_file_path = file_path
+    self.temp_partial_movie_file_path = temp_file_path
+
+    fps = self.scene.camera.frame_rate
+    height = self.scene.camera.get_pixel_height()
+    width = self.scene.camera.get_pixel_width()
+
+    command = [
+        FFMPEG_BIN,
+        &#39;-y&#39;,  # overwrite output file if it exists
+        &#39;-f&#39;, &#39;rawvideo&#39;,
+        &#39;-s&#39;, &#39;%dx%d&#39; % (width, height),  # size of one frame
+        &#39;-pix_fmt&#39;, &#39;rgba&#39;,
+        &#39;-r&#39;, str(fps),  # frames per second
+        &#39;-i&#39;, &#39;-&#39;,  # The imput comes from a pipe
+        &#39;-an&#39;,  # Tells FFMPEG not to expect any audio
+        &#39;-loglevel&#39;, &#39;error&#39;,
+    ]
+    # TODO, the test for a transparent background should not be based on
+    # the file extension.
+    if self.movie_file_extension == &#34;.mov&#34;:
+        # This is if the background of the exported
+        # video should be transparent.
+        command += [
+            &#39;-vcodec&#39;, &#39;qtrle&#39;,
+        ]
+    else:
+        command += [
+            &#39;-vcodec&#39;, &#39;libx264&#39;,
+            &#39;-pix_fmt&#39;, &#39;yuv420p&#39;,
+        ]
+    command += [temp_file_path]
+    self.writing_process = subprocess.Popen(command, stdin=subprocess.PIPE)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.print_file_ready_message"><code class="name flex">
+<span>def <span class="ident">print_file_ready_message</span></span>(<span>self, file_path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prints the "File Ready" message to STDOUT.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_file_ready_message(self, file_path):
+    &#34;&#34;&#34;
+    Prints the &#34;File Ready&#34; message to STDOUT.
+    &#34;&#34;&#34;
+    print(&#34;\nFile ready at {}\n&#34;.format(file_path))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.save_final_image"><code class="name flex">
+<span>def <span class="ident">save_final_image</span></span>(<span>self, image)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The name is a misnomer. This method saves the image
+passed to it as an in the default image directory.</p>
+<h2 id="parameters">Parameters</h2>
+<p>image (np.ndarray)
+The pixel array of the image to save.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_final_image(self, image):
+    &#34;&#34;&#34;
+    The name is a misnomer. This method saves the image
+    passed to it as an in the default image directory.
+
+    Parameters
+    ----------
+    image (np.ndarray)
+        The pixel array of the image to save.
+    &#34;&#34;&#34;
+    file_path = self.get_image_file_path()
+    image.save(file_path)
+    self.print_file_ready_message(file_path)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.scene_file_writer.SceneFileWriter.write_frame"><code class="name flex">
+<span>def <span class="ident">write_frame</span></span>(<span>self, frame)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Used internally by Manim to write a frame to
+the FFMPEG input buffer.</p>
+<h2 id="parameters">Parameters</h2>
+<p>frame (np.ndarray)
+Pixel array of the frame.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_frame(self, frame):
+    &#34;&#34;&#34;
+    Used internally by Manim to write a frame to
+    the FFMPEG input buffer.
+
+    Parameters
+    ----------
+    frame (np.ndarray)
+        Pixel array of the frame.
+    &#34;&#34;&#34;
+    if self.write_to_movie:
+        self.writing_process.stdin.write(frame.tostring())</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="manimlib.scene" href="index.html">manimlib.scene</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter" href="#manimlib.scene.scene_file_writer.SceneFileWriter">SceneFileWriter</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.CONFIG" href="#manimlib.scene.scene_file_writer.SceneFileWriter.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.add_audio_segment" href="#manimlib.scene.scene_file_writer.SceneFileWriter.add_audio_segment">add_audio_segment</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.add_sound" href="#manimlib.scene.scene_file_writer.SceneFileWriter.add_sound">add_sound</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.begin_animation" href="#manimlib.scene.scene_file_writer.SceneFileWriter.begin_animation">begin_animation</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.close_movie_pipe" href="#manimlib.scene.scene_file_writer.SceneFileWriter.close_movie_pipe">close_movie_pipe</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.combine_movie_files" href="#manimlib.scene.scene_file_writer.SceneFileWriter.combine_movie_files">combine_movie_files</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.create_audio_segment" href="#manimlib.scene.scene_file_writer.SceneFileWriter.create_audio_segment">create_audio_segment</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.end_animation" href="#manimlib.scene.scene_file_writer.SceneFileWriter.end_animation">end_animation</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.finish" href="#manimlib.scene.scene_file_writer.SceneFileWriter.finish">finish</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.get_default_module_directory" href="#manimlib.scene.scene_file_writer.SceneFileWriter.get_default_module_directory">get_default_module_directory</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.get_default_scene_name" href="#manimlib.scene.scene_file_writer.SceneFileWriter.get_default_scene_name">get_default_scene_name</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.get_image_file_path" href="#manimlib.scene.scene_file_writer.SceneFileWriter.get_image_file_path">get_image_file_path</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.get_movie_file_path" href="#manimlib.scene.scene_file_writer.SceneFileWriter.get_movie_file_path">get_movie_file_path</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.get_next_partial_movie_path" href="#manimlib.scene.scene_file_writer.SceneFileWriter.get_next_partial_movie_path">get_next_partial_movie_path</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.get_resolution_directory" href="#manimlib.scene.scene_file_writer.SceneFileWriter.get_resolution_directory">get_resolution_directory</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.idle_stream" href="#manimlib.scene.scene_file_writer.SceneFileWriter.idle_stream">idle_stream</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.init_audio" href="#manimlib.scene.scene_file_writer.SceneFileWriter.init_audio">init_audio</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.init_output_directories" href="#manimlib.scene.scene_file_writer.SceneFileWriter.init_output_directories">init_output_directories</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.open_movie_pipe" href="#manimlib.scene.scene_file_writer.SceneFileWriter.open_movie_pipe">open_movie_pipe</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.print_file_ready_message" href="#manimlib.scene.scene_file_writer.SceneFileWriter.print_file_ready_message">print_file_ready_message</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.save_final_image" href="#manimlib.scene.scene_file_writer.SceneFileWriter.save_final_image">save_final_image</a></code></li>
+<li><code><a title="manimlib.scene.scene_file_writer.SceneFileWriter.write_frame" href="#manimlib.scene.scene_file_writer.SceneFileWriter.write_frame">write_frame</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

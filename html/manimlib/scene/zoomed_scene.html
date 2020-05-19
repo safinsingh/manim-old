@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>manimlib.scene.zoomed_scene API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>manimlib.scene.zoomed_scene</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from manimlib.animation.transform import ApplyMethod
+from manimlib.camera.moving_camera import MovingCamera
+from manimlib.camera.multi_camera import MultiCamera
+from manimlib.constants import *
+from manimlib.mobject.types.image_mobject import ImageMobjectFromCamera
+from manimlib.scene.moving_camera_scene import MovingCameraScene
+from manimlib.utils.simple_functions import fdiv
+
+# Note, any scenes from old videos using ZoomedScene will almost certainly
+# break, as it was restructured.
+
+
+class ZoomedScene(MovingCameraScene):
+    &#34;&#34;&#34;
+    This is a Scene with special configurations made for when
+    a particular part of the scene must be zoomed in on and displayed
+    separately.
+    &#34;&#34;&#34;
+    CONFIG = {
+        &#34;camera_class&#34;: MultiCamera,
+        &#34;zoomed_display_height&#34;: 3,
+        &#34;zoomed_display_width&#34;: 3,
+        &#34;zoomed_display_center&#34;: None,
+        &#34;zoomed_display_corner&#34;: UP + RIGHT,
+        &#34;zoomed_display_corner_buff&#34;: DEFAULT_MOBJECT_TO_EDGE_BUFFER,
+        &#34;zoomed_camera_config&#34;: {
+            &#34;default_frame_stroke_width&#34;: 2,
+            &#34;background_opacity&#34;: 1,
+        },
+        &#34;zoomed_camera_image_mobject_config&#34;: {},
+        &#34;zoomed_camera_frame_starting_position&#34;: ORIGIN,
+        &#34;zoom_factor&#34;: 0.15,
+        &#34;image_frame_stroke_width&#34;: 3,
+        &#34;zoom_activated&#34;: False,
+    }
+
+    def setup(self):
+        &#34;&#34;&#34;
+        This method is used internally by Manim to
+        setup the scene for proper use.
+        &#34;&#34;&#34;
+        MovingCameraScene.setup(self)
+        # Initialize camera and display
+        zoomed_camera = MovingCamera(**self.zoomed_camera_config)
+        zoomed_display = ImageMobjectFromCamera(
+            zoomed_camera, **self.zoomed_camera_image_mobject_config
+        )
+        zoomed_display.add_display_frame()
+        for mob in zoomed_camera.frame, zoomed_display:
+            mob.stretch_to_fit_height(self.zoomed_display_height)
+            mob.stretch_to_fit_width(self.zoomed_display_width)
+        zoomed_camera.frame.scale(self.zoom_factor)
+
+        # Position camera and display
+        zoomed_camera.frame.move_to(self.zoomed_camera_frame_starting_position)
+        if self.zoomed_display_center is not None:
+            zoomed_display.move_to(self.zoomed_display_center)
+        else:
+            zoomed_display.to_corner(
+                self.zoomed_display_corner,
+                buff=self.zoomed_display_corner_buff
+            )
+
+        self.zoomed_camera = zoomed_camera
+        self.zoomed_display = zoomed_display
+
+    def activate_zooming(self, animate=False):
+        &#34;&#34;&#34;
+        This method is used to activate the zooming for
+        the zoomed_camera.
+        
+        Parameters
+        ----------
+        animate (bool=False)
+            Whether or not to animate the activation
+            of the zoomed camera.
+        &#34;&#34;&#34;
+        self.zoom_activated = True
+        self.camera.add_image_mobject_from_camera(self.zoomed_display)
+        if animate:
+            self.play(self.get_zoom_in_animation())
+            self.play(self.get_zoomed_display_pop_out_animation())
+        self.add_foreground_mobjects(
+            self.zoomed_camera.frame,
+            self.zoomed_display,
+        )
+
+    def get_zoom_in_animation(self, run_time=2, **kwargs):
+        &#34;&#34;&#34;
+        Returns the animation of camera zooming in.
+        
+        Parameters
+        ----------
+        run_time (Union[int,float=2])
+            The run_time of the animation of the camera zooming in.
+        **kwargs
+            Any valid keyword arguments of ApplyMethod()
+        
+        Returns
+        -------
+        ApplyMethod
+            The animation of the camera zooming in.
+        &#34;&#34;&#34;
+        frame = self.zoomed_camera.frame
+        full_frame_height = self.camera.get_frame_height()
+        full_frame_width = self.camera.get_frame_width()
+        frame.save_state()
+        frame.stretch_to_fit_width(full_frame_width)
+        frame.stretch_to_fit_height(full_frame_height)
+        frame.center()
+        frame.set_stroke(width=0)
+        return ApplyMethod(frame.restore, run_time=run_time, **kwargs)
+
+    def get_zoomed_display_pop_out_animation(self, **kwargs):
+        &#34;&#34;&#34;
+        This is the animation of the popping out of the
+        mini-display that shows the content of the zoomed
+        camera. 
+
+        Returns
+        -------
+        ApplyMethod
+            The Animation of the Zoomed Display popping out.
+        &#34;&#34;&#34;
+        display = self.zoomed_display
+        display.save_state(use_deepcopy=True)
+        display.replace(self.zoomed_camera.frame, stretch=True)
+        return ApplyMethod(display.restore)
+
+    def get_zoom_factor(self):
+        &#34;&#34;&#34;
+        Returns the Zoom factor of the Zoomed camera.
+        Defined as the ratio between the height of the
+        zoomed camera and the height of the zoomed mini
+        display.
+        Returns
+        -------
+        float
+            The zoom factor.
+        &#34;&#34;&#34;
+        return fdiv(
+            self.zoomed_camera.frame.get_height(),
+            self.zoomed_display.get_height()
+        )</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="manimlib.scene.zoomed_scene.ZoomedScene"><code class="flex name class">
+<span>class <span class="ident">ZoomedScene</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is a Scene with special configurations made for when
+a particular part of the scene must be zoomed in on and displayed
+separately.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ZoomedScene(MovingCameraScene):
+    &#34;&#34;&#34;
+    This is a Scene with special configurations made for when
+    a particular part of the scene must be zoomed in on and displayed
+    separately.
+    &#34;&#34;&#34;
+    CONFIG = {
+        &#34;camera_class&#34;: MultiCamera,
+        &#34;zoomed_display_height&#34;: 3,
+        &#34;zoomed_display_width&#34;: 3,
+        &#34;zoomed_display_center&#34;: None,
+        &#34;zoomed_display_corner&#34;: UP + RIGHT,
+        &#34;zoomed_display_corner_buff&#34;: DEFAULT_MOBJECT_TO_EDGE_BUFFER,
+        &#34;zoomed_camera_config&#34;: {
+            &#34;default_frame_stroke_width&#34;: 2,
+            &#34;background_opacity&#34;: 1,
+        },
+        &#34;zoomed_camera_image_mobject_config&#34;: {},
+        &#34;zoomed_camera_frame_starting_position&#34;: ORIGIN,
+        &#34;zoom_factor&#34;: 0.15,
+        &#34;image_frame_stroke_width&#34;: 3,
+        &#34;zoom_activated&#34;: False,
+    }
+
+    def setup(self):
+        &#34;&#34;&#34;
+        This method is used internally by Manim to
+        setup the scene for proper use.
+        &#34;&#34;&#34;
+        MovingCameraScene.setup(self)
+        # Initialize camera and display
+        zoomed_camera = MovingCamera(**self.zoomed_camera_config)
+        zoomed_display = ImageMobjectFromCamera(
+            zoomed_camera, **self.zoomed_camera_image_mobject_config
+        )
+        zoomed_display.add_display_frame()
+        for mob in zoomed_camera.frame, zoomed_display:
+            mob.stretch_to_fit_height(self.zoomed_display_height)
+            mob.stretch_to_fit_width(self.zoomed_display_width)
+        zoomed_camera.frame.scale(self.zoom_factor)
+
+        # Position camera and display
+        zoomed_camera.frame.move_to(self.zoomed_camera_frame_starting_position)
+        if self.zoomed_display_center is not None:
+            zoomed_display.move_to(self.zoomed_display_center)
+        else:
+            zoomed_display.to_corner(
+                self.zoomed_display_corner,
+                buff=self.zoomed_display_corner_buff
+            )
+
+        self.zoomed_camera = zoomed_camera
+        self.zoomed_display = zoomed_display
+
+    def activate_zooming(self, animate=False):
+        &#34;&#34;&#34;
+        This method is used to activate the zooming for
+        the zoomed_camera.
+        
+        Parameters
+        ----------
+        animate (bool=False)
+            Whether or not to animate the activation
+            of the zoomed camera.
+        &#34;&#34;&#34;
+        self.zoom_activated = True
+        self.camera.add_image_mobject_from_camera(self.zoomed_display)
+        if animate:
+            self.play(self.get_zoom_in_animation())
+            self.play(self.get_zoomed_display_pop_out_animation())
+        self.add_foreground_mobjects(
+            self.zoomed_camera.frame,
+            self.zoomed_display,
+        )
+
+    def get_zoom_in_animation(self, run_time=2, **kwargs):
+        &#34;&#34;&#34;
+        Returns the animation of camera zooming in.
+        
+        Parameters
+        ----------
+        run_time (Union[int,float=2])
+            The run_time of the animation of the camera zooming in.
+        **kwargs
+            Any valid keyword arguments of ApplyMethod()
+        
+        Returns
+        -------
+        ApplyMethod
+            The animation of the camera zooming in.
+        &#34;&#34;&#34;
+        frame = self.zoomed_camera.frame
+        full_frame_height = self.camera.get_frame_height()
+        full_frame_width = self.camera.get_frame_width()
+        frame.save_state()
+        frame.stretch_to_fit_width(full_frame_width)
+        frame.stretch_to_fit_height(full_frame_height)
+        frame.center()
+        frame.set_stroke(width=0)
+        return ApplyMethod(frame.restore, run_time=run_time, **kwargs)
+
+    def get_zoomed_display_pop_out_animation(self, **kwargs):
+        &#34;&#34;&#34;
+        This is the animation of the popping out of the
+        mini-display that shows the content of the zoomed
+        camera. 
+
+        Returns
+        -------
+        ApplyMethod
+            The Animation of the Zoomed Display popping out.
+        &#34;&#34;&#34;
+        display = self.zoomed_display
+        display.save_state(use_deepcopy=True)
+        display.replace(self.zoomed_camera.frame, stretch=True)
+        return ApplyMethod(display.restore)
+
+    def get_zoom_factor(self):
+        &#34;&#34;&#34;
+        Returns the Zoom factor of the Zoomed camera.
+        Defined as the ratio between the height of the
+        zoomed camera and the height of the zoomed mini
+        display.
+        Returns
+        -------
+        float
+            The zoom factor.
+        &#34;&#34;&#34;
+        return fdiv(
+            self.zoomed_camera.frame.get_height(),
+            self.zoomed_display.get_height()
+        )</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.scene.moving_camera_scene.MovingCameraScene" href="moving_camera_scene.html#manimlib.scene.moving_camera_scene.MovingCameraScene">MovingCameraScene</a></li>
+<li><a title="manimlib.scene.scene.Scene" href="scene.html#manimlib.scene.scene.Scene">Scene</a></li>
+<li><a title="manimlib.container.container.Container" href="../container/container.html#manimlib.container.container.Container">Container</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.scene.zoomed_scene.ZoomedScene.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.scene.zoomed_scene.ZoomedScene.activate_zooming"><code class="name flex">
+<span>def <span class="ident">activate_zooming</span></span>(<span>self, animate=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This method is used to activate the zooming for
+the zoomed_camera.</p>
+<h2 id="parameters">Parameters</h2>
+<p>animate (bool=False)
+Whether or not to animate the activation
+of the zoomed camera.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def activate_zooming(self, animate=False):
+    &#34;&#34;&#34;
+    This method is used to activate the zooming for
+    the zoomed_camera.
+    
+    Parameters
+    ----------
+    animate (bool=False)
+        Whether or not to animate the activation
+        of the zoomed camera.
+    &#34;&#34;&#34;
+    self.zoom_activated = True
+    self.camera.add_image_mobject_from_camera(self.zoomed_display)
+    if animate:
+        self.play(self.get_zoom_in_animation())
+        self.play(self.get_zoomed_display_pop_out_animation())
+    self.add_foreground_mobjects(
+        self.zoomed_camera.frame,
+        self.zoomed_display,
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.zoomed_scene.ZoomedScene.get_zoom_factor"><code class="name flex">
+<span>def <span class="ident">get_zoom_factor</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the Zoom factor of the Zoomed camera.
+Defined as the ratio between the height of the
+zoomed camera and the height of the zoomed mini
+display.
+Returns</p>
+<hr>
+<dl>
+<dt><code>float</code></dt>
+<dd>The zoom factor.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_zoom_factor(self):
+    &#34;&#34;&#34;
+    Returns the Zoom factor of the Zoomed camera.
+    Defined as the ratio between the height of the
+    zoomed camera and the height of the zoomed mini
+    display.
+    Returns
+    -------
+    float
+        The zoom factor.
+    &#34;&#34;&#34;
+    return fdiv(
+        self.zoomed_camera.frame.get_height(),
+        self.zoomed_display.get_height()
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.zoomed_scene.ZoomedScene.get_zoom_in_animation"><code class="name flex">
+<span>def <span class="ident">get_zoom_in_animation</span></span>(<span>self, run_time=2, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the animation of camera zooming in.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>run_time (Union[int,float=2])</dt>
+<dt>The run_time of the animation of the camera zooming in.</dt>
+<dt><strong><code>**kwargs</code></strong></dt>
+<dd>Any valid keyword arguments of ApplyMethod()</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>ApplyMethod</code></dt>
+<dd>The animation of the camera zooming in.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_zoom_in_animation(self, run_time=2, **kwargs):
+    &#34;&#34;&#34;
+    Returns the animation of camera zooming in.
+    
+    Parameters
+    ----------
+    run_time (Union[int,float=2])
+        The run_time of the animation of the camera zooming in.
+    **kwargs
+        Any valid keyword arguments of ApplyMethod()
+    
+    Returns
+    -------
+    ApplyMethod
+        The animation of the camera zooming in.
+    &#34;&#34;&#34;
+    frame = self.zoomed_camera.frame
+    full_frame_height = self.camera.get_frame_height()
+    full_frame_width = self.camera.get_frame_width()
+    frame.save_state()
+    frame.stretch_to_fit_width(full_frame_width)
+    frame.stretch_to_fit_height(full_frame_height)
+    frame.center()
+    frame.set_stroke(width=0)
+    return ApplyMethod(frame.restore, run_time=run_time, **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.zoomed_scene.ZoomedScene.get_zoomed_display_pop_out_animation"><code class="name flex">
+<span>def <span class="ident">get_zoomed_display_pop_out_animation</span></span>(<span>self, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is the animation of the popping out of the
+mini-display that shows the content of the zoomed
+camera. </p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>ApplyMethod</code></dt>
+<dd>The Animation of the Zoomed Display popping out.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_zoomed_display_pop_out_animation(self, **kwargs):
+    &#34;&#34;&#34;
+    This is the animation of the popping out of the
+    mini-display that shows the content of the zoomed
+    camera. 
+
+    Returns
+    -------
+    ApplyMethod
+        The Animation of the Zoomed Display popping out.
+    &#34;&#34;&#34;
+    display = self.zoomed_display
+    display.save_state(use_deepcopy=True)
+    display.replace(self.zoomed_camera.frame, stretch=True)
+    return ApplyMethod(display.restore)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.scene.zoomed_scene.ZoomedScene.setup"><code class="name flex">
+<span>def <span class="ident">setup</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This method is used internally by Manim to
+setup the scene for proper use.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setup(self):
+    &#34;&#34;&#34;
+    This method is used internally by Manim to
+    setup the scene for proper use.
+    &#34;&#34;&#34;
+    MovingCameraScene.setup(self)
+    # Initialize camera and display
+    zoomed_camera = MovingCamera(**self.zoomed_camera_config)
+    zoomed_display = ImageMobjectFromCamera(
+        zoomed_camera, **self.zoomed_camera_image_mobject_config
+    )
+    zoomed_display.add_display_frame()
+    for mob in zoomed_camera.frame, zoomed_display:
+        mob.stretch_to_fit_height(self.zoomed_display_height)
+        mob.stretch_to_fit_width(self.zoomed_display_width)
+    zoomed_camera.frame.scale(self.zoom_factor)
+
+    # Position camera and display
+    zoomed_camera.frame.move_to(self.zoomed_camera_frame_starting_position)
+    if self.zoomed_display_center is not None:
+        zoomed_display.move_to(self.zoomed_display_center)
+    else:
+        zoomed_display.to_corner(
+            self.zoomed_display_corner,
+            buff=self.zoomed_display_corner_buff
+        )
+
+    self.zoomed_camera = zoomed_camera
+    self.zoomed_display = zoomed_display</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.scene.moving_camera_scene.MovingCameraScene" href="moving_camera_scene.html#manimlib.scene.moving_camera_scene.MovingCameraScene">MovingCameraScene</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.add" href="scene.html#manimlib.scene.scene.Scene.add">add</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.add_foreground_mobject" href="scene.html#manimlib.scene.scene.Scene.add_foreground_mobject">add_foreground_mobject</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.add_foreground_mobjects" href="scene.html#manimlib.scene.scene.Scene.add_foreground_mobjects">add_foreground_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.add_frames" href="scene.html#manimlib.scene.scene.Scene.add_frames">add_frames</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.add_mobjects_among" href="scene.html#manimlib.scene.scene.Scene.add_mobjects_among">add_mobjects_among</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.add_sound" href="scene.html#manimlib.scene.scene.Scene.add_sound">add_sound</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.begin_animations" href="scene.html#manimlib.scene.scene.Scene.begin_animations">begin_animations</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.bring_to_back" href="scene.html#manimlib.scene.scene.Scene.bring_to_back">bring_to_back</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.bring_to_front" href="scene.html#manimlib.scene.scene.Scene.bring_to_front">bring_to_front</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.capture_mobjects_in_camera" href="scene.html#manimlib.scene.scene.Scene.capture_mobjects_in_camera">capture_mobjects_in_camera</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.clean_up_animations" href="scene.html#manimlib.scene.scene.Scene.clean_up_animations">clean_up_animations</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.clear" href="scene.html#manimlib.scene.scene.Scene.clear">clear</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.compile_play_args_to_animation_list" href="scene.html#manimlib.scene.scene.Scene.compile_play_args_to_animation_list">compile_play_args_to_animation_list</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.construct" href="scene.html#manimlib.scene.scene.Scene.construct">construct</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.finish_animations" href="scene.html#manimlib.scene.scene.Scene.finish_animations">finish_animations</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.force_skipping" href="scene.html#manimlib.scene.scene.Scene.force_skipping">force_skipping</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_animation_time_progression" href="scene.html#manimlib.scene.scene.Scene.get_animation_time_progression">get_animation_time_progression</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_attrs" href="scene.html#manimlib.scene.scene.Scene.get_attrs">get_attrs</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_frame" href="scene.html#manimlib.scene.scene.Scene.get_frame">get_frame</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_image" href="scene.html#manimlib.scene.scene.Scene.get_image">get_image</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_mobject_copies" href="scene.html#manimlib.scene.scene.Scene.get_mobject_copies">get_mobject_copies</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_mobject_family_members" href="scene.html#manimlib.scene.scene.Scene.get_mobject_family_members">get_mobject_family_members</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_mobjects" href="scene.html#manimlib.scene.scene.Scene.get_mobjects">get_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_mobjects_from_last_animation" href="scene.html#manimlib.scene.scene.Scene.get_mobjects_from_last_animation">get_mobjects_from_last_animation</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_moving_mobjects" href="moving_camera_scene.html#manimlib.scene.moving_camera_scene.MovingCameraScene.get_moving_mobjects">get_moving_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_restructured_mobject_list" href="scene.html#manimlib.scene.scene.Scene.get_restructured_mobject_list">get_restructured_mobject_list</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_run_time" href="scene.html#manimlib.scene.scene.Scene.get_run_time">get_run_time</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_time" href="scene.html#manimlib.scene.scene.Scene.get_time">get_time</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_time_progression" href="scene.html#manimlib.scene.scene.Scene.get_time_progression">get_time_progression</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_top_level_mobjects" href="scene.html#manimlib.scene.scene.Scene.get_top_level_mobjects">get_top_level_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.get_wait_time_progression" href="scene.html#manimlib.scene.scene.Scene.get_wait_time_progression">get_wait_time_progression</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.handle_play_like_call" href="scene.html#manimlib.scene.scene.Scene.handle_play_like_call">handle_play_like_call</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.idle_stream" href="scene.html#manimlib.scene.scene.Scene.idle_stream">idle_stream</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.increment_time" href="scene.html#manimlib.scene.scene.Scene.increment_time">increment_time</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.print_end_message" href="scene.html#manimlib.scene.scene.Scene.print_end_message">print_end_message</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.progress_through_animations" href="scene.html#manimlib.scene.scene.Scene.progress_through_animations">progress_through_animations</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.remove" href="scene.html#manimlib.scene.scene.Scene.remove">remove</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.remove_foreground_mobject" href="scene.html#manimlib.scene.scene.Scene.remove_foreground_mobject">remove_foreground_mobject</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.remove_foreground_mobjects" href="scene.html#manimlib.scene.scene.Scene.remove_foreground_mobjects">remove_foreground_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.reset_camera" href="scene.html#manimlib.scene.scene.Scene.reset_camera">reset_camera</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.restructure_mobjects" href="scene.html#manimlib.scene.scene.Scene.restructure_mobjects">restructure_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.revert_to_original_skipping_status" href="scene.html#manimlib.scene.scene.Scene.revert_to_original_skipping_status">revert_to_original_skipping_status</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.set_camera" href="scene.html#manimlib.scene.scene.Scene.set_camera">set_camera</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.set_camera_background" href="scene.html#manimlib.scene.scene.Scene.set_camera_background">set_camera_background</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.set_camera_pixel_array" href="scene.html#manimlib.scene.scene.Scene.set_camera_pixel_array">set_camera_pixel_array</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.set_variables_as_attrs" href="scene.html#manimlib.scene.scene.Scene.set_variables_as_attrs">set_variables_as_attrs</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.should_update_mobjects" href="scene.html#manimlib.scene.scene.Scene.should_update_mobjects">should_update_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.show_frame" href="scene.html#manimlib.scene.scene.Scene.show_frame">show_frame</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.tear_down" href="scene.html#manimlib.scene.scene.Scene.tear_down">tear_down</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.update_frame" href="scene.html#manimlib.scene.scene.Scene.update_frame">update_frame</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.update_mobjects" href="scene.html#manimlib.scene.scene.Scene.update_mobjects">update_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.update_skipping_status" href="scene.html#manimlib.scene.scene.Scene.update_skipping_status">update_skipping_status</a></code></li>
+<li><code><a title="manimlib.scene.moving_camera_scene.MovingCameraScene.wait_until" href="scene.html#manimlib.scene.scene.Scene.wait_until">wait_until</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="manimlib.scene" href="index.html">manimlib.scene</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="manimlib.scene.zoomed_scene.ZoomedScene" href="#manimlib.scene.zoomed_scene.ZoomedScene">ZoomedScene</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.scene.zoomed_scene.ZoomedScene.CONFIG" href="#manimlib.scene.zoomed_scene.ZoomedScene.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.scene.zoomed_scene.ZoomedScene.activate_zooming" href="#manimlib.scene.zoomed_scene.ZoomedScene.activate_zooming">activate_zooming</a></code></li>
+<li><code><a title="manimlib.scene.zoomed_scene.ZoomedScene.get_zoom_factor" href="#manimlib.scene.zoomed_scene.ZoomedScene.get_zoom_factor">get_zoom_factor</a></code></li>
+<li><code><a title="manimlib.scene.zoomed_scene.ZoomedScene.get_zoom_in_animation" href="#manimlib.scene.zoomed_scene.ZoomedScene.get_zoom_in_animation">get_zoom_in_animation</a></code></li>
+<li><code><a title="manimlib.scene.zoomed_scene.ZoomedScene.get_zoomed_display_pop_out_animation" href="#manimlib.scene.zoomed_scene.ZoomedScene.get_zoomed_display_pop_out_animation">get_zoomed_display_pop_out_animation</a></code></li>
+<li><code><a title="manimlib.scene.zoomed_scene.ZoomedScene.setup" href="#manimlib.scene.zoomed_scene.ZoomedScene.setup">setup</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

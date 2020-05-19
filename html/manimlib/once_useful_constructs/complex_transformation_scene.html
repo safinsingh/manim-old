@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>manimlib.once_useful_constructs.complex_transformation_scene API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>manimlib.once_useful_constructs.complex_transformation_scene</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from manimlib.animation.animation import Animation
+from manimlib.animation.movement import ComplexHomotopy
+from manimlib.animation.transform import MoveToTarget
+from manimlib.constants import *
+from manimlib.mobject.coordinate_systems import ComplexPlane
+from manimlib.mobject.types.vectorized_mobject import VGroup
+from manimlib.scene.scene import Scene
+
+
+# TODO, refactor this full scene
+class ComplexTransformationScene(Scene):
+    CONFIG = {
+        &#34;plane_config&#34;: {},
+        &#34;background_fade_factor&#34;: 0.5,
+        &#34;use_multicolored_plane&#34;: False,
+        &#34;vert_start_color&#34;: BLUE,  # TODO
+        &#34;vert_end_color&#34;: BLUE,
+        &#34;horiz_start_color&#34;: BLUE,
+        &#34;horiz_end_color&#34;: BLUE,
+        &#34;num_anchors_to_add_per_line&#34;: 50,
+        &#34;post_transformation_stroke_width&#34;: None,
+        &#34;default_apply_complex_function_kwargs&#34;: {
+            &#34;run_time&#34;: 5,
+        },
+        &#34;background_label_scale_val&#34;: 0.5,
+        &#34;include_coordinate_labels&#34;: True,
+    }
+
+    def setup(self):
+        self.foreground_mobjects = []
+        self.transformable_mobjects = []
+        self.add_background_plane()
+        if self.include_coordinate_labels:
+            self.add_coordinate_labels()
+
+    def add_foreground_mobject(self, mobject):
+        self.add_foreground_mobjects(mobject)
+
+    def add_transformable_mobjects(self, *mobjects):
+        self.transformable_mobjects += list(mobjects)
+        self.add(*mobjects)
+
+    def add_foreground_mobjects(self, *mobjects):
+        self.foreground_mobjects += list(mobjects)
+        Scene.add(self, *mobjects)
+
+    def add(self, *mobjects):
+        Scene.add(self, *list(mobjects) + self.foreground_mobjects)
+
+    def play(self, *animations, **kwargs):
+        Scene.play(
+            self,
+            *list(animations) + list(map(Animation, self.foreground_mobjects)),
+            **kwargs
+        )
+
+    def add_background_plane(self):
+        background = ComplexPlane(**self.plane_config)
+        background.fade(self.background_fade_factor)
+        self.add(background)
+        self.background = background
+
+    def add_coordinate_labels(self):
+        self.background.add_coordinates()
+        self.add(self.background)
+
+    def add_transformable_plane(self, **kwargs):
+        self.plane = self.get_transformable_plane()
+        self.add(self.plane)
+
+    def get_transformable_plane(self, x_range=None, y_range=None):
+        &#34;&#34;&#34;
+        x_range and y_range would be tuples (min, max)
+        &#34;&#34;&#34;
+        plane_config = dict(self.plane_config)
+        shift_val = ORIGIN
+        if x_range is not None:
+            x_min, x_max = x_range
+            plane_config[&#34;x_radius&#34;] = x_max - x_min
+            shift_val += (x_max + x_min) * RIGHT / 2.
+        if y_range is not None:
+            y_min, y_max = y_range
+            plane_config[&#34;y_radius&#34;] = y_max - y_min
+            shift_val += (y_max + y_min) * UP / 2.
+        plane = ComplexPlane(**plane_config)
+        plane.shift(shift_val)
+        if self.use_multicolored_plane:
+            self.paint_plane(plane)
+        return plane
+
+    def prepare_for_transformation(self, mob):
+        if hasattr(mob, &#34;prepare_for_nonlinear_transform&#34;):
+            mob.prepare_for_nonlinear_transform(
+                self.num_anchors_to_add_per_line
+            )
+        # TODO...
+
+    def paint_plane(self, plane):
+        for lines in planes, plane.secondary_lines:
+            lines.set_color_by_gradient(
+                self.vert_start_color,
+                self.vert_end_color,
+                self.horiz_start_color,
+                self.horiz_end_color,
+            )
+        # plane.axes.set_color_by_gradient(
+        #     self.horiz_start_color,
+        #     self.vert_start_color
+        # )
+
+    def z_to_point(self, z):
+        return self.background.number_to_point(z)
+
+    def get_transformer(self, **kwargs):
+        transform_kwargs = dict(self.default_apply_complex_function_kwargs)
+        transform_kwargs.update(kwargs)
+        transformer = VGroup()
+        if hasattr(self, &#34;plane&#34;):
+            self.prepare_for_transformation(self.plane)
+            transformer.add(self.plane)
+        transformer.add(*self.transformable_mobjects)
+        return transformer, transform_kwargs
+
+    def apply_complex_function(self, func, added_anims=[], **kwargs):
+        transformer, transform_kwargs = self.get_transformer(**kwargs)
+        transformer.generate_target()
+        # Rescale, apply function, scale back
+        transformer.target.shift(-self.background.get_center_point())
+        transformer.target.scale(1. / self.background.unit_size)
+        transformer.target.apply_complex_function(func)
+        transformer.target.scale(self.background.unit_size)
+        transformer.target.shift(self.background.get_center_point())
+        #
+
+        for mob in transformer.target[0].family_members_with_points():
+            mob.make_smooth()
+        if self.post_transformation_stroke_width is not None:
+            transformer.target.set_stroke(
+                width=self.post_transformation_stroke_width)
+        self.play(
+            MoveToTarget(transformer, **transform_kwargs),
+            *added_anims
+        )
+
+    def apply_complex_homotopy(self, complex_homotopy, added_anims=[], **kwargs):
+        transformer, transform_kwargs = self.get_transformer(**kwargs)
+
+        # def homotopy(x, y, z, t):
+        #     output = complex_homotopy(complex(x, y), t)
+        #     rescaled_output = self.z_to_point(output)
+        #     return (rescaled_output.real, rescaled_output.imag, z)
+
+        self.play(
+            ComplexHomotopy(complex_homotopy, transformer, **transform_kwargs),
+            *added_anims
+        )</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene"><code class="flex name class">
+<span>class <span class="ident">ComplexTransformationScene</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A Scene can be thought of as the Canvas of your animation.
+All of your own named Scenes will be subclasses of this Scene, or
+other named scenes.</p>
+<p>Use a construct() function to tell Manim what should go on in the Scene.</p>
+<p>E.G:</p>
+<pre><code>class MyScene(Scene):
+    def construct(self):
+        self.play(
+            Write(Text("Hello World!"))
+        )
+</code></pre>
+<p>Some important variables to note are:
+camera: The camera object to be used for the scene.
+file_writer : The object that writes the animations in the scene to a video file.
+mobjects : The list of mobjects present in the scene.
+foreground_mobjects : List of mobjects explicitly in the foreground.
+num_plays : Number of play() functions in the scene.
+time: time elapsed since initialisation of scene.
+random_seed: The seed with which all random operations are done.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ComplexTransformationScene(Scene):
+    CONFIG = {
+        &#34;plane_config&#34;: {},
+        &#34;background_fade_factor&#34;: 0.5,
+        &#34;use_multicolored_plane&#34;: False,
+        &#34;vert_start_color&#34;: BLUE,  # TODO
+        &#34;vert_end_color&#34;: BLUE,
+        &#34;horiz_start_color&#34;: BLUE,
+        &#34;horiz_end_color&#34;: BLUE,
+        &#34;num_anchors_to_add_per_line&#34;: 50,
+        &#34;post_transformation_stroke_width&#34;: None,
+        &#34;default_apply_complex_function_kwargs&#34;: {
+            &#34;run_time&#34;: 5,
+        },
+        &#34;background_label_scale_val&#34;: 0.5,
+        &#34;include_coordinate_labels&#34;: True,
+    }
+
+    def setup(self):
+        self.foreground_mobjects = []
+        self.transformable_mobjects = []
+        self.add_background_plane()
+        if self.include_coordinate_labels:
+            self.add_coordinate_labels()
+
+    def add_foreground_mobject(self, mobject):
+        self.add_foreground_mobjects(mobject)
+
+    def add_transformable_mobjects(self, *mobjects):
+        self.transformable_mobjects += list(mobjects)
+        self.add(*mobjects)
+
+    def add_foreground_mobjects(self, *mobjects):
+        self.foreground_mobjects += list(mobjects)
+        Scene.add(self, *mobjects)
+
+    def add(self, *mobjects):
+        Scene.add(self, *list(mobjects) + self.foreground_mobjects)
+
+    def play(self, *animations, **kwargs):
+        Scene.play(
+            self,
+            *list(animations) + list(map(Animation, self.foreground_mobjects)),
+            **kwargs
+        )
+
+    def add_background_plane(self):
+        background = ComplexPlane(**self.plane_config)
+        background.fade(self.background_fade_factor)
+        self.add(background)
+        self.background = background
+
+    def add_coordinate_labels(self):
+        self.background.add_coordinates()
+        self.add(self.background)
+
+    def add_transformable_plane(self, **kwargs):
+        self.plane = self.get_transformable_plane()
+        self.add(self.plane)
+
+    def get_transformable_plane(self, x_range=None, y_range=None):
+        &#34;&#34;&#34;
+        x_range and y_range would be tuples (min, max)
+        &#34;&#34;&#34;
+        plane_config = dict(self.plane_config)
+        shift_val = ORIGIN
+        if x_range is not None:
+            x_min, x_max = x_range
+            plane_config[&#34;x_radius&#34;] = x_max - x_min
+            shift_val += (x_max + x_min) * RIGHT / 2.
+        if y_range is not None:
+            y_min, y_max = y_range
+            plane_config[&#34;y_radius&#34;] = y_max - y_min
+            shift_val += (y_max + y_min) * UP / 2.
+        plane = ComplexPlane(**plane_config)
+        plane.shift(shift_val)
+        if self.use_multicolored_plane:
+            self.paint_plane(plane)
+        return plane
+
+    def prepare_for_transformation(self, mob):
+        if hasattr(mob, &#34;prepare_for_nonlinear_transform&#34;):
+            mob.prepare_for_nonlinear_transform(
+                self.num_anchors_to_add_per_line
+            )
+        # TODO...
+
+    def paint_plane(self, plane):
+        for lines in planes, plane.secondary_lines:
+            lines.set_color_by_gradient(
+                self.vert_start_color,
+                self.vert_end_color,
+                self.horiz_start_color,
+                self.horiz_end_color,
+            )
+        # plane.axes.set_color_by_gradient(
+        #     self.horiz_start_color,
+        #     self.vert_start_color
+        # )
+
+    def z_to_point(self, z):
+        return self.background.number_to_point(z)
+
+    def get_transformer(self, **kwargs):
+        transform_kwargs = dict(self.default_apply_complex_function_kwargs)
+        transform_kwargs.update(kwargs)
+        transformer = VGroup()
+        if hasattr(self, &#34;plane&#34;):
+            self.prepare_for_transformation(self.plane)
+            transformer.add(self.plane)
+        transformer.add(*self.transformable_mobjects)
+        return transformer, transform_kwargs
+
+    def apply_complex_function(self, func, added_anims=[], **kwargs):
+        transformer, transform_kwargs = self.get_transformer(**kwargs)
+        transformer.generate_target()
+        # Rescale, apply function, scale back
+        transformer.target.shift(-self.background.get_center_point())
+        transformer.target.scale(1. / self.background.unit_size)
+        transformer.target.apply_complex_function(func)
+        transformer.target.scale(self.background.unit_size)
+        transformer.target.shift(self.background.get_center_point())
+        #
+
+        for mob in transformer.target[0].family_members_with_points():
+            mob.make_smooth()
+        if self.post_transformation_stroke_width is not None:
+            transformer.target.set_stroke(
+                width=self.post_transformation_stroke_width)
+        self.play(
+            MoveToTarget(transformer, **transform_kwargs),
+            *added_anims
+        )
+
+    def apply_complex_homotopy(self, complex_homotopy, added_anims=[], **kwargs):
+        transformer, transform_kwargs = self.get_transformer(**kwargs)
+
+        # def homotopy(x, y, z, t):
+        #     output = complex_homotopy(complex(x, y), t)
+        #     rescaled_output = self.z_to_point(output)
+        #     return (rescaled_output.real, rescaled_output.imag, z)
+
+        self.play(
+            ComplexHomotopy(complex_homotopy, transformer, **transform_kwargs),
+            *added_anims
+        )</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.scene.scene.Scene" href="../scene/scene.html#manimlib.scene.scene.Scene">Scene</a></li>
+<li><a title="manimlib.container.container.Container" href="../container/container.html#manimlib.container.container.Container">Container</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.add_background_plane"><code class="name flex">
+<span>def <span class="ident">add_background_plane</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_background_plane(self):
+    background = ComplexPlane(**self.plane_config)
+    background.fade(self.background_fade_factor)
+    self.add(background)
+    self.background = background</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.add_coordinate_labels"><code class="name flex">
+<span>def <span class="ident">add_coordinate_labels</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_coordinate_labels(self):
+    self.background.add_coordinates()
+    self.add(self.background)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.add_transformable_mobjects"><code class="name flex">
+<span>def <span class="ident">add_transformable_mobjects</span></span>(<span>self, *mobjects)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_transformable_mobjects(self, *mobjects):
+    self.transformable_mobjects += list(mobjects)
+    self.add(*mobjects)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.add_transformable_plane"><code class="name flex">
+<span>def <span class="ident">add_transformable_plane</span></span>(<span>self, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_transformable_plane(self, **kwargs):
+    self.plane = self.get_transformable_plane()
+    self.add(self.plane)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.apply_complex_function"><code class="name flex">
+<span>def <span class="ident">apply_complex_function</span></span>(<span>self, func, added_anims=[], **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_complex_function(self, func, added_anims=[], **kwargs):
+    transformer, transform_kwargs = self.get_transformer(**kwargs)
+    transformer.generate_target()
+    # Rescale, apply function, scale back
+    transformer.target.shift(-self.background.get_center_point())
+    transformer.target.scale(1. / self.background.unit_size)
+    transformer.target.apply_complex_function(func)
+    transformer.target.scale(self.background.unit_size)
+    transformer.target.shift(self.background.get_center_point())
+    #
+
+    for mob in transformer.target[0].family_members_with_points():
+        mob.make_smooth()
+    if self.post_transformation_stroke_width is not None:
+        transformer.target.set_stroke(
+            width=self.post_transformation_stroke_width)
+    self.play(
+        MoveToTarget(transformer, **transform_kwargs),
+        *added_anims
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.apply_complex_homotopy"><code class="name flex">
+<span>def <span class="ident">apply_complex_homotopy</span></span>(<span>self, complex_homotopy, added_anims=[], **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_complex_homotopy(self, complex_homotopy, added_anims=[], **kwargs):
+    transformer, transform_kwargs = self.get_transformer(**kwargs)
+
+    # def homotopy(x, y, z, t):
+    #     output = complex_homotopy(complex(x, y), t)
+    #     rescaled_output = self.z_to_point(output)
+    #     return (rescaled_output.real, rescaled_output.imag, z)
+
+    self.play(
+        ComplexHomotopy(complex_homotopy, transformer, **transform_kwargs),
+        *added_anims
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.get_transformable_plane"><code class="name flex">
+<span>def <span class="ident">get_transformable_plane</span></span>(<span>self, x_range=None, y_range=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>x_range and y_range would be tuples (min, max)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_transformable_plane(self, x_range=None, y_range=None):
+    &#34;&#34;&#34;
+    x_range and y_range would be tuples (min, max)
+    &#34;&#34;&#34;
+    plane_config = dict(self.plane_config)
+    shift_val = ORIGIN
+    if x_range is not None:
+        x_min, x_max = x_range
+        plane_config[&#34;x_radius&#34;] = x_max - x_min
+        shift_val += (x_max + x_min) * RIGHT / 2.
+    if y_range is not None:
+        y_min, y_max = y_range
+        plane_config[&#34;y_radius&#34;] = y_max - y_min
+        shift_val += (y_max + y_min) * UP / 2.
+    plane = ComplexPlane(**plane_config)
+    plane.shift(shift_val)
+    if self.use_multicolored_plane:
+        self.paint_plane(plane)
+    return plane</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.get_transformer"><code class="name flex">
+<span>def <span class="ident">get_transformer</span></span>(<span>self, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_transformer(self, **kwargs):
+    transform_kwargs = dict(self.default_apply_complex_function_kwargs)
+    transform_kwargs.update(kwargs)
+    transformer = VGroup()
+    if hasattr(self, &#34;plane&#34;):
+        self.prepare_for_transformation(self.plane)
+        transformer.add(self.plane)
+    transformer.add(*self.transformable_mobjects)
+    return transformer, transform_kwargs</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.paint_plane"><code class="name flex">
+<span>def <span class="ident">paint_plane</span></span>(<span>self, plane)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def paint_plane(self, plane):
+    for lines in planes, plane.secondary_lines:
+        lines.set_color_by_gradient(
+            self.vert_start_color,
+            self.vert_end_color,
+            self.horiz_start_color,
+            self.horiz_end_color,
+        )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.play"><code class="name flex">
+<span>def <span class="ident">play</span></span>(<span>self, *animations, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def play(self, *animations, **kwargs):
+    Scene.play(
+        self,
+        *list(animations) + list(map(Animation, self.foreground_mobjects)),
+        **kwargs
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.prepare_for_transformation"><code class="name flex">
+<span>def <span class="ident">prepare_for_transformation</span></span>(<span>self, mob)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def prepare_for_transformation(self, mob):
+    if hasattr(mob, &#34;prepare_for_nonlinear_transform&#34;):
+        mob.prepare_for_nonlinear_transform(
+            self.num_anchors_to_add_per_line
+        )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.z_to_point"><code class="name flex">
+<span>def <span class="ident">z_to_point</span></span>(<span>self, z)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def z_to_point(self, z):
+    return self.background.number_to_point(z)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.scene.scene.Scene" href="../scene/scene.html#manimlib.scene.scene.Scene">Scene</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.scene.scene.Scene.add" href="../scene/scene.html#manimlib.scene.scene.Scene.add">add</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_foreground_mobject" href="../scene/scene.html#manimlib.scene.scene.Scene.add_foreground_mobject">add_foreground_mobject</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_foreground_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.add_foreground_mobjects">add_foreground_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_frames" href="../scene/scene.html#manimlib.scene.scene.Scene.add_frames">add_frames</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_mobjects_among" href="../scene/scene.html#manimlib.scene.scene.Scene.add_mobjects_among">add_mobjects_among</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_sound" href="../scene/scene.html#manimlib.scene.scene.Scene.add_sound">add_sound</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.begin_animations" href="../scene/scene.html#manimlib.scene.scene.Scene.begin_animations">begin_animations</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.bring_to_back" href="../scene/scene.html#manimlib.scene.scene.Scene.bring_to_back">bring_to_back</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.bring_to_front" href="../scene/scene.html#manimlib.scene.scene.Scene.bring_to_front">bring_to_front</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.capture_mobjects_in_camera" href="../scene/scene.html#manimlib.scene.scene.Scene.capture_mobjects_in_camera">capture_mobjects_in_camera</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.clean_up_animations" href="../scene/scene.html#manimlib.scene.scene.Scene.clean_up_animations">clean_up_animations</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.clear" href="../scene/scene.html#manimlib.scene.scene.Scene.clear">clear</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.compile_play_args_to_animation_list" href="../scene/scene.html#manimlib.scene.scene.Scene.compile_play_args_to_animation_list">compile_play_args_to_animation_list</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.construct" href="../scene/scene.html#manimlib.scene.scene.Scene.construct">construct</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.finish_animations" href="../scene/scene.html#manimlib.scene.scene.Scene.finish_animations">finish_animations</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.force_skipping" href="../scene/scene.html#manimlib.scene.scene.Scene.force_skipping">force_skipping</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_animation_time_progression" href="../scene/scene.html#manimlib.scene.scene.Scene.get_animation_time_progression">get_animation_time_progression</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_attrs" href="../scene/scene.html#manimlib.scene.scene.Scene.get_attrs">get_attrs</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_frame" href="../scene/scene.html#manimlib.scene.scene.Scene.get_frame">get_frame</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_image" href="../scene/scene.html#manimlib.scene.scene.Scene.get_image">get_image</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_mobject_copies" href="../scene/scene.html#manimlib.scene.scene.Scene.get_mobject_copies">get_mobject_copies</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_mobject_family_members" href="../scene/scene.html#manimlib.scene.scene.Scene.get_mobject_family_members">get_mobject_family_members</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.get_mobjects">get_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_mobjects_from_last_animation" href="../scene/scene.html#manimlib.scene.scene.Scene.get_mobjects_from_last_animation">get_mobjects_from_last_animation</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_moving_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.get_moving_mobjects">get_moving_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_restructured_mobject_list" href="../scene/scene.html#manimlib.scene.scene.Scene.get_restructured_mobject_list">get_restructured_mobject_list</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_run_time" href="../scene/scene.html#manimlib.scene.scene.Scene.get_run_time">get_run_time</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_time" href="../scene/scene.html#manimlib.scene.scene.Scene.get_time">get_time</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_time_progression" href="../scene/scene.html#manimlib.scene.scene.Scene.get_time_progression">get_time_progression</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_top_level_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.get_top_level_mobjects">get_top_level_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_wait_time_progression" href="../scene/scene.html#manimlib.scene.scene.Scene.get_wait_time_progression">get_wait_time_progression</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.handle_play_like_call" href="../scene/scene.html#manimlib.scene.scene.Scene.handle_play_like_call">handle_play_like_call</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.idle_stream" href="../scene/scene.html#manimlib.scene.scene.Scene.idle_stream">idle_stream</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.increment_time" href="../scene/scene.html#manimlib.scene.scene.Scene.increment_time">increment_time</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.print_end_message" href="../scene/scene.html#manimlib.scene.scene.Scene.print_end_message">print_end_message</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.progress_through_animations" href="../scene/scene.html#manimlib.scene.scene.Scene.progress_through_animations">progress_through_animations</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.remove" href="../scene/scene.html#manimlib.scene.scene.Scene.remove">remove</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.remove_foreground_mobject" href="../scene/scene.html#manimlib.scene.scene.Scene.remove_foreground_mobject">remove_foreground_mobject</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.remove_foreground_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.remove_foreground_mobjects">remove_foreground_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.reset_camera" href="../scene/scene.html#manimlib.scene.scene.Scene.reset_camera">reset_camera</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.restructure_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.restructure_mobjects">restructure_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.revert_to_original_skipping_status" href="../scene/scene.html#manimlib.scene.scene.Scene.revert_to_original_skipping_status">revert_to_original_skipping_status</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.set_camera" href="../scene/scene.html#manimlib.scene.scene.Scene.set_camera">set_camera</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.set_camera_background" href="../scene/scene.html#manimlib.scene.scene.Scene.set_camera_background">set_camera_background</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.set_camera_pixel_array" href="../scene/scene.html#manimlib.scene.scene.Scene.set_camera_pixel_array">set_camera_pixel_array</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.set_variables_as_attrs" href="../scene/scene.html#manimlib.scene.scene.Scene.set_variables_as_attrs">set_variables_as_attrs</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.setup" href="../scene/scene.html#manimlib.scene.scene.Scene.setup">setup</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.should_update_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.should_update_mobjects">should_update_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.show_frame" href="../scene/scene.html#manimlib.scene.scene.Scene.show_frame">show_frame</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.tear_down" href="../scene/scene.html#manimlib.scene.scene.Scene.tear_down">tear_down</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.update_frame" href="../scene/scene.html#manimlib.scene.scene.Scene.update_frame">update_frame</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.update_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.update_mobjects">update_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.update_skipping_status" href="../scene/scene.html#manimlib.scene.scene.Scene.update_skipping_status">update_skipping_status</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.wait_until" href="../scene/scene.html#manimlib.scene.scene.Scene.wait_until">wait_until</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="manimlib.once_useful_constructs" href="index.html">manimlib.once_useful_constructs</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene">ComplexTransformationScene</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.CONFIG" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.add_background_plane" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.add_background_plane">add_background_plane</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.add_coordinate_labels" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.add_coordinate_labels">add_coordinate_labels</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.add_transformable_mobjects" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.add_transformable_mobjects">add_transformable_mobjects</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.add_transformable_plane" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.add_transformable_plane">add_transformable_plane</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.apply_complex_function" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.apply_complex_function">apply_complex_function</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.apply_complex_homotopy" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.apply_complex_homotopy">apply_complex_homotopy</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.get_transformable_plane" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.get_transformable_plane">get_transformable_plane</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.get_transformer" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.get_transformer">get_transformer</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.paint_plane" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.paint_plane">paint_plane</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.play" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.play">play</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.prepare_for_transformation" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.prepare_for_transformation">prepare_for_transformation</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.z_to_point" href="#manimlib.once_useful_constructs.complex_transformation_scene.ComplexTransformationScene.z_to_point">z_to_point</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

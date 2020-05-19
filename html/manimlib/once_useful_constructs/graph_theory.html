@@ -1,0 +1,1635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>manimlib.once_useful_constructs.graph_theory API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>manimlib.once_useful_constructs.graph_theory</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from functools import reduce
+import itertools as it
+import operator as op
+
+import numpy as np
+
+from manimlib.constants import *
+from manimlib.scene.scene import Scene
+from manimlib.utils.rate_functions import there_and_back
+from manimlib.utils.space_ops import center_of_mass
+
+
+class Graph():
+    def __init__(self):
+        # List of points in R^3
+        # vertices = []
+        # List of pairs of indices of vertices
+        # edges = []
+        # List of tuples of indices of vertices.  The last should
+        # be a cycle whose interior is the entire graph, and when
+        # regions are computed its complement will be taken.
+        # region_cycles = []
+
+        self.construct()
+
+    def construct(self):
+        pass
+
+    def __str__(self):
+        return self.__class__.__name__
+
+
+class CubeGraph(Graph):
+    &#34;&#34;&#34;
+     5  7
+      12
+      03
+     4  6
+    &#34;&#34;&#34;
+
+    def construct(self):
+        self.vertices = [
+            (x, y, 0)
+            for r in (1, 2)
+            for x, y in it.product([-r, r], [-r, r])
+        ]
+        self.edges = [
+            (0, 1),
+            (0, 2),
+            (3, 1),
+            (3, 2),
+            (4, 5),
+            (4, 6),
+            (7, 5),
+            (7, 6),
+            (0, 4),
+            (1, 5),
+            (2, 6),
+            (3, 7),
+        ]
+        self.region_cycles = [
+            [0, 2, 3, 1],
+            [4, 0, 1, 5],
+            [4, 6, 2, 0],
+            [6, 7, 3, 2],
+            [7, 5, 1, 3],
+            [4, 6, 7, 5],  # By convention, last region will be &#34;outside&#34;
+        ]
+
+
+class SampleGraph(Graph):
+    &#34;&#34;&#34;
+      4 2  3     8
+       0 1
+              7
+     5   6
+    &#34;&#34;&#34;
+
+    def construct(self):
+        self.vertices = [
+            (0, 0, 0),
+            (2, 0, 0),
+            (1, 2, 0),
+            (3, 2, 0),
+            (-1, 2, 0),
+            (-2, -2, 0),
+            (2, -2, 0),
+            (4, -1, 0),
+            (6, 2, 0),
+        ]
+        self.edges = [
+            (0, 1),
+            (1, 2),
+            (1, 3),
+            (3, 2),
+            (2, 4),
+            (4, 0),
+            (2, 0),
+            (4, 5),
+            (0, 5),
+            (1, 5),
+            (5, 6),
+            (6, 7),
+            (7, 1),
+            (7, 8),
+            (8, 3),
+        ]
+        self.region_cycles = [
+            (0, 1, 2),
+            (1, 3, 2),
+            (2, 4, 0),
+            (4, 5, 0),
+            (0, 5, 1),
+            (1, 5, 6, 7),
+            (1, 7, 8, 3),
+            (4, 5, 6, 7, 8, 3, 2),
+        ]
+
+
+class OctohedronGraph(Graph):
+    &#34;&#34;&#34;
+           3
+
+         1   0
+           2
+    4             5
+    &#34;&#34;&#34;
+
+    def construct(self):
+        self.vertices = [
+            (r * np.cos(angle), r * np.sin(angle) - 1, 0)
+            for r, s in [(1, 0), (3, 3)]
+            for angle in (np.pi / 6) * np.array([s, 4 + s, 8 + s])
+        ]
+        self.edges = [
+            (0, 1),
+            (1, 2),
+            (2, 0),
+            (5, 0),
+            (0, 3),
+            (3, 5),
+            (3, 1),
+            (3, 4),
+            (1, 4),
+            (4, 2),
+            (4, 5),
+            (5, 2),
+        ]
+        self.region_cycles = [
+            (0, 1, 2),
+            (0, 5, 3),
+            (3, 1, 0),
+            (3, 4, 1),
+            (1, 4, 2),
+            (2, 4, 5),
+            (5, 0, 2),
+            (3, 4, 5),
+        ]
+
+
+class CompleteGraph(Graph):
+    def __init__(self, num_vertices, radius=3):
+        self.num_vertices = num_vertices
+        self.radius = radius
+        Graph.__init__(self)
+
+    def construct(self):
+        self.vertices = [
+            (self.radius * np.cos(theta), self.radius * np.sin(theta), 0)
+            for x in range(self.num_vertices)
+            for theta in [2 * np.pi * x / self.num_vertices]
+        ]
+        self.edges = it.combinations(list(range(self.num_vertices)), 2)
+
+    def __str__(self):
+        return Graph.__str__(self) + str(self.num_vertices)
+
+
+class DiscreteGraphScene(Scene):
+    args_list = [
+        (CubeGraph(),),
+        (SampleGraph(),),
+        (OctohedronGraph(),),
+    ]
+
+    @staticmethod
+    def args_to_string(*args):
+        return str(args[0])
+
+    def __init__(self, graph, *args, **kwargs):
+        # See CubeGraph() above for format of graph
+        self.graph = graph
+        Scene.__init__(self, *args, **kwargs)
+
+    def construct(self):
+        self.points = list(map(np.array, self.graph.vertices))
+        self.vertices = self.dots = [Dot(p) for p in self.points]
+        self.edges = self.lines = [
+            Line(self.points[i], self.points[j])
+            for i, j in self.graph.edges
+        ]
+        self.add(*self.dots + self.edges)
+
+    def generate_regions(self):
+        regions = [
+            self.region_from_cycle(cycle)
+            for cycle in self.graph.region_cycles
+        ]
+        regions[-1].complement()  # Outer region painted outwardly...
+        self.regions = regions
+
+    def region_from_cycle(self, cycle):
+        point_pairs = [
+            [
+                self.points[cycle[i]],
+                self.points[cycle[(i + 1) % len(cycle)]]
+            ]
+            for i in range(len(cycle))
+        ]
+        return region_from_line_boundary(
+            *point_pairs, shape=self.shape
+        )
+
+    def draw_vertices(self, **kwargs):
+        self.clear()
+        self.play(ShowCreation(Mobject(*self.vertices), **kwargs))
+
+    def draw_edges(self):
+        self.play(*[
+            ShowCreation(edge, run_time=1.0)
+            for edge in self.edges
+        ])
+
+    def accent_vertices(self, **kwargs):
+        self.remove(*self.vertices)
+        start = Mobject(*self.vertices)
+        end = Mobject(*[
+            Dot(point, radius=3 * Dot.DEFAULT_RADIUS, color=&#34;lightgreen&#34;)
+            for point in self.points
+        ])
+        self.play(Transform(
+            start, end, rate_func=there_and_back,
+            **kwargs
+        ))
+        self.remove(start)
+        self.add(*self.vertices)
+
+    def replace_vertices_with(self, mobject):
+        mobject.center()
+        diameter = max(mobject.get_height(), mobject.get_width())
+        self.play(*[
+            CounterclockwiseTransform(
+                vertex,
+                mobject.copy().shift(vertex.get_center())
+            )
+            for vertex in self.vertices
+        ] + [
+            ApplyMethod(
+                edge.scale_in_place,
+                (edge.get_length() - diameter) / edge.get_length()
+            )
+            for edge in self.edges
+        ])
+
+    def annotate_edges(self, mobject, fade_in=True, **kwargs):
+        angles = list(map(np.arctan, list(map(Line.get_slope, self.edges))))
+        self.edge_annotations = [
+            mobject.copy().rotate(angle).move_to(edge.get_center())
+            for angle, edge in zip(angles, self.edges)
+        ]
+        if fade_in:
+            self.play(*[
+                FadeIn(ann, **kwargs)
+                for ann in self.edge_annotations
+            ])
+
+    def trace_cycle(self, cycle=None, color=&#34;yellow&#34;, run_time=2.0):
+        if cycle is None:
+            cycle = self.graph.region_cycles[0]
+        time_per_edge = run_time / len(cycle)
+        next_in_cycle = it.cycle(cycle)
+        next(next_in_cycle)  # jump one ahead
+        self.traced_cycle = Mobject(*[
+            Line(self.points[i], self.points[j]).set_color(color)
+            for i, j in zip(cycle, next_in_cycle)
+        ])
+        self.play(
+            ShowCreation(self.traced_cycle),
+            run_time=run_time
+        )
+
+    def generate_spanning_tree(self, root=0, color=&#34;yellow&#34;):
+        self.spanning_tree_root = 0
+        pairs = deepcopy(self.graph.edges)
+        pairs += [tuple(reversed(pair)) for pair in pairs]
+        self.spanning_tree_index_pairs = []
+        curr = root
+        spanned_vertices = set([curr])
+        to_check = set([curr])
+        while len(to_check) &gt; 0:
+            curr = to_check.pop()
+            for pair in pairs:
+                if pair[0] == curr and pair[1] not in spanned_vertices:
+                    self.spanning_tree_index_pairs.append(pair)
+                    spanned_vertices.add(pair[1])
+                    to_check.add(pair[1])
+        self.spanning_tree = Mobject(*[
+            Line(
+                self.points[pair[0]],
+                self.points[pair[1]]
+            ).set_color(color)
+            for pair in self.spanning_tree_index_pairs
+        ])
+
+    def generate_treeified_spanning_tree(self):
+        bottom = -FRAME_Y_RADIUS + 1
+        x_sep = 1
+        y_sep = 2
+        if not hasattr(self, &#34;spanning_tree&#34;):
+            self.generate_spanning_tree()
+        root = self.spanning_tree_root
+        color = self.spanning_tree.get_color()
+        indices = list(range(len(self.points)))
+        # Build dicts
+        parent_of = dict([
+            tuple(reversed(pair))
+            for pair in self.spanning_tree_index_pairs
+        ])
+        children_of = dict([(index, []) for index in indices])
+        for child in parent_of:
+            children_of[parent_of[child]].append(child)
+
+        x_coord_of = {root: 0}
+        y_coord_of = {root: bottom}
+        # width to allocate to a given node, computed as
+        # the maxium number of decendents in a single generation,
+        # minus 1, multiplied by x_sep
+        width_of = {}
+        for index in indices:
+            next_generation = children_of[index]
+            curr_max = max(1, len(next_generation))
+            while next_generation != []:
+                next_generation = reduce(op.add, [
+                    children_of[node]
+                    for node in next_generation
+                ])
+                curr_max = max(curr_max, len(next_generation))
+            width_of[index] = x_sep * (curr_max - 1)
+        to_process = [root]
+        while to_process != []:
+            index = to_process.pop()
+            if index not in y_coord_of:
+                y_coord_of[index] = y_sep + y_coord_of[parent_of[index]]
+            children = children_of[index]
+            left_hand = x_coord_of[index] - width_of[index] / 2.0
+            for child in children:
+                x_coord_of[child] = left_hand + width_of[child] / 2.0
+                left_hand += width_of[child] + x_sep
+            to_process += children
+
+        new_points = [
+            np.array([
+                x_coord_of[index],
+                y_coord_of[index],
+                0
+            ])
+            for index in indices
+        ]
+        self.treeified_spanning_tree = Mobject(*[
+            Line(new_points[i], new_points[j]).set_color(color)
+            for i, j in self.spanning_tree_index_pairs
+        ])
+
+    def generate_dual_graph(self):
+        point_at_infinity = np.array([np.inf] * 3)
+        cycles = self.graph.region_cycles
+        self.dual_points = [
+            center_of_mass([
+                self.points[index]
+                for index in cycle
+            ])
+            for cycle in cycles
+        ]
+        self.dual_vertices = [
+            Dot(point).set_color(&#34;green&#34;)
+            for point in self.dual_points
+        ]
+        self.dual_vertices[-1] = Circle().scale(FRAME_X_RADIUS + FRAME_Y_RADIUS)
+        self.dual_points[-1] = point_at_infinity
+
+        self.dual_edges = []
+        for pair in self.graph.edges:
+            dual_point_pair = []
+            for cycle in cycles:
+                if not (pair[0] in cycle and pair[1] in cycle):
+                    continue
+                index1, index2 = cycle.index(pair[0]), cycle.index(pair[1])
+                if abs(index1 - index2) in [1, len(cycle) - 1]:
+                    dual_point_pair.append(
+                        self.dual_points[cycles.index(cycle)]
+                    )
+            assert(len(dual_point_pair) == 2)
+            for i in 0, 1:
+                if all(dual_point_pair[i] == point_at_infinity):
+                    new_point = np.array(dual_point_pair[1 - i])
+                    vect = center_of_mass([
+                        self.points[pair[0]],
+                        self.points[pair[1]]
+                    ]) - new_point
+                    new_point += FRAME_X_RADIUS * vect / get_norm(vect)
+                    dual_point_pair[i] = new_point
+            self.dual_edges.append(
+                Line(*dual_point_pair).set_color()
+            )</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="manimlib.once_useful_constructs.graph_theory.CompleteGraph"><code class="flex name class">
+<span>class <span class="ident">CompleteGraph</span></span>
+<span>(</span><span>num_vertices, radius=3)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CompleteGraph(Graph):
+    def __init__(self, num_vertices, radius=3):
+        self.num_vertices = num_vertices
+        self.radius = radius
+        Graph.__init__(self)
+
+    def construct(self):
+        self.vertices = [
+            (self.radius * np.cos(theta), self.radius * np.sin(theta), 0)
+            for x in range(self.num_vertices)
+            for theta in [2 * np.pi * x / self.num_vertices]
+        ]
+        self.edges = it.combinations(list(range(self.num_vertices)), 2)
+
+    def __str__(self):
+        return Graph.__str__(self) + str(self.num_vertices)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.once_useful_constructs.graph_theory.Graph" href="#manimlib.once_useful_constructs.graph_theory.Graph">Graph</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.once_useful_constructs.graph_theory.CompleteGraph.construct"><code class="name flex">
+<span>def <span class="ident">construct</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct(self):
+    self.vertices = [
+        (self.radius * np.cos(theta), self.radius * np.sin(theta), 0)
+        for x in range(self.num_vertices)
+        for theta in [2 * np.pi * x / self.num_vertices]
+    ]
+    self.edges = it.combinations(list(range(self.num_vertices)), 2)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.CubeGraph"><code class="flex name class">
+<span>class <span class="ident">CubeGraph</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>5
+7
+12
+03
+4
+6</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CubeGraph(Graph):
+    &#34;&#34;&#34;
+     5  7
+      12
+      03
+     4  6
+    &#34;&#34;&#34;
+
+    def construct(self):
+        self.vertices = [
+            (x, y, 0)
+            for r in (1, 2)
+            for x, y in it.product([-r, r], [-r, r])
+        ]
+        self.edges = [
+            (0, 1),
+            (0, 2),
+            (3, 1),
+            (3, 2),
+            (4, 5),
+            (4, 6),
+            (7, 5),
+            (7, 6),
+            (0, 4),
+            (1, 5),
+            (2, 6),
+            (3, 7),
+        ]
+        self.region_cycles = [
+            [0, 2, 3, 1],
+            [4, 0, 1, 5],
+            [4, 6, 2, 0],
+            [6, 7, 3, 2],
+            [7, 5, 1, 3],
+            [4, 6, 7, 5],  # By convention, last region will be &#34;outside&#34;
+        ]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.once_useful_constructs.graph_theory.Graph" href="#manimlib.once_useful_constructs.graph_theory.Graph">Graph</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.once_useful_constructs.graph_theory.CubeGraph.construct"><code class="name flex">
+<span>def <span class="ident">construct</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct(self):
+    self.vertices = [
+        (x, y, 0)
+        for r in (1, 2)
+        for x, y in it.product([-r, r], [-r, r])
+    ]
+    self.edges = [
+        (0, 1),
+        (0, 2),
+        (3, 1),
+        (3, 2),
+        (4, 5),
+        (4, 6),
+        (7, 5),
+        (7, 6),
+        (0, 4),
+        (1, 5),
+        (2, 6),
+        (3, 7),
+    ]
+    self.region_cycles = [
+        [0, 2, 3, 1],
+        [4, 0, 1, 5],
+        [4, 6, 2, 0],
+        [6, 7, 3, 2],
+        [7, 5, 1, 3],
+        [4, 6, 7, 5],  # By convention, last region will be &#34;outside&#34;
+    ]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene"><code class="flex name class">
+<span>class <span class="ident">DiscreteGraphScene</span></span>
+<span>(</span><span>graph, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A Scene can be thought of as the Canvas of your animation.
+All of your own named Scenes will be subclasses of this Scene, or
+other named scenes.</p>
+<p>Use a construct() function to tell Manim what should go on in the Scene.</p>
+<p>E.G:</p>
+<pre><code>class MyScene(Scene):
+    def construct(self):
+        self.play(
+            Write(Text("Hello World!"))
+        )
+</code></pre>
+<p>Some important variables to note are:
+camera: The camera object to be used for the scene.
+file_writer : The object that writes the animations in the scene to a video file.
+mobjects : The list of mobjects present in the scene.
+foreground_mobjects : List of mobjects explicitly in the foreground.
+num_plays : Number of play() functions in the scene.
+time: time elapsed since initialisation of scene.
+random_seed: The seed with which all random operations are done.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DiscreteGraphScene(Scene):
+    args_list = [
+        (CubeGraph(),),
+        (SampleGraph(),),
+        (OctohedronGraph(),),
+    ]
+
+    @staticmethod
+    def args_to_string(*args):
+        return str(args[0])
+
+    def __init__(self, graph, *args, **kwargs):
+        # See CubeGraph() above for format of graph
+        self.graph = graph
+        Scene.__init__(self, *args, **kwargs)
+
+    def construct(self):
+        self.points = list(map(np.array, self.graph.vertices))
+        self.vertices = self.dots = [Dot(p) for p in self.points]
+        self.edges = self.lines = [
+            Line(self.points[i], self.points[j])
+            for i, j in self.graph.edges
+        ]
+        self.add(*self.dots + self.edges)
+
+    def generate_regions(self):
+        regions = [
+            self.region_from_cycle(cycle)
+            for cycle in self.graph.region_cycles
+        ]
+        regions[-1].complement()  # Outer region painted outwardly...
+        self.regions = regions
+
+    def region_from_cycle(self, cycle):
+        point_pairs = [
+            [
+                self.points[cycle[i]],
+                self.points[cycle[(i + 1) % len(cycle)]]
+            ]
+            for i in range(len(cycle))
+        ]
+        return region_from_line_boundary(
+            *point_pairs, shape=self.shape
+        )
+
+    def draw_vertices(self, **kwargs):
+        self.clear()
+        self.play(ShowCreation(Mobject(*self.vertices), **kwargs))
+
+    def draw_edges(self):
+        self.play(*[
+            ShowCreation(edge, run_time=1.0)
+            for edge in self.edges
+        ])
+
+    def accent_vertices(self, **kwargs):
+        self.remove(*self.vertices)
+        start = Mobject(*self.vertices)
+        end = Mobject(*[
+            Dot(point, radius=3 * Dot.DEFAULT_RADIUS, color=&#34;lightgreen&#34;)
+            for point in self.points
+        ])
+        self.play(Transform(
+            start, end, rate_func=there_and_back,
+            **kwargs
+        ))
+        self.remove(start)
+        self.add(*self.vertices)
+
+    def replace_vertices_with(self, mobject):
+        mobject.center()
+        diameter = max(mobject.get_height(), mobject.get_width())
+        self.play(*[
+            CounterclockwiseTransform(
+                vertex,
+                mobject.copy().shift(vertex.get_center())
+            )
+            for vertex in self.vertices
+        ] + [
+            ApplyMethod(
+                edge.scale_in_place,
+                (edge.get_length() - diameter) / edge.get_length()
+            )
+            for edge in self.edges
+        ])
+
+    def annotate_edges(self, mobject, fade_in=True, **kwargs):
+        angles = list(map(np.arctan, list(map(Line.get_slope, self.edges))))
+        self.edge_annotations = [
+            mobject.copy().rotate(angle).move_to(edge.get_center())
+            for angle, edge in zip(angles, self.edges)
+        ]
+        if fade_in:
+            self.play(*[
+                FadeIn(ann, **kwargs)
+                for ann in self.edge_annotations
+            ])
+
+    def trace_cycle(self, cycle=None, color=&#34;yellow&#34;, run_time=2.0):
+        if cycle is None:
+            cycle = self.graph.region_cycles[0]
+        time_per_edge = run_time / len(cycle)
+        next_in_cycle = it.cycle(cycle)
+        next(next_in_cycle)  # jump one ahead
+        self.traced_cycle = Mobject(*[
+            Line(self.points[i], self.points[j]).set_color(color)
+            for i, j in zip(cycle, next_in_cycle)
+        ])
+        self.play(
+            ShowCreation(self.traced_cycle),
+            run_time=run_time
+        )
+
+    def generate_spanning_tree(self, root=0, color=&#34;yellow&#34;):
+        self.spanning_tree_root = 0
+        pairs = deepcopy(self.graph.edges)
+        pairs += [tuple(reversed(pair)) for pair in pairs]
+        self.spanning_tree_index_pairs = []
+        curr = root
+        spanned_vertices = set([curr])
+        to_check = set([curr])
+        while len(to_check) &gt; 0:
+            curr = to_check.pop()
+            for pair in pairs:
+                if pair[0] == curr and pair[1] not in spanned_vertices:
+                    self.spanning_tree_index_pairs.append(pair)
+                    spanned_vertices.add(pair[1])
+                    to_check.add(pair[1])
+        self.spanning_tree = Mobject(*[
+            Line(
+                self.points[pair[0]],
+                self.points[pair[1]]
+            ).set_color(color)
+            for pair in self.spanning_tree_index_pairs
+        ])
+
+    def generate_treeified_spanning_tree(self):
+        bottom = -FRAME_Y_RADIUS + 1
+        x_sep = 1
+        y_sep = 2
+        if not hasattr(self, &#34;spanning_tree&#34;):
+            self.generate_spanning_tree()
+        root = self.spanning_tree_root
+        color = self.spanning_tree.get_color()
+        indices = list(range(len(self.points)))
+        # Build dicts
+        parent_of = dict([
+            tuple(reversed(pair))
+            for pair in self.spanning_tree_index_pairs
+        ])
+        children_of = dict([(index, []) for index in indices])
+        for child in parent_of:
+            children_of[parent_of[child]].append(child)
+
+        x_coord_of = {root: 0}
+        y_coord_of = {root: bottom}
+        # width to allocate to a given node, computed as
+        # the maxium number of decendents in a single generation,
+        # minus 1, multiplied by x_sep
+        width_of = {}
+        for index in indices:
+            next_generation = children_of[index]
+            curr_max = max(1, len(next_generation))
+            while next_generation != []:
+                next_generation = reduce(op.add, [
+                    children_of[node]
+                    for node in next_generation
+                ])
+                curr_max = max(curr_max, len(next_generation))
+            width_of[index] = x_sep * (curr_max - 1)
+        to_process = [root]
+        while to_process != []:
+            index = to_process.pop()
+            if index not in y_coord_of:
+                y_coord_of[index] = y_sep + y_coord_of[parent_of[index]]
+            children = children_of[index]
+            left_hand = x_coord_of[index] - width_of[index] / 2.0
+            for child in children:
+                x_coord_of[child] = left_hand + width_of[child] / 2.0
+                left_hand += width_of[child] + x_sep
+            to_process += children
+
+        new_points = [
+            np.array([
+                x_coord_of[index],
+                y_coord_of[index],
+                0
+            ])
+            for index in indices
+        ]
+        self.treeified_spanning_tree = Mobject(*[
+            Line(new_points[i], new_points[j]).set_color(color)
+            for i, j in self.spanning_tree_index_pairs
+        ])
+
+    def generate_dual_graph(self):
+        point_at_infinity = np.array([np.inf] * 3)
+        cycles = self.graph.region_cycles
+        self.dual_points = [
+            center_of_mass([
+                self.points[index]
+                for index in cycle
+            ])
+            for cycle in cycles
+        ]
+        self.dual_vertices = [
+            Dot(point).set_color(&#34;green&#34;)
+            for point in self.dual_points
+        ]
+        self.dual_vertices[-1] = Circle().scale(FRAME_X_RADIUS + FRAME_Y_RADIUS)
+        self.dual_points[-1] = point_at_infinity
+
+        self.dual_edges = []
+        for pair in self.graph.edges:
+            dual_point_pair = []
+            for cycle in cycles:
+                if not (pair[0] in cycle and pair[1] in cycle):
+                    continue
+                index1, index2 = cycle.index(pair[0]), cycle.index(pair[1])
+                if abs(index1 - index2) in [1, len(cycle) - 1]:
+                    dual_point_pair.append(
+                        self.dual_points[cycles.index(cycle)]
+                    )
+            assert(len(dual_point_pair) == 2)
+            for i in 0, 1:
+                if all(dual_point_pair[i] == point_at_infinity):
+                    new_point = np.array(dual_point_pair[1 - i])
+                    vect = center_of_mass([
+                        self.points[pair[0]],
+                        self.points[pair[1]]
+                    ]) - new_point
+                    new_point += FRAME_X_RADIUS * vect / get_norm(vect)
+                    dual_point_pair[i] = new_point
+            self.dual_edges.append(
+                Line(*dual_point_pair).set_color()
+            )</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.scene.scene.Scene" href="../scene/scene.html#manimlib.scene.scene.Scene">Scene</a></li>
+<li><a title="manimlib.container.container.Container" href="../container/container.html#manimlib.container.container.Container">Container</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.args_list"><code class="name">var <span class="ident">args_list</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.args_to_string"><code class="name flex">
+<span>def <span class="ident">args_to_string</span></span>(<span>*args)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def args_to_string(*args):
+    return str(args[0])</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.accent_vertices"><code class="name flex">
+<span>def <span class="ident">accent_vertices</span></span>(<span>self, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def accent_vertices(self, **kwargs):
+    self.remove(*self.vertices)
+    start = Mobject(*self.vertices)
+    end = Mobject(*[
+        Dot(point, radius=3 * Dot.DEFAULT_RADIUS, color=&#34;lightgreen&#34;)
+        for point in self.points
+    ])
+    self.play(Transform(
+        start, end, rate_func=there_and_back,
+        **kwargs
+    ))
+    self.remove(start)
+    self.add(*self.vertices)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.annotate_edges"><code class="name flex">
+<span>def <span class="ident">annotate_edges</span></span>(<span>self, mobject, fade_in=True, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def annotate_edges(self, mobject, fade_in=True, **kwargs):
+    angles = list(map(np.arctan, list(map(Line.get_slope, self.edges))))
+    self.edge_annotations = [
+        mobject.copy().rotate(angle).move_to(edge.get_center())
+        for angle, edge in zip(angles, self.edges)
+    ]
+    if fade_in:
+        self.play(*[
+            FadeIn(ann, **kwargs)
+            for ann in self.edge_annotations
+        ])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.draw_edges"><code class="name flex">
+<span>def <span class="ident">draw_edges</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def draw_edges(self):
+    self.play(*[
+        ShowCreation(edge, run_time=1.0)
+        for edge in self.edges
+    ])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.draw_vertices"><code class="name flex">
+<span>def <span class="ident">draw_vertices</span></span>(<span>self, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def draw_vertices(self, **kwargs):
+    self.clear()
+    self.play(ShowCreation(Mobject(*self.vertices), **kwargs))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.generate_dual_graph"><code class="name flex">
+<span>def <span class="ident">generate_dual_graph</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_dual_graph(self):
+    point_at_infinity = np.array([np.inf] * 3)
+    cycles = self.graph.region_cycles
+    self.dual_points = [
+        center_of_mass([
+            self.points[index]
+            for index in cycle
+        ])
+        for cycle in cycles
+    ]
+    self.dual_vertices = [
+        Dot(point).set_color(&#34;green&#34;)
+        for point in self.dual_points
+    ]
+    self.dual_vertices[-1] = Circle().scale(FRAME_X_RADIUS + FRAME_Y_RADIUS)
+    self.dual_points[-1] = point_at_infinity
+
+    self.dual_edges = []
+    for pair in self.graph.edges:
+        dual_point_pair = []
+        for cycle in cycles:
+            if not (pair[0] in cycle and pair[1] in cycle):
+                continue
+            index1, index2 = cycle.index(pair[0]), cycle.index(pair[1])
+            if abs(index1 - index2) in [1, len(cycle) - 1]:
+                dual_point_pair.append(
+                    self.dual_points[cycles.index(cycle)]
+                )
+        assert(len(dual_point_pair) == 2)
+        for i in 0, 1:
+            if all(dual_point_pair[i] == point_at_infinity):
+                new_point = np.array(dual_point_pair[1 - i])
+                vect = center_of_mass([
+                    self.points[pair[0]],
+                    self.points[pair[1]]
+                ]) - new_point
+                new_point += FRAME_X_RADIUS * vect / get_norm(vect)
+                dual_point_pair[i] = new_point
+        self.dual_edges.append(
+            Line(*dual_point_pair).set_color()
+        )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.generate_regions"><code class="name flex">
+<span>def <span class="ident">generate_regions</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_regions(self):
+    regions = [
+        self.region_from_cycle(cycle)
+        for cycle in self.graph.region_cycles
+    ]
+    regions[-1].complement()  # Outer region painted outwardly...
+    self.regions = regions</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.generate_spanning_tree"><code class="name flex">
+<span>def <span class="ident">generate_spanning_tree</span></span>(<span>self, root=0, color='yellow')</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_spanning_tree(self, root=0, color=&#34;yellow&#34;):
+    self.spanning_tree_root = 0
+    pairs = deepcopy(self.graph.edges)
+    pairs += [tuple(reversed(pair)) for pair in pairs]
+    self.spanning_tree_index_pairs = []
+    curr = root
+    spanned_vertices = set([curr])
+    to_check = set([curr])
+    while len(to_check) &gt; 0:
+        curr = to_check.pop()
+        for pair in pairs:
+            if pair[0] == curr and pair[1] not in spanned_vertices:
+                self.spanning_tree_index_pairs.append(pair)
+                spanned_vertices.add(pair[1])
+                to_check.add(pair[1])
+    self.spanning_tree = Mobject(*[
+        Line(
+            self.points[pair[0]],
+            self.points[pair[1]]
+        ).set_color(color)
+        for pair in self.spanning_tree_index_pairs
+    ])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.generate_treeified_spanning_tree"><code class="name flex">
+<span>def <span class="ident">generate_treeified_spanning_tree</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_treeified_spanning_tree(self):
+    bottom = -FRAME_Y_RADIUS + 1
+    x_sep = 1
+    y_sep = 2
+    if not hasattr(self, &#34;spanning_tree&#34;):
+        self.generate_spanning_tree()
+    root = self.spanning_tree_root
+    color = self.spanning_tree.get_color()
+    indices = list(range(len(self.points)))
+    # Build dicts
+    parent_of = dict([
+        tuple(reversed(pair))
+        for pair in self.spanning_tree_index_pairs
+    ])
+    children_of = dict([(index, []) for index in indices])
+    for child in parent_of:
+        children_of[parent_of[child]].append(child)
+
+    x_coord_of = {root: 0}
+    y_coord_of = {root: bottom}
+    # width to allocate to a given node, computed as
+    # the maxium number of decendents in a single generation,
+    # minus 1, multiplied by x_sep
+    width_of = {}
+    for index in indices:
+        next_generation = children_of[index]
+        curr_max = max(1, len(next_generation))
+        while next_generation != []:
+            next_generation = reduce(op.add, [
+                children_of[node]
+                for node in next_generation
+            ])
+            curr_max = max(curr_max, len(next_generation))
+        width_of[index] = x_sep * (curr_max - 1)
+    to_process = [root]
+    while to_process != []:
+        index = to_process.pop()
+        if index not in y_coord_of:
+            y_coord_of[index] = y_sep + y_coord_of[parent_of[index]]
+        children = children_of[index]
+        left_hand = x_coord_of[index] - width_of[index] / 2.0
+        for child in children:
+            x_coord_of[child] = left_hand + width_of[child] / 2.0
+            left_hand += width_of[child] + x_sep
+        to_process += children
+
+    new_points = [
+        np.array([
+            x_coord_of[index],
+            y_coord_of[index],
+            0
+        ])
+        for index in indices
+    ]
+    self.treeified_spanning_tree = Mobject(*[
+        Line(new_points[i], new_points[j]).set_color(color)
+        for i, j in self.spanning_tree_index_pairs
+    ])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.region_from_cycle"><code class="name flex">
+<span>def <span class="ident">region_from_cycle</span></span>(<span>self, cycle)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def region_from_cycle(self, cycle):
+    point_pairs = [
+        [
+            self.points[cycle[i]],
+            self.points[cycle[(i + 1) % len(cycle)]]
+        ]
+        for i in range(len(cycle))
+    ]
+    return region_from_line_boundary(
+        *point_pairs, shape=self.shape
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.replace_vertices_with"><code class="name flex">
+<span>def <span class="ident">replace_vertices_with</span></span>(<span>self, mobject)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def replace_vertices_with(self, mobject):
+    mobject.center()
+    diameter = max(mobject.get_height(), mobject.get_width())
+    self.play(*[
+        CounterclockwiseTransform(
+            vertex,
+            mobject.copy().shift(vertex.get_center())
+        )
+        for vertex in self.vertices
+    ] + [
+        ApplyMethod(
+            edge.scale_in_place,
+            (edge.get_length() - diameter) / edge.get_length()
+        )
+        for edge in self.edges
+    ])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.trace_cycle"><code class="name flex">
+<span>def <span class="ident">trace_cycle</span></span>(<span>self, cycle=None, color='yellow', run_time=2.0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def trace_cycle(self, cycle=None, color=&#34;yellow&#34;, run_time=2.0):
+    if cycle is None:
+        cycle = self.graph.region_cycles[0]
+    time_per_edge = run_time / len(cycle)
+    next_in_cycle = it.cycle(cycle)
+    next(next_in_cycle)  # jump one ahead
+    self.traced_cycle = Mobject(*[
+        Line(self.points[i], self.points[j]).set_color(color)
+        for i, j in zip(cycle, next_in_cycle)
+    ])
+    self.play(
+        ShowCreation(self.traced_cycle),
+        run_time=run_time
+    )</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.scene.scene.Scene" href="../scene/scene.html#manimlib.scene.scene.Scene">Scene</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.scene.scene.Scene.add" href="../scene/scene.html#manimlib.scene.scene.Scene.add">add</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_foreground_mobject" href="../scene/scene.html#manimlib.scene.scene.Scene.add_foreground_mobject">add_foreground_mobject</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_foreground_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.add_foreground_mobjects">add_foreground_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_frames" href="../scene/scene.html#manimlib.scene.scene.Scene.add_frames">add_frames</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_mobjects_among" href="../scene/scene.html#manimlib.scene.scene.Scene.add_mobjects_among">add_mobjects_among</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.add_sound" href="../scene/scene.html#manimlib.scene.scene.Scene.add_sound">add_sound</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.begin_animations" href="../scene/scene.html#manimlib.scene.scene.Scene.begin_animations">begin_animations</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.bring_to_back" href="../scene/scene.html#manimlib.scene.scene.Scene.bring_to_back">bring_to_back</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.bring_to_front" href="../scene/scene.html#manimlib.scene.scene.Scene.bring_to_front">bring_to_front</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.capture_mobjects_in_camera" href="../scene/scene.html#manimlib.scene.scene.Scene.capture_mobjects_in_camera">capture_mobjects_in_camera</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.clean_up_animations" href="../scene/scene.html#manimlib.scene.scene.Scene.clean_up_animations">clean_up_animations</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.clear" href="../scene/scene.html#manimlib.scene.scene.Scene.clear">clear</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.compile_play_args_to_animation_list" href="../scene/scene.html#manimlib.scene.scene.Scene.compile_play_args_to_animation_list">compile_play_args_to_animation_list</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.construct" href="../scene/scene.html#manimlib.scene.scene.Scene.construct">construct</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.finish_animations" href="../scene/scene.html#manimlib.scene.scene.Scene.finish_animations">finish_animations</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.force_skipping" href="../scene/scene.html#manimlib.scene.scene.Scene.force_skipping">force_skipping</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_animation_time_progression" href="../scene/scene.html#manimlib.scene.scene.Scene.get_animation_time_progression">get_animation_time_progression</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_attrs" href="../scene/scene.html#manimlib.scene.scene.Scene.get_attrs">get_attrs</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_frame" href="../scene/scene.html#manimlib.scene.scene.Scene.get_frame">get_frame</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_image" href="../scene/scene.html#manimlib.scene.scene.Scene.get_image">get_image</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_mobject_copies" href="../scene/scene.html#manimlib.scene.scene.Scene.get_mobject_copies">get_mobject_copies</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_mobject_family_members" href="../scene/scene.html#manimlib.scene.scene.Scene.get_mobject_family_members">get_mobject_family_members</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.get_mobjects">get_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_mobjects_from_last_animation" href="../scene/scene.html#manimlib.scene.scene.Scene.get_mobjects_from_last_animation">get_mobjects_from_last_animation</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_moving_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.get_moving_mobjects">get_moving_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_restructured_mobject_list" href="../scene/scene.html#manimlib.scene.scene.Scene.get_restructured_mobject_list">get_restructured_mobject_list</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_run_time" href="../scene/scene.html#manimlib.scene.scene.Scene.get_run_time">get_run_time</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_time" href="../scene/scene.html#manimlib.scene.scene.Scene.get_time">get_time</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_time_progression" href="../scene/scene.html#manimlib.scene.scene.Scene.get_time_progression">get_time_progression</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_top_level_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.get_top_level_mobjects">get_top_level_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.get_wait_time_progression" href="../scene/scene.html#manimlib.scene.scene.Scene.get_wait_time_progression">get_wait_time_progression</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.handle_play_like_call" href="../scene/scene.html#manimlib.scene.scene.Scene.handle_play_like_call">handle_play_like_call</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.idle_stream" href="../scene/scene.html#manimlib.scene.scene.Scene.idle_stream">idle_stream</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.increment_time" href="../scene/scene.html#manimlib.scene.scene.Scene.increment_time">increment_time</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.print_end_message" href="../scene/scene.html#manimlib.scene.scene.Scene.print_end_message">print_end_message</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.progress_through_animations" href="../scene/scene.html#manimlib.scene.scene.Scene.progress_through_animations">progress_through_animations</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.remove" href="../scene/scene.html#manimlib.scene.scene.Scene.remove">remove</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.remove_foreground_mobject" href="../scene/scene.html#manimlib.scene.scene.Scene.remove_foreground_mobject">remove_foreground_mobject</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.remove_foreground_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.remove_foreground_mobjects">remove_foreground_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.reset_camera" href="../scene/scene.html#manimlib.scene.scene.Scene.reset_camera">reset_camera</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.restructure_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.restructure_mobjects">restructure_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.revert_to_original_skipping_status" href="../scene/scene.html#manimlib.scene.scene.Scene.revert_to_original_skipping_status">revert_to_original_skipping_status</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.set_camera" href="../scene/scene.html#manimlib.scene.scene.Scene.set_camera">set_camera</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.set_camera_background" href="../scene/scene.html#manimlib.scene.scene.Scene.set_camera_background">set_camera_background</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.set_camera_pixel_array" href="../scene/scene.html#manimlib.scene.scene.Scene.set_camera_pixel_array">set_camera_pixel_array</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.set_variables_as_attrs" href="../scene/scene.html#manimlib.scene.scene.Scene.set_variables_as_attrs">set_variables_as_attrs</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.setup" href="../scene/scene.html#manimlib.scene.scene.Scene.setup">setup</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.should_update_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.should_update_mobjects">should_update_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.show_frame" href="../scene/scene.html#manimlib.scene.scene.Scene.show_frame">show_frame</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.tear_down" href="../scene/scene.html#manimlib.scene.scene.Scene.tear_down">tear_down</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.update_frame" href="../scene/scene.html#manimlib.scene.scene.Scene.update_frame">update_frame</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.update_mobjects" href="../scene/scene.html#manimlib.scene.scene.Scene.update_mobjects">update_mobjects</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.update_skipping_status" href="../scene/scene.html#manimlib.scene.scene.Scene.update_skipping_status">update_skipping_status</a></code></li>
+<li><code><a title="manimlib.scene.scene.Scene.wait_until" href="../scene/scene.html#manimlib.scene.scene.Scene.wait_until">wait_until</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.Graph"><code class="flex name class">
+<span>class <span class="ident">Graph</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Graph():
+    def __init__(self):
+        # List of points in R^3
+        # vertices = []
+        # List of pairs of indices of vertices
+        # edges = []
+        # List of tuples of indices of vertices.  The last should
+        # be a cycle whose interior is the entire graph, and when
+        # regions are computed its complement will be taken.
+        # region_cycles = []
+
+        self.construct()
+
+    def construct(self):
+        pass
+
+    def __str__(self):
+        return self.__class__.__name__</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.once_useful_constructs.graph_theory.CompleteGraph" href="#manimlib.once_useful_constructs.graph_theory.CompleteGraph">CompleteGraph</a></li>
+<li><a title="manimlib.once_useful_constructs.graph_theory.CubeGraph" href="#manimlib.once_useful_constructs.graph_theory.CubeGraph">CubeGraph</a></li>
+<li><a title="manimlib.once_useful_constructs.graph_theory.OctohedronGraph" href="#manimlib.once_useful_constructs.graph_theory.OctohedronGraph">OctohedronGraph</a></li>
+<li><a title="manimlib.once_useful_constructs.graph_theory.SampleGraph" href="#manimlib.once_useful_constructs.graph_theory.SampleGraph">SampleGraph</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.once_useful_constructs.graph_theory.Graph.construct"><code class="name flex">
+<span>def <span class="ident">construct</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct(self):
+    pass</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.OctohedronGraph"><code class="flex name class">
+<span>class <span class="ident">OctohedronGraph</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>3</p>
+<pre><code> 1   0
+   2
+</code></pre>
+<p>4
+5</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class OctohedronGraph(Graph):
+    &#34;&#34;&#34;
+           3
+
+         1   0
+           2
+    4             5
+    &#34;&#34;&#34;
+
+    def construct(self):
+        self.vertices = [
+            (r * np.cos(angle), r * np.sin(angle) - 1, 0)
+            for r, s in [(1, 0), (3, 3)]
+            for angle in (np.pi / 6) * np.array([s, 4 + s, 8 + s])
+        ]
+        self.edges = [
+            (0, 1),
+            (1, 2),
+            (2, 0),
+            (5, 0),
+            (0, 3),
+            (3, 5),
+            (3, 1),
+            (3, 4),
+            (1, 4),
+            (4, 2),
+            (4, 5),
+            (5, 2),
+        ]
+        self.region_cycles = [
+            (0, 1, 2),
+            (0, 5, 3),
+            (3, 1, 0),
+            (3, 4, 1),
+            (1, 4, 2),
+            (2, 4, 5),
+            (5, 0, 2),
+            (3, 4, 5),
+        ]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.once_useful_constructs.graph_theory.Graph" href="#manimlib.once_useful_constructs.graph_theory.Graph">Graph</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.once_useful_constructs.graph_theory.OctohedronGraph.construct"><code class="name flex">
+<span>def <span class="ident">construct</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct(self):
+    self.vertices = [
+        (r * np.cos(angle), r * np.sin(angle) - 1, 0)
+        for r, s in [(1, 0), (3, 3)]
+        for angle in (np.pi / 6) * np.array([s, 4 + s, 8 + s])
+    ]
+    self.edges = [
+        (0, 1),
+        (1, 2),
+        (2, 0),
+        (5, 0),
+        (0, 3),
+        (3, 5),
+        (3, 1),
+        (3, 4),
+        (1, 4),
+        (4, 2),
+        (4, 5),
+        (5, 2),
+    ]
+    self.region_cycles = [
+        (0, 1, 2),
+        (0, 5, 3),
+        (3, 1, 0),
+        (3, 4, 1),
+        (1, 4, 2),
+        (2, 4, 5),
+        (5, 0, 2),
+        (3, 4, 5),
+    ]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="manimlib.once_useful_constructs.graph_theory.SampleGraph"><code class="flex name class">
+<span>class <span class="ident">SampleGraph</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>4 2
+3
+8
+0 1
+7
+5
+6</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SampleGraph(Graph):
+    &#34;&#34;&#34;
+      4 2  3     8
+       0 1
+              7
+     5   6
+    &#34;&#34;&#34;
+
+    def construct(self):
+        self.vertices = [
+            (0, 0, 0),
+            (2, 0, 0),
+            (1, 2, 0),
+            (3, 2, 0),
+            (-1, 2, 0),
+            (-2, -2, 0),
+            (2, -2, 0),
+            (4, -1, 0),
+            (6, 2, 0),
+        ]
+        self.edges = [
+            (0, 1),
+            (1, 2),
+            (1, 3),
+            (3, 2),
+            (2, 4),
+            (4, 0),
+            (2, 0),
+            (4, 5),
+            (0, 5),
+            (1, 5),
+            (5, 6),
+            (6, 7),
+            (7, 1),
+            (7, 8),
+            (8, 3),
+        ]
+        self.region_cycles = [
+            (0, 1, 2),
+            (1, 3, 2),
+            (2, 4, 0),
+            (4, 5, 0),
+            (0, 5, 1),
+            (1, 5, 6, 7),
+            (1, 7, 8, 3),
+            (4, 5, 6, 7, 8, 3, 2),
+        ]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.once_useful_constructs.graph_theory.Graph" href="#manimlib.once_useful_constructs.graph_theory.Graph">Graph</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.once_useful_constructs.graph_theory.SampleGraph.construct"><code class="name flex">
+<span>def <span class="ident">construct</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def construct(self):
+    self.vertices = [
+        (0, 0, 0),
+        (2, 0, 0),
+        (1, 2, 0),
+        (3, 2, 0),
+        (-1, 2, 0),
+        (-2, -2, 0),
+        (2, -2, 0),
+        (4, -1, 0),
+        (6, 2, 0),
+    ]
+    self.edges = [
+        (0, 1),
+        (1, 2),
+        (1, 3),
+        (3, 2),
+        (2, 4),
+        (4, 0),
+        (2, 0),
+        (4, 5),
+        (0, 5),
+        (1, 5),
+        (5, 6),
+        (6, 7),
+        (7, 1),
+        (7, 8),
+        (8, 3),
+    ]
+    self.region_cycles = [
+        (0, 1, 2),
+        (1, 3, 2),
+        (2, 4, 0),
+        (4, 5, 0),
+        (0, 5, 1),
+        (1, 5, 6, 7),
+        (1, 7, 8, 3),
+        (4, 5, 6, 7, 8, 3, 2),
+    ]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="manimlib.once_useful_constructs" href="index.html">manimlib.once_useful_constructs</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="manimlib.once_useful_constructs.graph_theory.CompleteGraph" href="#manimlib.once_useful_constructs.graph_theory.CompleteGraph">CompleteGraph</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.CompleteGraph.construct" href="#manimlib.once_useful_constructs.graph_theory.CompleteGraph.construct">construct</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.once_useful_constructs.graph_theory.CubeGraph" href="#manimlib.once_useful_constructs.graph_theory.CubeGraph">CubeGraph</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.CubeGraph.construct" href="#manimlib.once_useful_constructs.graph_theory.CubeGraph.construct">construct</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene">DiscreteGraphScene</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.accent_vertices" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.accent_vertices">accent_vertices</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.annotate_edges" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.annotate_edges">annotate_edges</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.args_list" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.args_list">args_list</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.args_to_string" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.args_to_string">args_to_string</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.draw_edges" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.draw_edges">draw_edges</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.draw_vertices" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.draw_vertices">draw_vertices</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.generate_dual_graph" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.generate_dual_graph">generate_dual_graph</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.generate_regions" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.generate_regions">generate_regions</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.generate_spanning_tree" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.generate_spanning_tree">generate_spanning_tree</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.generate_treeified_spanning_tree" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.generate_treeified_spanning_tree">generate_treeified_spanning_tree</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.region_from_cycle" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.region_from_cycle">region_from_cycle</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.replace_vertices_with" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.replace_vertices_with">replace_vertices_with</a></code></li>
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.trace_cycle" href="#manimlib.once_useful_constructs.graph_theory.DiscreteGraphScene.trace_cycle">trace_cycle</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.once_useful_constructs.graph_theory.Graph" href="#manimlib.once_useful_constructs.graph_theory.Graph">Graph</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.Graph.construct" href="#manimlib.once_useful_constructs.graph_theory.Graph.construct">construct</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.once_useful_constructs.graph_theory.OctohedronGraph" href="#manimlib.once_useful_constructs.graph_theory.OctohedronGraph">OctohedronGraph</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.OctohedronGraph.construct" href="#manimlib.once_useful_constructs.graph_theory.OctohedronGraph.construct">construct</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.once_useful_constructs.graph_theory.SampleGraph" href="#manimlib.once_useful_constructs.graph_theory.SampleGraph">SampleGraph</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.once_useful_constructs.graph_theory.SampleGraph.construct" href="#manimlib.once_useful_constructs.graph_theory.SampleGraph.construct">construct</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

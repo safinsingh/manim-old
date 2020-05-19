@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>manimlib.animation.animation API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>manimlib.animation.animation</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from copy import deepcopy
+
+import numpy as np
+
+from manimlib.mobject.mobject import Mobject
+from manimlib.utils.config_ops import digest_config
+from manimlib.utils.rate_functions import smooth
+
+
+DEFAULT_ANIMATION_RUN_TIME = 1.0
+DEFAULT_ANIMATION_LAG_RATIO = 0
+
+
+class Animation(object):
+    CONFIG = {
+        &#34;run_time&#34;: DEFAULT_ANIMATION_RUN_TIME,
+        &#34;rate_func&#34;: smooth,
+        &#34;name&#34;: None,
+        # Does this animation add or remove a mobject form the screen
+        &#34;remover&#34;: False,
+        # If 0, the animation is applied to all submobjects
+        # at the same time
+        # If 1, it is applied to each successively.
+        # If 0 &lt; lag_ratio &lt; 1, its applied to each
+        # with lagged start times
+        &#34;lag_ratio&#34;: DEFAULT_ANIMATION_LAG_RATIO,
+        &#34;suspend_mobject_updating&#34;: True,
+    }
+
+    def __init__(self, mobject, **kwargs):
+        assert(isinstance(mobject, Mobject))
+        digest_config(self, kwargs)
+        self.mobject = mobject
+
+    def __str__(self):
+        if self.name:
+            return self.name
+        return self.__class__.__name__ + str(self.mobject)
+
+    def begin(self):
+        # This is called right as an animation is being
+        # played.  As much initialization as possible,
+        # especially any mobject copying, should live in
+        # this method
+        self.starting_mobject = self.create_starting_mobject()
+        if self.suspend_mobject_updating:
+            # All calls to self.mobject&#39;s internal updaters
+            # during the animation, either from this Animation
+            # or from the surrounding scene, should do nothing.
+            # It is, however, okay and desirable to call
+            # the internal updaters of self.starting_mobject,
+            # or any others among self.get_all_mobjects()
+            self.mobject.suspend_updating()
+        self.interpolate(0)
+
+    def finish(self):
+        self.interpolate(1)
+        if self.suspend_mobject_updating:
+            self.mobject.resume_updating()
+
+    def clean_up_from_scene(self, scene):
+        if self.is_remover():
+            scene.remove(self.mobject)
+
+    def create_starting_mobject(self):
+        # Keep track of where the mobject starts
+        return self.mobject.copy()
+
+    def get_all_mobjects(self):
+        &#34;&#34;&#34;
+        Ordering must match the ording of arguments to interpolate_submobject
+        &#34;&#34;&#34;
+        return self.mobject, self.starting_mobject
+
+    def get_all_families_zipped(self):
+        return zip(*[
+            mob.family_members_with_points()
+            for mob in self.get_all_mobjects()
+        ])
+
+    def update_mobjects(self, dt):
+        &#34;&#34;&#34;
+        Updates things like starting_mobject, and (for
+        Transforms) target_mobject.  Note, since typically
+        (always?) self.mobject will have its updating
+        suspended during the animation, this will do
+        nothing to self.mobject.
+        &#34;&#34;&#34;
+        for mob in self.get_all_mobjects_to_update():
+            mob.update(dt)
+
+    def get_all_mobjects_to_update(self):
+        # The surrounding scene typically handles
+        # updating of self.mobject.  Besides, in
+        # most cases its updating is suspended anyway
+        return list(filter(
+            lambda m: m is not self.mobject,
+            self.get_all_mobjects()
+        ))
+
+    def copy(self):
+        return deepcopy(self)
+
+    def update_config(self, **kwargs):
+        digest_config(self, kwargs)
+        return self
+
+    # Methods for interpolation, the mean of an Animation
+    def interpolate(self, alpha):
+        alpha = np.clip(alpha, 0, 1)
+        self.interpolate_mobject(self.rate_func(alpha))
+
+    def update(self, alpha):
+        &#34;&#34;&#34;
+        This method shouldn&#39;t exist, but it&#39;s here to
+        keep many old scenes from breaking
+        &#34;&#34;&#34;
+        self.interpolate(alpha)
+
+    def interpolate_mobject(self, alpha):
+        families = list(self.get_all_families_zipped())
+        for i, mobs in enumerate(families):
+            sub_alpha = self.get_sub_alpha(alpha, i, len(families))
+            self.interpolate_submobject(*mobs, sub_alpha)
+
+    def interpolate_submobject(self, submobject, starting_sumobject, alpha):
+        # Typically ipmlemented by subclass
+        pass
+
+    def get_sub_alpha(self, alpha, index, num_submobjects):
+        # TODO, make this more understanable, and/or combine
+        # its functionality with AnimationGroup&#39;s method
+        # build_animations_with_timings
+        lag_ratio = self.lag_ratio
+        full_length = (num_submobjects - 1) * lag_ratio + 1
+        value = alpha * full_length
+        lower = index * lag_ratio
+        return np.clip((value - lower), 0, 1)
+
+    # Getters and setters
+    def set_run_time(self, run_time):
+        self.run_time = run_time
+        return self
+
+    def get_run_time(self):
+        return self.run_time
+
+    def set_rate_func(self, rate_func):
+        self.rate_func = rate_func
+        return self
+
+    def get_rate_func(self):
+        return self.rate_func
+
+    def set_name(self, name):
+        self.name = name
+        return self
+
+    def is_remover(self):
+        return self.remover</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="manimlib.animation.animation.Animation"><code class="flex name class">
+<span>class <span class="ident">Animation</span></span>
+<span>(</span><span>mobject, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Animation(object):
+    CONFIG = {
+        &#34;run_time&#34;: DEFAULT_ANIMATION_RUN_TIME,
+        &#34;rate_func&#34;: smooth,
+        &#34;name&#34;: None,
+        # Does this animation add or remove a mobject form the screen
+        &#34;remover&#34;: False,
+        # If 0, the animation is applied to all submobjects
+        # at the same time
+        # If 1, it is applied to each successively.
+        # If 0 &lt; lag_ratio &lt; 1, its applied to each
+        # with lagged start times
+        &#34;lag_ratio&#34;: DEFAULT_ANIMATION_LAG_RATIO,
+        &#34;suspend_mobject_updating&#34;: True,
+    }
+
+    def __init__(self, mobject, **kwargs):
+        assert(isinstance(mobject, Mobject))
+        digest_config(self, kwargs)
+        self.mobject = mobject
+
+    def __str__(self):
+        if self.name:
+            return self.name
+        return self.__class__.__name__ + str(self.mobject)
+
+    def begin(self):
+        # This is called right as an animation is being
+        # played.  As much initialization as possible,
+        # especially any mobject copying, should live in
+        # this method
+        self.starting_mobject = self.create_starting_mobject()
+        if self.suspend_mobject_updating:
+            # All calls to self.mobject&#39;s internal updaters
+            # during the animation, either from this Animation
+            # or from the surrounding scene, should do nothing.
+            # It is, however, okay and desirable to call
+            # the internal updaters of self.starting_mobject,
+            # or any others among self.get_all_mobjects()
+            self.mobject.suspend_updating()
+        self.interpolate(0)
+
+    def finish(self):
+        self.interpolate(1)
+        if self.suspend_mobject_updating:
+            self.mobject.resume_updating()
+
+    def clean_up_from_scene(self, scene):
+        if self.is_remover():
+            scene.remove(self.mobject)
+
+    def create_starting_mobject(self):
+        # Keep track of where the mobject starts
+        return self.mobject.copy()
+
+    def get_all_mobjects(self):
+        &#34;&#34;&#34;
+        Ordering must match the ording of arguments to interpolate_submobject
+        &#34;&#34;&#34;
+        return self.mobject, self.starting_mobject
+
+    def get_all_families_zipped(self):
+        return zip(*[
+            mob.family_members_with_points()
+            for mob in self.get_all_mobjects()
+        ])
+
+    def update_mobjects(self, dt):
+        &#34;&#34;&#34;
+        Updates things like starting_mobject, and (for
+        Transforms) target_mobject.  Note, since typically
+        (always?) self.mobject will have its updating
+        suspended during the animation, this will do
+        nothing to self.mobject.
+        &#34;&#34;&#34;
+        for mob in self.get_all_mobjects_to_update():
+            mob.update(dt)
+
+    def get_all_mobjects_to_update(self):
+        # The surrounding scene typically handles
+        # updating of self.mobject.  Besides, in
+        # most cases its updating is suspended anyway
+        return list(filter(
+            lambda m: m is not self.mobject,
+            self.get_all_mobjects()
+        ))
+
+    def copy(self):
+        return deepcopy(self)
+
+    def update_config(self, **kwargs):
+        digest_config(self, kwargs)
+        return self
+
+    # Methods for interpolation, the mean of an Animation
+    def interpolate(self, alpha):
+        alpha = np.clip(alpha, 0, 1)
+        self.interpolate_mobject(self.rate_func(alpha))
+
+    def update(self, alpha):
+        &#34;&#34;&#34;
+        This method shouldn&#39;t exist, but it&#39;s here to
+        keep many old scenes from breaking
+        &#34;&#34;&#34;
+        self.interpolate(alpha)
+
+    def interpolate_mobject(self, alpha):
+        families = list(self.get_all_families_zipped())
+        for i, mobs in enumerate(families):
+            sub_alpha = self.get_sub_alpha(alpha, i, len(families))
+            self.interpolate_submobject(*mobs, sub_alpha)
+
+    def interpolate_submobject(self, submobject, starting_sumobject, alpha):
+        # Typically ipmlemented by subclass
+        pass
+
+    def get_sub_alpha(self, alpha, index, num_submobjects):
+        # TODO, make this more understanable, and/or combine
+        # its functionality with AnimationGroup&#39;s method
+        # build_animations_with_timings
+        lag_ratio = self.lag_ratio
+        full_length = (num_submobjects - 1) * lag_ratio + 1
+        value = alpha * full_length
+        lower = index * lag_ratio
+        return np.clip((value - lower), 0, 1)
+
+    # Getters and setters
+    def set_run_time(self, run_time):
+        self.run_time = run_time
+        return self
+
+    def get_run_time(self):
+        return self.run_time
+
+    def set_rate_func(self, rate_func):
+        self.rate_func = rate_func
+        return self
+
+    def get_rate_func(self):
+        return self.rate_func
+
+    def set_name(self, name):
+        self.name = name
+        return self
+
+    def is_remover(self):
+        return self.remover</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.composition.AnimationGroup" href="composition.html#manimlib.animation.composition.AnimationGroup">AnimationGroup</a></li>
+<li><a title="manimlib.animation.creation.DrawBorderThenFill" href="creation.html#manimlib.animation.creation.DrawBorderThenFill">DrawBorderThenFill</a></li>
+<li><a title="manimlib.animation.creation.ShowIncreasingSubsets" href="creation.html#manimlib.animation.creation.ShowIncreasingSubsets">ShowIncreasingSubsets</a></li>
+<li><a title="manimlib.animation.creation.ShowPartial" href="creation.html#manimlib.animation.creation.ShowPartial">ShowPartial</a></li>
+<li><a title="manimlib.animation.fading.VFadeIn" href="fading.html#manimlib.animation.fading.VFadeIn">VFadeIn</a></li>
+<li><a title="manimlib.animation.indication.WiggleOutThenIn" href="indication.html#manimlib.animation.indication.WiggleOutThenIn">WiggleOutThenIn</a></li>
+<li><a title="manimlib.animation.movement.Homotopy" href="movement.html#manimlib.animation.movement.Homotopy">Homotopy</a></li>
+<li><a title="manimlib.animation.movement.MoveAlongPath" href="movement.html#manimlib.animation.movement.MoveAlongPath">MoveAlongPath</a></li>
+<li><a title="manimlib.animation.movement.PhaseFlow" href="movement.html#manimlib.animation.movement.PhaseFlow">PhaseFlow</a></li>
+<li><a title="manimlib.animation.numbers.ChangingDecimal" href="numbers.html#manimlib.animation.numbers.ChangingDecimal">ChangingDecimal</a></li>
+<li><a title="manimlib.animation.rotation.Rotating" href="rotation.html#manimlib.animation.rotation.Rotating">Rotating</a></li>
+<li><a title="manimlib.animation.transform.Transform" href="transform.html#manimlib.animation.transform.Transform">Transform</a></li>
+<li><a title="manimlib.animation.update.MaintainPositionRelativeTo" href="update.html#manimlib.animation.update.MaintainPositionRelativeTo">MaintainPositionRelativeTo</a></li>
+<li><a title="manimlib.animation.update.UpdateFromFunc" href="update.html#manimlib.animation.update.UpdateFromFunc">UpdateFromFunc</a></li>
+<li><a title="manimlib.for_3b1b_videos.pi_creature_animations.FlashThroughClass" href="../for_3b1b_videos/pi_creature_animations.html#manimlib.for_3b1b_videos.pi_creature_animations.FlashThroughClass">FlashThroughClass</a></li>
+<li><a title="manimlib.mobject.svg.drawings.ClockPassesTime" href="../mobject/svg/drawings.html#manimlib.mobject.svg.drawings.ClockPassesTime">ClockPassesTime</a></li>
+<li><a title="manimlib.once_useful_constructs.arithmetic.FlipThroughSymbols" href="../once_useful_constructs/arithmetic.html#manimlib.once_useful_constructs.arithmetic.FlipThroughSymbols">FlipThroughSymbols</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.animation.Animation.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.animation.Animation.begin"><code class="name flex">
+<span>def <span class="ident">begin</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def begin(self):
+    # This is called right as an animation is being
+    # played.  As much initialization as possible,
+    # especially any mobject copying, should live in
+    # this method
+    self.starting_mobject = self.create_starting_mobject()
+    if self.suspend_mobject_updating:
+        # All calls to self.mobject&#39;s internal updaters
+        # during the animation, either from this Animation
+        # or from the surrounding scene, should do nothing.
+        # It is, however, okay and desirable to call
+        # the internal updaters of self.starting_mobject,
+        # or any others among self.get_all_mobjects()
+        self.mobject.suspend_updating()
+    self.interpolate(0)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.clean_up_from_scene"><code class="name flex">
+<span>def <span class="ident">clean_up_from_scene</span></span>(<span>self, scene)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clean_up_from_scene(self, scene):
+    if self.is_remover():
+        scene.remove(self.mobject)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.copy"><code class="name flex">
+<span>def <span class="ident">copy</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def copy(self):
+    return deepcopy(self)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.create_starting_mobject"><code class="name flex">
+<span>def <span class="ident">create_starting_mobject</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_starting_mobject(self):
+    # Keep track of where the mobject starts
+    return self.mobject.copy()</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.finish"><code class="name flex">
+<span>def <span class="ident">finish</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def finish(self):
+    self.interpolate(1)
+    if self.suspend_mobject_updating:
+        self.mobject.resume_updating()</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.get_all_families_zipped"><code class="name flex">
+<span>def <span class="ident">get_all_families_zipped</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_all_families_zipped(self):
+    return zip(*[
+        mob.family_members_with_points()
+        for mob in self.get_all_mobjects()
+    ])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.get_all_mobjects"><code class="name flex">
+<span>def <span class="ident">get_all_mobjects</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ordering must match the ording of arguments to interpolate_submobject</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_all_mobjects(self):
+    &#34;&#34;&#34;
+    Ordering must match the ording of arguments to interpolate_submobject
+    &#34;&#34;&#34;
+    return self.mobject, self.starting_mobject</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.get_all_mobjects_to_update"><code class="name flex">
+<span>def <span class="ident">get_all_mobjects_to_update</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_all_mobjects_to_update(self):
+    # The surrounding scene typically handles
+    # updating of self.mobject.  Besides, in
+    # most cases its updating is suspended anyway
+    return list(filter(
+        lambda m: m is not self.mobject,
+        self.get_all_mobjects()
+    ))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.get_rate_func"><code class="name flex">
+<span>def <span class="ident">get_rate_func</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_rate_func(self):
+    return self.rate_func</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.get_run_time"><code class="name flex">
+<span>def <span class="ident">get_run_time</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_run_time(self):
+    return self.run_time</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.get_sub_alpha"><code class="name flex">
+<span>def <span class="ident">get_sub_alpha</span></span>(<span>self, alpha, index, num_submobjects)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_sub_alpha(self, alpha, index, num_submobjects):
+    # TODO, make this more understanable, and/or combine
+    # its functionality with AnimationGroup&#39;s method
+    # build_animations_with_timings
+    lag_ratio = self.lag_ratio
+    full_length = (num_submobjects - 1) * lag_ratio + 1
+    value = alpha * full_length
+    lower = index * lag_ratio
+    return np.clip((value - lower), 0, 1)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.interpolate"><code class="name flex">
+<span>def <span class="ident">interpolate</span></span>(<span>self, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate(self, alpha):
+    alpha = np.clip(alpha, 0, 1)
+    self.interpolate_mobject(self.rate_func(alpha))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.interpolate_mobject"><code class="name flex">
+<span>def <span class="ident">interpolate_mobject</span></span>(<span>self, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate_mobject(self, alpha):
+    families = list(self.get_all_families_zipped())
+    for i, mobs in enumerate(families):
+        sub_alpha = self.get_sub_alpha(alpha, i, len(families))
+        self.interpolate_submobject(*mobs, sub_alpha)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.interpolate_submobject"><code class="name flex">
+<span>def <span class="ident">interpolate_submobject</span></span>(<span>self, submobject, starting_sumobject, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate_submobject(self, submobject, starting_sumobject, alpha):
+    # Typically ipmlemented by subclass
+    pass</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.is_remover"><code class="name flex">
+<span>def <span class="ident">is_remover</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_remover(self):
+    return self.remover</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.set_name"><code class="name flex">
+<span>def <span class="ident">set_name</span></span>(<span>self, name)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_name(self, name):
+    self.name = name
+    return self</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.set_rate_func"><code class="name flex">
+<span>def <span class="ident">set_rate_func</span></span>(<span>self, rate_func)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_rate_func(self, rate_func):
+    self.rate_func = rate_func
+    return self</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.set_run_time"><code class="name flex">
+<span>def <span class="ident">set_run_time</span></span>(<span>self, run_time)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_run_time(self, run_time):
+    self.run_time = run_time
+    return self</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.update"><code class="name flex">
+<span>def <span class="ident">update</span></span>(<span>self, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This method shouldn't exist, but it's here to
+keep many old scenes from breaking</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update(self, alpha):
+    &#34;&#34;&#34;
+    This method shouldn&#39;t exist, but it&#39;s here to
+    keep many old scenes from breaking
+    &#34;&#34;&#34;
+    self.interpolate(alpha)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.update_config"><code class="name flex">
+<span>def <span class="ident">update_config</span></span>(<span>self, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_config(self, **kwargs):
+    digest_config(self, kwargs)
+    return self</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.animation.Animation.update_mobjects"><code class="name flex">
+<span>def <span class="ident">update_mobjects</span></span>(<span>self, dt)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Updates things like starting_mobject, and (for
+Transforms) target_mobject.
+Note, since typically
+(always?) self.mobject will have its updating
+suspended during the animation, this will do
+nothing to self.mobject.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_mobjects(self, dt):
+    &#34;&#34;&#34;
+    Updates things like starting_mobject, and (for
+    Transforms) target_mobject.  Note, since typically
+    (always?) self.mobject will have its updating
+    suspended during the animation, this will do
+    nothing to self.mobject.
+    &#34;&#34;&#34;
+    for mob in self.get_all_mobjects_to_update():
+        mob.update(dt)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="manimlib.animation" href="index.html">manimlib.animation</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="manimlib.animation.animation.Animation" href="#manimlib.animation.animation.Animation">Animation</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.animation.Animation.CONFIG" href="#manimlib.animation.animation.Animation.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.begin" href="#manimlib.animation.animation.Animation.begin">begin</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.clean_up_from_scene" href="#manimlib.animation.animation.Animation.clean_up_from_scene">clean_up_from_scene</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.copy" href="#manimlib.animation.animation.Animation.copy">copy</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.create_starting_mobject" href="#manimlib.animation.animation.Animation.create_starting_mobject">create_starting_mobject</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.finish" href="#manimlib.animation.animation.Animation.finish">finish</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.get_all_families_zipped" href="#manimlib.animation.animation.Animation.get_all_families_zipped">get_all_families_zipped</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.get_all_mobjects" href="#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.get_all_mobjects_to_update" href="#manimlib.animation.animation.Animation.get_all_mobjects_to_update">get_all_mobjects_to_update</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.get_rate_func" href="#manimlib.animation.animation.Animation.get_rate_func">get_rate_func</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.get_run_time" href="#manimlib.animation.animation.Animation.get_run_time">get_run_time</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.get_sub_alpha" href="#manimlib.animation.animation.Animation.get_sub_alpha">get_sub_alpha</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.interpolate" href="#manimlib.animation.animation.Animation.interpolate">interpolate</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.interpolate_mobject" href="#manimlib.animation.animation.Animation.interpolate_mobject">interpolate_mobject</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.interpolate_submobject" href="#manimlib.animation.animation.Animation.interpolate_submobject">interpolate_submobject</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.is_remover" href="#manimlib.animation.animation.Animation.is_remover">is_remover</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.set_name" href="#manimlib.animation.animation.Animation.set_name">set_name</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.set_rate_func" href="#manimlib.animation.animation.Animation.set_rate_func">set_rate_func</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.set_run_time" href="#manimlib.animation.animation.Animation.set_run_time">set_run_time</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.update" href="#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.update_config" href="#manimlib.animation.animation.Animation.update_config">update_config</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.update_mobjects" href="#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

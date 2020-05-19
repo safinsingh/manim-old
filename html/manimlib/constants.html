@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>manimlib.constants API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>manimlib.constants</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import numpy as np
+import os
+
+MEDIA_DIR = &#34;&#34;
+VIDEO_DIR = &#34;&#34;
+VIDEO_OUTPUT_DIR = &#34;&#34;
+TEX_DIR = &#34;&#34;
+TEXT_DIR = &#34;&#34;
+
+
+def initialize_directories(config):
+    global MEDIA_DIR
+    global VIDEO_DIR
+    global VIDEO_OUTPUT_DIR
+    global TEX_DIR
+    global TEXT_DIR
+
+    video_path_specified = config[&#34;video_dir&#34;] or config[&#34;video_output_dir&#34;]
+
+    if not (video_path_specified and config[&#34;tex_dir&#34;]):
+        if config[&#34;media_dir&#34;]:
+            MEDIA_DIR = config[&#34;media_dir&#34;]
+        else:
+            MEDIA_DIR = os.path.join(
+                os.path.expanduser(&#39;~&#39;),
+                &#34;Dropbox (3Blue1Brown)/3Blue1Brown Team Folder&#34;
+            )
+        if not os.path.isdir(MEDIA_DIR):
+            MEDIA_DIR = &#34;./media&#34;
+        print(
+            f&#34;Media will be written to {MEDIA_DIR + os.sep}. You can change &#34;
+            &#34;this behavior with the --media_dir flag.&#34;
+        )
+    else:
+        if config[&#34;media_dir&#34;]:
+            print(
+                &#34;Ignoring --media_dir, since both --tex_dir and a video &#34;
+                &#34;directory were both passed&#34;
+            )
+
+    TEX_DIR = config[&#34;tex_dir&#34;] or os.path.join(MEDIA_DIR, &#34;Tex&#34;)
+    TEXT_DIR = os.path.join(MEDIA_DIR, &#34;texts&#34;)
+    if not video_path_specified:
+        VIDEO_DIR = os.path.join(MEDIA_DIR, &#34;videos&#34;)
+        VIDEO_OUTPUT_DIR = os.path.join(MEDIA_DIR, &#34;videos&#34;)
+    elif config[&#34;video_output_dir&#34;]:
+        VIDEO_OUTPUT_DIR = config[&#34;video_output_dir&#34;]
+    else:
+        VIDEO_DIR = config[&#34;video_dir&#34;]
+
+    for folder in [VIDEO_DIR, VIDEO_OUTPUT_DIR, TEX_DIR, TEXT_DIR]:
+        if folder != &#34;&#34; and not os.path.exists(folder):
+            os.makedirs(folder)
+
+NOT_SETTING_FONT_MSG=&#39;&#39;&#39;
+Warning:
+You haven&#39;t set font.
+If you are not using English, this may cause text rendering problem.
+You set font like:
+text = Text(&#39;your text&#39;, font=&#39;your font&#39;)
+or:
+class MyText(Text):
+    CONFIG = {
+        &#39;font&#39;: &#39;My Font&#39;
+    }
+&#39;&#39;&#39;
+START_X = 30
+START_Y = 20
+NORMAL = &#39;NORMAL&#39;
+ITALIC = &#39;ITALIC&#39;
+OBLIQUE = &#39;OBLIQUE&#39;
+BOLD = &#39;BOLD&#39;
+
+TEX_USE_CTEX = False
+TEX_TEXT_TO_REPLACE = &#34;YourTextHere&#34;
+TEMPLATE_TEX_FILE = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),
+    &#34;tex_template.tex&#34; if not TEX_USE_CTEX else &#34;ctex_template.tex&#34;
+)
+with open(TEMPLATE_TEX_FILE, &#34;r&#34;) as infile:
+    TEMPLATE_TEXT_FILE_BODY = infile.read()
+    TEMPLATE_TEX_FILE_BODY = TEMPLATE_TEXT_FILE_BODY.replace(
+        TEX_TEXT_TO_REPLACE,
+        &#34;\\begin{align*}\n&#34; + TEX_TEXT_TO_REPLACE + &#34;\n\\end{align*}&#34;,
+    )
+
+HELP_MESSAGE = &#34;&#34;&#34;
+   Usage:
+   python extract_scene.py &lt;module&gt; [&lt;scene name&gt;]
+   -p preview in low quality
+   -s show and save picture of last frame
+   -w write result to file [this is default if nothing else is stated]
+   -o &lt;file_name&gt; write to a different file_name
+   -l use low quality
+   -m use medium quality
+   -a run and save every scene in the script, or all args for the given scene
+   -q don&#39;t print progress
+   -f when writing to a movie file, export the frames in png sequence
+   -t use transperency when exporting images
+   -n specify the number of the animation to start from
+   -r specify a resolution
+   -c specify a background color
+&#34;&#34;&#34;
+SCENE_NOT_FOUND_MESSAGE = &#34;&#34;&#34;
+   {} is not in the script
+&#34;&#34;&#34;
+CHOOSE_NUMBER_MESSAGE = &#34;&#34;&#34;
+Choose number corresponding to desired scene/arguments.
+(Use comma separated list for multiple entries)
+Choice(s): &#34;&#34;&#34;
+INVALID_NUMBER_MESSAGE = &#34;Fine then, if you don&#39;t want to give a valid number I&#39;ll just quit&#34;
+
+NO_SCENE_MESSAGE = &#34;&#34;&#34;
+   There are no scenes inside that module
+&#34;&#34;&#34;
+
+# There might be other configuration than pixel shape later...
+
+INSANE_QUALITY_CAMERA_CONFIG = {
+    &#34;pixel_height&#34;: 2160,
+    &#34;pixel_width&#34;: 3840,
+    &#34;frame_rate&#34;: 120,
+}
+
+PRODUCTION_QUALITY_CAMERA_CONFIG = {
+    &#34;pixel_height&#34;: 1440,
+    &#34;pixel_width&#34;: 2560,
+    &#34;frame_rate&#34;: 60,
+}
+
+HIGH_QUALITY_CAMERA_CONFIG = {
+    &#34;pixel_height&#34;: 1080,
+    &#34;pixel_width&#34;: 1920,
+    &#34;frame_rate&#34;: 60,
+}
+
+MEDIUM_QUALITY_CAMERA_CONFIG = {
+    &#34;pixel_height&#34;: 720,
+    &#34;pixel_width&#34;: 1280,
+    &#34;frame_rate&#34;: 30,
+}
+
+LOW_QUALITY_CAMERA_CONFIG = {
+    &#34;pixel_height&#34;: 480,
+    &#34;pixel_width&#34;: 854,
+    &#34;frame_rate&#34;: 15,
+}
+
+DEFAULT_PIXEL_HEIGHT = PRODUCTION_QUALITY_CAMERA_CONFIG[&#34;pixel_height&#34;]
+DEFAULT_PIXEL_WIDTH = PRODUCTION_QUALITY_CAMERA_CONFIG[&#34;pixel_width&#34;]
+DEFAULT_FRAME_RATE = 60
+
+DEFAULT_POINT_DENSITY_2D = 25
+DEFAULT_POINT_DENSITY_1D = 250
+
+DEFAULT_STROKE_WIDTH = 4
+
+FRAME_HEIGHT = 8.0
+FRAME_WIDTH = FRAME_HEIGHT * DEFAULT_PIXEL_WIDTH / DEFAULT_PIXEL_HEIGHT
+FRAME_Y_RADIUS = FRAME_HEIGHT / 2
+FRAME_X_RADIUS = FRAME_WIDTH / 2
+
+SMALL_BUFF = 0.1
+MED_SMALL_BUFF = 0.25
+MED_LARGE_BUFF = 0.5
+LARGE_BUFF = 1
+
+DEFAULT_MOBJECT_TO_EDGE_BUFFER = MED_LARGE_BUFF
+DEFAULT_MOBJECT_TO_MOBJECT_BUFFER = MED_SMALL_BUFF
+
+
+# All in seconds
+DEFAULT_POINTWISE_FUNCTION_RUN_TIME = 3.0
+DEFAULT_WAIT_TIME = 2.0
+
+
+ORIGIN = np.array((0., 0., 0.))
+UP = np.array((0., 1., 0.))
+DOWN = np.array((0., -1., 0.))
+RIGHT = np.array((1., 0., 0.))
+LEFT = np.array((-1., 0., 0.))
+IN = np.array((0., 0., -1.))
+OUT = np.array((0., 0., 1.))
+X_AXIS = np.array((1., 0., 0.))
+Y_AXIS = np.array((0., 1., 0.))
+Z_AXIS = np.array((0., 0., 1.))
+
+# Useful abbreviations for diagonals
+UL = UP + LEFT
+UR = UP + RIGHT
+DL = DOWN + LEFT
+DR = DOWN + RIGHT
+
+TOP = FRAME_Y_RADIUS * UP
+BOTTOM = FRAME_Y_RADIUS * DOWN
+LEFT_SIDE = FRAME_X_RADIUS * LEFT
+RIGHT_SIDE = FRAME_X_RADIUS * RIGHT
+
+PI = np.pi
+TAU = 2 * PI
+DEGREES = TAU / 360
+
+FFMPEG_BIN = &#34;ffmpeg&#34;
+
+# Colors
+COLOR_MAP = {
+    &#34;DARK_BLUE&#34;: &#34;#236B8E&#34;,
+    &#34;DARK_BROWN&#34;: &#34;#8B4513&#34;,
+    &#34;LIGHT_BROWN&#34;: &#34;#CD853F&#34;,
+    &#34;BLUE_E&#34;: &#34;#1C758A&#34;,
+    &#34;BLUE_D&#34;: &#34;#29ABCA&#34;,
+    &#34;BLUE_C&#34;: &#34;#58C4DD&#34;,
+    &#34;BLUE_B&#34;: &#34;#9CDCEB&#34;,
+    &#34;BLUE_A&#34;: &#34;#C7E9F1&#34;,
+    &#34;TEAL_E&#34;: &#34;#49A88F&#34;,
+    &#34;TEAL_D&#34;: &#34;#55C1A7&#34;,
+    &#34;TEAL_C&#34;: &#34;#5CD0B3&#34;,
+    &#34;TEAL_B&#34;: &#34;#76DDC0&#34;,
+    &#34;TEAL_A&#34;: &#34;#ACEAD7&#34;,
+    &#34;GREEN_E&#34;: &#34;#699C52&#34;,
+    &#34;GREEN_D&#34;: &#34;#77B05D&#34;,
+    &#34;GREEN_C&#34;: &#34;#83C167&#34;,
+    &#34;GREEN_B&#34;: &#34;#A6CF8C&#34;,
+    &#34;GREEN_A&#34;: &#34;#C9E2AE&#34;,
+    &#34;YELLOW_E&#34;: &#34;#E8C11C&#34;,
+    &#34;YELLOW_D&#34;: &#34;#F4D345&#34;,
+    &#34;YELLOW_C&#34;: &#34;#FFFF00&#34;,
+    &#34;YELLOW_B&#34;: &#34;#FFEA94&#34;,
+    &#34;YELLOW_A&#34;: &#34;#FFF1B6&#34;,
+    &#34;GOLD_E&#34;: &#34;#C78D46&#34;,
+    &#34;GOLD_D&#34;: &#34;#E1A158&#34;,
+    &#34;GOLD_C&#34;: &#34;#F0AC5F&#34;,
+    &#34;GOLD_B&#34;: &#34;#F9B775&#34;,
+    &#34;GOLD_A&#34;: &#34;#F7C797&#34;,
+    &#34;RED_E&#34;: &#34;#CF5044&#34;,
+    &#34;RED_D&#34;: &#34;#E65A4C&#34;,
+    &#34;RED_C&#34;: &#34;#FC6255&#34;,
+    &#34;RED_B&#34;: &#34;#FF8080&#34;,
+    &#34;RED_A&#34;: &#34;#F7A1A3&#34;,
+    &#34;MAROON_E&#34;: &#34;#94424F&#34;,
+    &#34;MAROON_D&#34;: &#34;#A24D61&#34;,
+    &#34;MAROON_C&#34;: &#34;#C55F73&#34;,
+    &#34;MAROON_B&#34;: &#34;#EC92AB&#34;,
+    &#34;MAROON_A&#34;: &#34;#ECABC1&#34;,
+    &#34;PURPLE_E&#34;: &#34;#644172&#34;,
+    &#34;PURPLE_D&#34;: &#34;#715582&#34;,
+    &#34;PURPLE_C&#34;: &#34;#9A72AC&#34;,
+    &#34;PURPLE_B&#34;: &#34;#B189C6&#34;,
+    &#34;PURPLE_A&#34;: &#34;#CAA3E8&#34;,
+    &#34;WHITE&#34;: &#34;#FFFFFF&#34;,
+    &#34;BLACK&#34;: &#34;#000000&#34;,
+    &#34;LIGHT_GRAY&#34;: &#34;#BBBBBB&#34;,
+    &#34;LIGHT_GREY&#34;: &#34;#BBBBBB&#34;,
+    &#34;GRAY&#34;: &#34;#888888&#34;,
+    &#34;GREY&#34;: &#34;#888888&#34;,
+    &#34;DARK_GREY&#34;: &#34;#444444&#34;,
+    &#34;DARK_GRAY&#34;: &#34;#444444&#34;,
+    &#34;DARKER_GREY&#34;: &#34;#222222&#34;,
+    &#34;DARKER_GRAY&#34;: &#34;#222222&#34;,
+    &#34;GREY_BROWN&#34;: &#34;#736357&#34;,
+    &#34;PINK&#34;: &#34;#D147BD&#34;,
+    &#34;LIGHT_PINK&#34;: &#34;#DC75CD&#34;,
+    &#34;GREEN_SCREEN&#34;: &#34;#00FF00&#34;,
+    &#34;ORANGE&#34;: &#34;#FF862F&#34;,
+}
+PALETTE = list(COLOR_MAP.values())
+locals().update(COLOR_MAP)
+for name in [s for s in list(COLOR_MAP.keys()) if s.endswith(&#34;_C&#34;)]:
+    locals()[name.replace(&#34;_C&#34;, &#34;&#34;)] = locals()[name]
+
+# Streaming related configuration
+LIVE_STREAM_NAME = &#34;LiveStream&#34;
+TWITCH_STREAM_KEY = &#34;YOUR_STREAM_KEY&#34;
+STREAMING_PROTOCOL = &#34;tcp&#34;
+STREAMING_IP = &#34;127.0.0.1&#34;
+STREAMING_PORT = &#34;2000&#34;
+STREAMING_CLIENT = &#34;ffplay&#34;
+STREAMING_URL = f&#34;{STREAMING_PROTOCOL}://{STREAMING_IP}:{STREAMING_PORT}?listen&#34;
+STREAMING_CONSOLE_BANNER = &#34;&#34;&#34;
+Manim is now running in streaming mode. Stream animations by passing
+them to manim.play(), e.g.
+&gt;&gt;&gt; c = Circle()
+&gt;&gt;&gt; manim.play(ShowCreation(c))
+&#34;&#34;&#34;
+code_languages_list = {&#34;abap&#34;: &#34;abap&#34;, &#34;as&#34;: &#34;as&#34;, &#34;as3&#34;: &#34;as3&#34;, &#34;ada&#34;: &#34;ada&#34;, &#34;antlr&#34;: &#34;antlr&#34;,
+                       &#34;antlr_as&#34;: &#34;antlr-as&#34;,
+                       &#34;antlr_csharp&#34;: &#34;antlr-csharp&#34;, &#34;antlr_cpp&#34;: &#34;antlr-cpp&#34;, &#34;antlr_java&#34;: &#34;antlr-java&#34;,
+                       &#34;antlr_objc&#34;: &#34;antlr-objc&#34;, &#34;antlr_perl&#34;: &#34;antlr-perl&#34;, &#34;antlr_python&#34;: &#34;antlr-python&#34;,
+                       &#34;antlr_ruby&#34;: &#34;antlr-ruby&#34;, &#34;apacheconf&#34;: &#34;apacheconf&#34;, &#34;applescript&#34;: &#34;applescript&#34;,
+                       &#34;aspectj&#34;: &#34;aspectj&#34;,
+                       &#34;aspx_cs&#34;: &#34;aspx-cs&#34;, &#34;aspx_vb&#34;: &#34;aspx-vb&#34;, &#34;asy&#34;: &#34;asy&#34;, &#34;ahk&#34;: &#34;ahk&#34;, &#34;autoit&#34;: &#34;autoit&#34;,
+                       &#34;awk&#34;: &#34;awk&#34;,
+                       &#34;basemake&#34;: &#34;basemake&#34;, &#34;bash&#34;: &#34;bash&#34;, &#34;console&#34;: &#34;console&#34;, &#34;bat&#34;: &#34;bat&#34;,
+                       &#34;bbcode&#34;: &#34;bbcode&#34;,
+                       &#34;befunge&#34;: &#34;befunge&#34;, &#34;blitzmax&#34;: &#34;blitzmax&#34;, &#34;boo&#34;: &#34;boo&#34;, &#34;brainfuck&#34;: &#34;brainfuck&#34;,
+                       &#34;bro&#34;: &#34;bro&#34;,
+                       &#34;bugs&#34;: &#34;bugs&#34;, &#34;c&#34;: &#34;c&#34;, &#34;csharp&#34;: &#34;csharp&#34;, &#34;cpp&#34;: &#34;cpp&#34;, &#34;c_objdump&#34;: &#34;c-objdump&#34;,
+                       &#34;ca65&#34;: &#34;ca65&#34;,
+                       &#34;cbmbas&#34;: &#34;cbmbas&#34;, &#34;ceylon&#34;: &#34;ceylon&#34;, &#34;cfengine3&#34;: &#34;cfengine3&#34;, &#34;cfs&#34;: &#34;cfs&#34;,
+                       &#34;cheetah&#34;: &#34;cheetah&#34;,
+                       &#34;clojure&#34;: &#34;clojure&#34;, &#34;cmake&#34;: &#34;cmake&#34;, &#34;cobol&#34;: &#34;cobol&#34;, &#34;cobolfree&#34;: &#34;cobolfree&#34;,
+                       &#34;coffee_script&#34;: &#34;coffee-script&#34;, &#34;cfm&#34;: &#34;cfm&#34;, &#34;common_lisp&#34;: &#34;common-lisp&#34;, &#34;coq&#34;: &#34;coq&#34;,
+                       &#34;cpp_objdump&#34;: &#34;cpp-objdump&#34;, &#34;croc&#34;: &#34;croc&#34;, &#34;css&#34;: &#34;css&#34;, &#34;css_django&#34;: &#34;css+django&#34;,
+                       &#34;css_genshitext&#34;: &#34;css+genshitext&#34;, &#34;css_lasso&#34;: &#34;css+lasso&#34;, &#34;css_mako&#34;: &#34;css+mako&#34;,
+                       &#34;css_myghty&#34;: &#34;css+myghty&#34;, &#34;css_php&#34;: &#34;css+php&#34;, &#34;css_erb&#34;: &#34;css+erb&#34;,
+                       &#34;css_smarty&#34;: &#34;css+smarty&#34;,
+                       &#34;cuda&#34;: &#34;cuda&#34;, &#34;cython&#34;: &#34;cython&#34;, &#34;d&#34;: &#34;d&#34;, &#34;d_objdump&#34;: &#34;d-objdump&#34;, &#34;dpatch&#34;: &#34;dpatch&#34;,
+                       &#34;dart&#34;: &#34;dart&#34;,
+                       &#34;control&#34;: &#34;control&#34;, &#34;sourceslist&#34;: &#34;sourceslist&#34;, &#34;delphi&#34;: &#34;delphi&#34;, &#34;dg&#34;: &#34;dg&#34;,
+                       &#34;diff&#34;: &#34;diff&#34;,
+                       &#34;django&#34;: &#34;django&#34;, &#34;dtd&#34;: &#34;dtd&#34;, &#34;duel&#34;: &#34;duel&#34;, &#34;dylan&#34;: &#34;dylan&#34;,
+                       &#34;dylan_console&#34;: &#34;dylan-console&#34;,
+                       &#34;dylan_lid&#34;: &#34;dylan-lid&#34;, &#34;ec&#34;: &#34;ec&#34;, &#34;ecl&#34;: &#34;ecl&#34;, &#34;elixir&#34;: &#34;elixir&#34;, &#34;iex&#34;: &#34;iex&#34;,
+                       &#34;ragel_em&#34;: &#34;ragel-em&#34;,
+                       &#34;erb&#34;: &#34;erb&#34;, &#34;erlang&#34;: &#34;erlang&#34;, &#34;erl&#34;: &#34;erl&#34;, &#34;evoque&#34;: &#34;evoque&#34;, &#34;factor&#34;: &#34;factor&#34;,
+                       &#34;fancy&#34;: &#34;fancy&#34;,
+                       &#34;fan&#34;: &#34;fan&#34;, &#34;felix&#34;: &#34;felix&#34;, &#34;fortran&#34;: &#34;fortran&#34;, &#34;Clipper&#34;: &#34;Clipper&#34;,
+                       &#34;fsharp&#34;: &#34;fsharp&#34;, &#34;gas&#34;: &#34;gas&#34;,
+                       &#34;genshi&#34;: &#34;genshi&#34;, &#34;genshitext&#34;: &#34;genshitext&#34;, &#34;pot&#34;: &#34;pot&#34;, &#34;Cucumber&#34;: &#34;Cucumber&#34;,
+                       &#34;glsl&#34;: &#34;glsl&#34;,
+                       &#34;gnuplot&#34;: &#34;gnuplot&#34;, &#34;go&#34;: &#34;go&#34;, &#34;gooddata_cl&#34;: &#34;gooddata-cl&#34;, &#34;gosu&#34;: &#34;gosu&#34;, &#34;gst&#34;: &#34;gst&#34;,
+                       &#34;groff&#34;: &#34;groff&#34;,
+                       &#34;groovy&#34;: &#34;groovy&#34;, &#34;haml&#34;: &#34;haml&#34;, &#34;haskell&#34;: &#34;haskell&#34;, &#34;hx&#34;: &#34;hx&#34;, &#34;html&#34;: &#34;html&#34;,
+                       &#34;html_cheetah&#34;: &#34;html+cheetah&#34;, &#34;html_django&#34;: &#34;html+django&#34;, &#34;html_evoque&#34;: &#34;html+evoque&#34;,
+                       &#34;html_genshi&#34;: &#34;html+genshi&#34;, &#34;html_lasso&#34;: &#34;html+lasso&#34;, &#34;html_mako&#34;: &#34;html+mako&#34;,
+                       &#34;html_myghty&#34;: &#34;html+myghty&#34;, &#34;html_php&#34;: &#34;html+php&#34;, &#34;html_smarty&#34;: &#34;html+smarty&#34;,
+                       &#34;html_velocity&#34;: &#34;html+velocity&#34;, &#34;http&#34;: &#34;http&#34;, &#34;haxeml&#34;: &#34;haxeml&#34;, &#34;hybris&#34;: &#34;hybris&#34;,
+                       &#34;idl&#34;: &#34;idl&#34;,
+                       &#34;ini&#34;: &#34;ini&#34;, &#34;io&#34;: &#34;io&#34;, &#34;ioke&#34;: &#34;ioke&#34;, &#34;irc&#34;: &#34;irc&#34;, &#34;jade&#34;: &#34;jade&#34;, &#34;jags&#34;: &#34;jags&#34;,
+                       &#34;java&#34;: &#34;java&#34;,
+                       &#34;jsp&#34;: &#34;jsp&#34;, &#34;js&#34;: &#34;js&#34;, &#34;js_cheetah&#34;: &#34;js+cheetah&#34;, &#34;js_django&#34;: &#34;js+django&#34;,
+                       &#34;js_genshitext&#34;: &#34;js+genshitext&#34;, &#34;js_lasso&#34;: &#34;js+lasso&#34;, &#34;js_mako&#34;: &#34;js+mako&#34;,
+                       &#34;js_myghty&#34;: &#34;js+myghty&#34;,
+                       &#34;js_php&#34;: &#34;js+php&#34;, &#34;js_erb&#34;: &#34;js+erb&#34;, &#34;js_smarty&#34;: &#34;js+smarty&#34;, &#34;json&#34;: &#34;json&#34;,
+                       &#34;julia&#34;: &#34;julia&#34;,
+                       &#34;jlcon&#34;: &#34;jlcon&#34;, &#34;kconfig&#34;: &#34;kconfig&#34;, &#34;koka&#34;: &#34;koka&#34;, &#34;kotlin&#34;: &#34;kotlin&#34;, &#34;lasso&#34;: &#34;lasso&#34;,
+                       &#34;lighty&#34;: &#34;lighty&#34;, &#34;lhs&#34;: &#34;lhs&#34;, &#34;live_script&#34;: &#34;live-script&#34;, &#34;llvm&#34;: &#34;llvm&#34;,
+                       &#34;logos&#34;: &#34;logos&#34;,
+                       &#34;logtalk&#34;: &#34;logtalk&#34;, &#34;lua&#34;: &#34;lua&#34;, &#34;make&#34;: &#34;make&#34;, &#34;mako&#34;: &#34;mako&#34;, &#34;maql&#34;: &#34;maql&#34;,
+                       &#34;mason&#34;: &#34;mason&#34;,
+                       &#34;matlab&#34;: &#34;matlab&#34;, &#34;matlabsession&#34;: &#34;matlabsession&#34;, &#34;minid&#34;: &#34;minid&#34;,
+                       &#34;modelica&#34;: &#34;modelica&#34;,
+                       &#34;modula2&#34;: &#34;modula2&#34;, &#34;trac_wiki&#34;: &#34;trac-wiki&#34;, &#34;monkey&#34;: &#34;monkey&#34;, &#34;moocode&#34;: &#34;moocode&#34;,
+                       &#34;moon&#34;: &#34;moon&#34;,
+                       &#34;mscgen&#34;: &#34;mscgen&#34;, &#34;mupad&#34;: &#34;mupad&#34;, &#34;mxml&#34;: &#34;mxml&#34;, &#34;myghty&#34;: &#34;myghty&#34;, &#34;mysql&#34;: &#34;mysql&#34;,
+                       &#34;nasm&#34;: &#34;nasm&#34;,
+                       &#34;nemerle&#34;: &#34;nemerle&#34;, &#34;newlisp&#34;: &#34;newlisp&#34;, &#34;newspeak&#34;: &#34;newspeak&#34;, &#34;nginx&#34;: &#34;nginx&#34;,
+                       &#34;nimrod&#34;: &#34;nimrod&#34;,
+                       &#34;nsis&#34;: &#34;nsis&#34;, &#34;numpy&#34;: &#34;numpy&#34;, &#34;objdump&#34;: &#34;objdump&#34;, &#34;objective_c&#34;: &#34;objective-c&#34;,
+                       &#34;objective_c_+&#34;: &#34;objective-c++&#34;, &#34;objective_j&#34;: &#34;objective-j&#34;, &#34;ocaml&#34;: &#34;ocaml&#34;,
+                       &#34;octave&#34;: &#34;octave&#34;,
+                       &#34;ooc&#34;: &#34;ooc&#34;, &#34;opa&#34;: &#34;opa&#34;, &#34;openedge&#34;: &#34;openedge&#34;, &#34;perl&#34;: &#34;perl&#34;, &#34;php&#34;: &#34;php&#34;,
+                       &#34;plpgsql&#34;: &#34;plpgsql&#34;,
+                       &#34;psql&#34;: &#34;psql&#34;, &#34;postgresql&#34;: &#34;postgresql&#34;, &#34;postscript&#34;: &#34;postscript&#34;, &#34;pov&#34;: &#34;pov&#34;,
+                       &#34;powershell&#34;: &#34;powershell&#34;, &#34;prolog&#34;: &#34;prolog&#34;, &#34;properties&#34;: &#34;properties&#34;,
+                       &#34;protobuf&#34;: &#34;protobuf&#34;,
+                       &#34;puppet&#34;: &#34;puppet&#34;, &#34;pypylog&#34;: &#34;pypylog&#34;, &#34;python&#34;: &#34;python&#34;, &#34;python3&#34;: &#34;python3&#34;,
+                       &#34;py3tb&#34;: &#34;py3tb&#34;,
+                       &#34;pycon&#34;: &#34;pycon&#34;, &#34;pytb&#34;: &#34;pytb&#34;, &#34;qml&#34;: &#34;qml&#34;, &#34;racket&#34;: &#34;racket&#34;, &#34;ragel&#34;: &#34;ragel&#34;,
+                       &#34;ragel_c&#34;: &#34;ragel-c&#34;,
+                       &#34;ragel_cpp&#34;: &#34;ragel-cpp&#34;, &#34;ragel_d&#34;: &#34;ragel-d&#34;, &#34;ragel_java&#34;: &#34;ragel-java&#34;,
+                       &#34;ragel_objc&#34;: &#34;ragel-objc&#34;,
+                       &#34;ragel_ruby&#34;: &#34;ragel-ruby&#34;, &#34;raw&#34;: &#34;raw&#34;, &#34;rconsole&#34;: &#34;rconsole&#34;, &#34;rd&#34;: &#34;rd&#34;,
+                       &#34;rebol&#34;: &#34;rebol&#34;,
+                       &#34;redcode&#34;: &#34;redcode&#34;, &#34;registry&#34;: &#34;registry&#34;, &#34;rst&#34;: &#34;rst&#34;, &#34;rhtml&#34;: &#34;rhtml&#34;,
+                       &#34;RobotFramework&#34;: &#34;RobotFramework&#34;, &#34;spec&#34;: &#34;spec&#34;, &#34;rb&#34;: &#34;rb&#34;, &#34;rbcon&#34;: &#34;rbcon&#34;,
+                       &#34;rust&#34;: &#34;rust&#34;,
+                       &#34;splus&#34;: &#34;splus&#34;, &#34;sass&#34;: &#34;sass&#34;, &#34;scala&#34;: &#34;scala&#34;, &#34;ssp&#34;: &#34;ssp&#34;, &#34;scaml&#34;: &#34;scaml&#34;,
+                       &#34;scheme&#34;: &#34;scheme&#34;,
+                       &#34;scilab&#34;: &#34;scilab&#34;, &#34;scss&#34;: &#34;scss&#34;, &#34;shell_session&#34;: &#34;shell-session&#34;, &#34;smali&#34;: &#34;smali&#34;,
+                       &#34;smalltalk&#34;: &#34;smalltalk&#34;, &#34;smarty&#34;: &#34;smarty&#34;, &#34;snobol&#34;: &#34;snobol&#34;, &#34;sp&#34;: &#34;sp&#34;, &#34;sql&#34;: &#34;sql&#34;,
+                       &#34;sqlite3&#34;: &#34;sqlite3&#34;, &#34;squidconf&#34;: &#34;squidconf&#34;, &#34;stan&#34;: &#34;stan&#34;, &#34;sml&#34;: &#34;sml&#34;,
+                       &#34;systemverilog&#34;: &#34;systemverilog&#34;,
+                       &#34;tcl&#34;: &#34;tcl&#34;, &#34;tcsh&#34;: &#34;tcsh&#34;, &#34;tea&#34;: &#34;tea&#34;, &#34;tex&#34;: &#34;tex&#34;, &#34;text&#34;: &#34;text&#34;,
+                       &#34;treetop&#34;: &#34;treetop&#34;, &#34;ts&#34;: &#34;ts&#34;,
+                       &#34;urbiscript&#34;: &#34;urbiscript&#34;, &#34;vala&#34;: &#34;vala&#34;, &#34;vb.net&#34;: &#34;vb.net&#34;, &#34;velocity&#34;: &#34;velocity&#34;,
+                       &#34;verilog&#34;: &#34;verilog&#34;,
+                       &#34;vgl&#34;: &#34;vgl&#34;, &#34;vhdl&#34;: &#34;vhdl&#34;, &#34;vim&#34;: &#34;vim&#34;, &#34;xml&#34;: &#34;xml&#34;, &#34;xml_cheetah&#34;: &#34;xml+cheetah&#34;,
+                       &#34;xml_django&#34;: &#34;xml+django&#34;, &#34;xml_evoque&#34;: &#34;xml+evoque&#34;, &#34;xml_lasso&#34;: &#34;xml+lasso&#34;,
+                       &#34;xml_mako&#34;: &#34;xml+mako&#34;,
+                       &#34;xml_myghty&#34;: &#34;xml+myghty&#34;, &#34;xml_php&#34;: &#34;xml+php&#34;, &#34;xml_erb&#34;: &#34;xml+erb&#34;,
+                       &#34;xml_smarty&#34;: &#34;xml+smarty&#34;,
+                       &#34;xml_velocity&#34;: &#34;xml+velocity&#34;, &#34;xquery&#34;: &#34;xquery&#34;, &#34;xslt&#34;: &#34;xslt&#34;, &#34;xtend&#34;: &#34;xtend&#34;,
+                       &#34;yaml&#34;: &#34;yaml&#34;}
+
+code_styles_list = {0: &#34;autumn&#34;, 1: &#34;borland&#34;, 2: &#34;bw&#34;, 3: &#34;colorful&#34;, 4: &#34;default&#34;, 5: &#34;emacs&#34;,
+                    6: &#34;friendly&#34;, 7: &#34;fruity&#34;, 8: &#34;manni&#34;, 9: &#34;monokai&#34;, 10: &#34;murphy&#34;, 11: &#34;native&#34;,
+                    12: &#34;pastie&#34;, 13: &#34;perldoc&#34;, 14: &#34;rrt&#34;, 15: &#34;tango&#34;, 16: &#34;trac&#34;, 17: &#34;vim&#34;, 18: &#34;vs&#34;}</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="manimlib.constants.initialize_directories"><code class="name flex">
+<span>def <span class="ident">initialize_directories</span></span>(<span>config)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def initialize_directories(config):
+    global MEDIA_DIR
+    global VIDEO_DIR
+    global VIDEO_OUTPUT_DIR
+    global TEX_DIR
+    global TEXT_DIR
+
+    video_path_specified = config[&#34;video_dir&#34;] or config[&#34;video_output_dir&#34;]
+
+    if not (video_path_specified and config[&#34;tex_dir&#34;]):
+        if config[&#34;media_dir&#34;]:
+            MEDIA_DIR = config[&#34;media_dir&#34;]
+        else:
+            MEDIA_DIR = os.path.join(
+                os.path.expanduser(&#39;~&#39;),
+                &#34;Dropbox (3Blue1Brown)/3Blue1Brown Team Folder&#34;
+            )
+        if not os.path.isdir(MEDIA_DIR):
+            MEDIA_DIR = &#34;./media&#34;
+        print(
+            f&#34;Media will be written to {MEDIA_DIR + os.sep}. You can change &#34;
+            &#34;this behavior with the --media_dir flag.&#34;
+        )
+    else:
+        if config[&#34;media_dir&#34;]:
+            print(
+                &#34;Ignoring --media_dir, since both --tex_dir and a video &#34;
+                &#34;directory were both passed&#34;
+            )
+
+    TEX_DIR = config[&#34;tex_dir&#34;] or os.path.join(MEDIA_DIR, &#34;Tex&#34;)
+    TEXT_DIR = os.path.join(MEDIA_DIR, &#34;texts&#34;)
+    if not video_path_specified:
+        VIDEO_DIR = os.path.join(MEDIA_DIR, &#34;videos&#34;)
+        VIDEO_OUTPUT_DIR = os.path.join(MEDIA_DIR, &#34;videos&#34;)
+    elif config[&#34;video_output_dir&#34;]:
+        VIDEO_OUTPUT_DIR = config[&#34;video_output_dir&#34;]
+    else:
+        VIDEO_DIR = config[&#34;video_dir&#34;]
+
+    for folder in [VIDEO_DIR, VIDEO_OUTPUT_DIR, TEX_DIR, TEXT_DIR]:
+        if folder != &#34;&#34; and not os.path.exists(folder):
+            os.makedirs(folder)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="manimlib" href="index.html">manimlib</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="manimlib.constants.initialize_directories" href="#manimlib.constants.initialize_directories">initialize_directories</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

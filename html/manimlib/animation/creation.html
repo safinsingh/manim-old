@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>manimlib.animation.creation API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>manimlib.animation.creation</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from manimlib.animation.animation import Animation
+from manimlib.animation.composition import Succession
+from manimlib.mobject.types.vectorized_mobject import VMobject
+from manimlib.mobject.mobject import Group
+from manimlib.utils.bezier import integer_interpolate
+from manimlib.utils.config_ops import digest_config
+from manimlib.utils.rate_functions import linear
+from manimlib.utils.rate_functions import double_smooth
+from manimlib.utils.rate_functions import smooth
+
+import numpy as np
+import itertools as it
+
+
+class ShowPartial(Animation):
+    &#34;&#34;&#34;
+    Abstract class for ShowCreation and ShowPassingFlash
+    &#34;&#34;&#34;
+
+    def interpolate_submobject(self, submob, start_submob, alpha):
+        submob.pointwise_become_partial(
+            start_submob, *self.get_bounds(alpha)
+        )
+
+    def get_bounds(self, alpha):
+        raise Exception(&#34;Not Implemented&#34;)
+
+
+class ShowCreation(ShowPartial):
+    CONFIG = {
+        &#34;lag_ratio&#34;: 1,
+    }
+
+    def get_bounds(self, alpha):
+        return (0, alpha)
+
+
+class Uncreate(ShowCreation):
+    CONFIG = {
+        &#34;rate_func&#34;: lambda t: smooth(1 - t),
+        &#34;remover&#34;: True
+    }
+
+
+class DrawBorderThenFill(Animation):
+    CONFIG = {
+        &#34;run_time&#34;: 2,
+        &#34;rate_func&#34;: double_smooth,
+        &#34;stroke_width&#34;: 2,
+        &#34;stroke_color&#34;: None,
+        &#34;draw_border_animation_config&#34;: {},
+        &#34;fill_animation_config&#34;: {},
+    }
+
+    def __init__(self, vmobject, **kwargs):
+        self.check_validity_of_input(vmobject)
+        super().__init__(vmobject, **kwargs)
+
+    def check_validity_of_input(self, vmobject):
+        if not isinstance(vmobject, VMobject):
+            raise Exception(
+                &#34;DrawBorderThenFill only works for VMobjects&#34;
+            )
+
+    def begin(self):
+        self.outline = self.get_outline()
+        super().begin()
+
+    def get_outline(self):
+        outline = self.mobject.copy()
+        outline.set_fill(opacity=0)
+        for sm in outline.family_members_with_points():
+            sm.set_stroke(
+                color=self.get_stroke_color(sm),
+                width=self.stroke_width
+            )
+        return outline
+
+    def get_stroke_color(self, vmobject):
+        if self.stroke_color:
+            return self.stroke_color
+        elif vmobject.get_stroke_width() &gt; 0:
+            return vmobject.get_stroke_color()
+        return vmobject.get_color()
+
+    def get_all_mobjects(self):
+        return [*super().get_all_mobjects(), self.outline]
+
+    def interpolate_submobject(self, submob, start, outline, alpha):
+        index, subalpha = integer_interpolate(0, 2, alpha)
+        if index == 0:
+            submob.pointwise_become_partial(
+                outline, 0, subalpha
+            )
+            submob.match_style(outline)
+        else:
+            submob.interpolate(outline, start, subalpha)
+
+class UnDrawBorderThenFill(DrawBorderThenFill):
+    CONFIG = {
+        &#34;rate_func&#34;: lambda t: double_smooth(1 - t),
+        &#34;remover&#34;: True
+    }
+
+class Write(DrawBorderThenFill):
+    CONFIG = {
+        # To be figured out in
+        # set_default_config_from_lengths
+        &#34;run_time&#34;: None,
+        &#34;lag_ratio&#34;: None,
+        &#34;rate_func&#34;: linear,
+    }
+
+    def __init__(self, mobject, **kwargs):
+        digest_config(self, kwargs)
+        self.set_default_config_from_length(mobject)
+        super().__init__(mobject, **kwargs)
+
+    def set_default_config_from_length(self, mobject):
+        length = len(mobject.family_members_with_points())
+        if self.run_time is None:
+            if length &lt; 15:
+                self.run_time = 1
+            else:
+                self.run_time = 2
+        if self.lag_ratio is None:
+            self.lag_ratio = min(4.0 / length, 0.2)
+
+class Unwrite(Write):
+    CONFIG = {
+        &#34;rate_func&#34;: lambda t: linear(1 - t),
+        &#34;remover&#34;: True
+    }
+
+class ShowIncreasingSubsets(Animation):
+    CONFIG = {
+        &#34;suspend_mobject_updating&#34;: False,
+        &#34;int_func&#34;: np.floor,
+    }
+
+    def __init__(self, group, **kwargs):
+        self.all_submobs = list(group.submobjects)
+        super().__init__(group, **kwargs)
+
+    def interpolate_mobject(self, alpha):
+        n_submobs = len(self.all_submobs)
+        index = int(self.int_func(alpha * n_submobs))
+        self.update_submobject_list(index)
+
+    def update_submobject_list(self, index):
+        self.mobject.submobjects = self.all_submobs[:index]
+
+
+class ShowSubmobjectsOneByOne(ShowIncreasingSubsets):
+    CONFIG = {
+        &#34;int_func&#34;: np.ceil,
+    }
+
+    def __init__(self, group, **kwargs):
+        new_group = Group(*group)
+        super().__init__(new_group, **kwargs)
+
+    def update_submobject_list(self, index):
+        # N = len(self.all_submobs)
+        if index == 0:
+            self.mobject.submobjects = []
+        else:
+            self.mobject.submobjects = self.all_submobs[index - 1]
+
+
+# TODO, this is broken...
+class AddTextWordByWord(Succession):
+    CONFIG = {
+        # If given a value for run_time, it will
+        # override the time_per_char
+        &#34;run_time&#34;: None,
+        &#34;time_per_char&#34;: 0.06,
+    }
+
+    def __init__(self, text_mobject, **kwargs):
+        digest_config(self, kwargs)
+        tpc = self.time_per_char
+        anims = it.chain(*[
+            [
+                ShowIncreasingSubsets(word, run_time=tpc * len(word)),
+                Animation(word, run_time=0.005 * len(word)**1.5),
+            ]
+            for word in text_mobject
+        ])
+        super().__init__(*anims, **kwargs)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="manimlib.animation.creation.AddTextWordByWord"><code class="flex name class">
+<span>class <span class="ident">AddTextWordByWord</span></span>
+<span>(</span><span>text_mobject, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AddTextWordByWord(Succession):
+    CONFIG = {
+        # If given a value for run_time, it will
+        # override the time_per_char
+        &#34;run_time&#34;: None,
+        &#34;time_per_char&#34;: 0.06,
+    }
+
+    def __init__(self, text_mobject, **kwargs):
+        digest_config(self, kwargs)
+        tpc = self.time_per_char
+        anims = it.chain(*[
+            [
+                ShowIncreasingSubsets(word, run_time=tpc * len(word)),
+                Animation(word, run_time=0.005 * len(word)**1.5),
+            ]
+            for word in text_mobject
+        ])
+        super().__init__(*anims, **kwargs)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.composition.Succession" href="composition.html#manimlib.animation.composition.Succession">Succession</a></li>
+<li><a title="manimlib.animation.composition.AnimationGroup" href="composition.html#manimlib.animation.composition.AnimationGroup">AnimationGroup</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.creation.AddTextWordByWord.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.composition.Succession" href="composition.html#manimlib.animation.composition.Succession">Succession</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.composition.Succession.build_animations_with_timings" href="composition.html#manimlib.animation.composition.AnimationGroup.build_animations_with_timings">build_animations_with_timings</a></code></li>
+<li><code><a title="manimlib.animation.composition.Succession.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.composition.Succession.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.composition.Succession.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.creation.DrawBorderThenFill"><code class="flex name class">
+<span>class <span class="ident">DrawBorderThenFill</span></span>
+<span>(</span><span>vmobject, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DrawBorderThenFill(Animation):
+    CONFIG = {
+        &#34;run_time&#34;: 2,
+        &#34;rate_func&#34;: double_smooth,
+        &#34;stroke_width&#34;: 2,
+        &#34;stroke_color&#34;: None,
+        &#34;draw_border_animation_config&#34;: {},
+        &#34;fill_animation_config&#34;: {},
+    }
+
+    def __init__(self, vmobject, **kwargs):
+        self.check_validity_of_input(vmobject)
+        super().__init__(vmobject, **kwargs)
+
+    def check_validity_of_input(self, vmobject):
+        if not isinstance(vmobject, VMobject):
+            raise Exception(
+                &#34;DrawBorderThenFill only works for VMobjects&#34;
+            )
+
+    def begin(self):
+        self.outline = self.get_outline()
+        super().begin()
+
+    def get_outline(self):
+        outline = self.mobject.copy()
+        outline.set_fill(opacity=0)
+        for sm in outline.family_members_with_points():
+            sm.set_stroke(
+                color=self.get_stroke_color(sm),
+                width=self.stroke_width
+            )
+        return outline
+
+    def get_stroke_color(self, vmobject):
+        if self.stroke_color:
+            return self.stroke_color
+        elif vmobject.get_stroke_width() &gt; 0:
+            return vmobject.get_stroke_color()
+        return vmobject.get_color()
+
+    def get_all_mobjects(self):
+        return [*super().get_all_mobjects(), self.outline]
+
+    def interpolate_submobject(self, submob, start, outline, alpha):
+        index, subalpha = integer_interpolate(0, 2, alpha)
+        if index == 0:
+            submob.pointwise_become_partial(
+                outline, 0, subalpha
+            )
+            submob.match_style(outline)
+        else:
+            submob.interpolate(outline, start, subalpha)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.creation.UnDrawBorderThenFill" href="#manimlib.animation.creation.UnDrawBorderThenFill">UnDrawBorderThenFill</a></li>
+<li><a title="manimlib.animation.creation.Write" href="#manimlib.animation.creation.Write">Write</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.creation.DrawBorderThenFill.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.creation.DrawBorderThenFill.begin"><code class="name flex">
+<span>def <span class="ident">begin</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def begin(self):
+    self.outline = self.get_outline()
+    super().begin()</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.creation.DrawBorderThenFill.check_validity_of_input"><code class="name flex">
+<span>def <span class="ident">check_validity_of_input</span></span>(<span>self, vmobject)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_validity_of_input(self, vmobject):
+    if not isinstance(vmobject, VMobject):
+        raise Exception(
+            &#34;DrawBorderThenFill only works for VMobjects&#34;
+        )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.creation.DrawBorderThenFill.get_outline"><code class="name flex">
+<span>def <span class="ident">get_outline</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_outline(self):
+    outline = self.mobject.copy()
+    outline.set_fill(opacity=0)
+    for sm in outline.family_members_with_points():
+        sm.set_stroke(
+            color=self.get_stroke_color(sm),
+            width=self.stroke_width
+        )
+    return outline</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.creation.DrawBorderThenFill.get_stroke_color"><code class="name flex">
+<span>def <span class="ident">get_stroke_color</span></span>(<span>self, vmobject)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_stroke_color(self, vmobject):
+    if self.stroke_color:
+        return self.stroke_color
+    elif vmobject.get_stroke_width() &gt; 0:
+        return vmobject.get_stroke_color()
+    return vmobject.get_color()</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.creation.DrawBorderThenFill.interpolate_submobject"><code class="name flex">
+<span>def <span class="ident">interpolate_submobject</span></span>(<span>self, submob, start, outline, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate_submobject(self, submob, start, outline, alpha):
+    index, subalpha = integer_interpolate(0, 2, alpha)
+    if index == 0:
+        submob.pointwise_become_partial(
+            outline, 0, subalpha
+        )
+        submob.match_style(outline)
+    else:
+        submob.interpolate(outline, start, subalpha)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.animation.Animation.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.creation.ShowCreation"><code class="flex name class">
+<span>class <span class="ident">ShowCreation</span></span>
+<span>(</span><span>mobject, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Abstract class for ShowCreation and ShowPassingFlash</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ShowCreation(ShowPartial):
+    CONFIG = {
+        &#34;lag_ratio&#34;: 1,
+    }
+
+    def get_bounds(self, alpha):
+        return (0, alpha)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.creation.ShowPartial" href="#manimlib.animation.creation.ShowPartial">ShowPartial</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.creation.Uncreate" href="#manimlib.animation.creation.Uncreate">Uncreate</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.creation.ShowCreation.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.creation.ShowCreation.get_bounds"><code class="name flex">
+<span>def <span class="ident">get_bounds</span></span>(<span>self, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_bounds(self, alpha):
+    return (0, alpha)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.creation.ShowPartial" href="#manimlib.animation.creation.ShowPartial">ShowPartial</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.creation.ShowPartial.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.creation.ShowPartial.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.creation.ShowPartial.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.creation.ShowIncreasingSubsets"><code class="flex name class">
+<span>class <span class="ident">ShowIncreasingSubsets</span></span>
+<span>(</span><span>group, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ShowIncreasingSubsets(Animation):
+    CONFIG = {
+        &#34;suspend_mobject_updating&#34;: False,
+        &#34;int_func&#34;: np.floor,
+    }
+
+    def __init__(self, group, **kwargs):
+        self.all_submobs = list(group.submobjects)
+        super().__init__(group, **kwargs)
+
+    def interpolate_mobject(self, alpha):
+        n_submobs = len(self.all_submobs)
+        index = int(self.int_func(alpha * n_submobs))
+        self.update_submobject_list(index)
+
+    def update_submobject_list(self, index):
+        self.mobject.submobjects = self.all_submobs[:index]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.creation.ShowSubmobjectsOneByOne" href="#manimlib.animation.creation.ShowSubmobjectsOneByOne">ShowSubmobjectsOneByOne</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.creation.ShowIncreasingSubsets.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.creation.ShowIncreasingSubsets.interpolate_mobject"><code class="name flex">
+<span>def <span class="ident">interpolate_mobject</span></span>(<span>self, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate_mobject(self, alpha):
+    n_submobs = len(self.all_submobs)
+    index = int(self.int_func(alpha * n_submobs))
+    self.update_submobject_list(index)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.creation.ShowIncreasingSubsets.update_submobject_list"><code class="name flex">
+<span>def <span class="ident">update_submobject_list</span></span>(<span>self, index)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_submobject_list(self, index):
+    self.mobject.submobjects = self.all_submobs[:index]</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.animation.Animation.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.creation.ShowPartial"><code class="flex name class">
+<span>class <span class="ident">ShowPartial</span></span>
+<span>(</span><span>mobject, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Abstract class for ShowCreation and ShowPassingFlash</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ShowPartial(Animation):
+    &#34;&#34;&#34;
+    Abstract class for ShowCreation and ShowPassingFlash
+    &#34;&#34;&#34;
+
+    def interpolate_submobject(self, submob, start_submob, alpha):
+        submob.pointwise_become_partial(
+            start_submob, *self.get_bounds(alpha)
+        )
+
+    def get_bounds(self, alpha):
+        raise Exception(&#34;Not Implemented&#34;)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.creation.ShowCreation" href="#manimlib.animation.creation.ShowCreation">ShowCreation</a></li>
+<li><a title="manimlib.animation.indication.ShowPassingFlash" href="indication.html#manimlib.animation.indication.ShowPassingFlash">ShowPassingFlash</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.creation.ShowPartial.get_bounds"><code class="name flex">
+<span>def <span class="ident">get_bounds</span></span>(<span>self, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_bounds(self, alpha):
+    raise Exception(&#34;Not Implemented&#34;)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.animation.creation.ShowPartial.interpolate_submobject"><code class="name flex">
+<span>def <span class="ident">interpolate_submobject</span></span>(<span>self, submob, start_submob, alpha)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate_submobject(self, submob, start_submob, alpha):
+    submob.pointwise_become_partial(
+        start_submob, *self.get_bounds(alpha)
+    )</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.animation.Animation.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.animation.Animation.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.creation.ShowSubmobjectsOneByOne"><code class="flex name class">
+<span>class <span class="ident">ShowSubmobjectsOneByOne</span></span>
+<span>(</span><span>group, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ShowSubmobjectsOneByOne(ShowIncreasingSubsets):
+    CONFIG = {
+        &#34;int_func&#34;: np.ceil,
+    }
+
+    def __init__(self, group, **kwargs):
+        new_group = Group(*group)
+        super().__init__(new_group, **kwargs)
+
+    def update_submobject_list(self, index):
+        # N = len(self.all_submobs)
+        if index == 0:
+            self.mobject.submobjects = []
+        else:
+            self.mobject.submobjects = self.all_submobs[index - 1]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.creation.ShowIncreasingSubsets" href="#manimlib.animation.creation.ShowIncreasingSubsets">ShowIncreasingSubsets</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.creation.ShowSubmobjectsOneByOne.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.creation.ShowSubmobjectsOneByOne.update_submobject_list"><code class="name flex">
+<span>def <span class="ident">update_submobject_list</span></span>(<span>self, index)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_submobject_list(self, index):
+    # N = len(self.all_submobs)
+    if index == 0:
+        self.mobject.submobjects = []
+    else:
+        self.mobject.submobjects = self.all_submobs[index - 1]</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.creation.ShowIncreasingSubsets" href="#manimlib.animation.creation.ShowIncreasingSubsets">ShowIncreasingSubsets</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.creation.ShowIncreasingSubsets.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.creation.ShowIncreasingSubsets.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.creation.ShowIncreasingSubsets.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.creation.UnDrawBorderThenFill"><code class="flex name class">
+<span>class <span class="ident">UnDrawBorderThenFill</span></span>
+<span>(</span><span>vmobject, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class UnDrawBorderThenFill(DrawBorderThenFill):
+    CONFIG = {
+        &#34;rate_func&#34;: lambda t: double_smooth(1 - t),
+        &#34;remover&#34;: True
+    }</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.creation.DrawBorderThenFill" href="#manimlib.animation.creation.DrawBorderThenFill">DrawBorderThenFill</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.creation.UnDrawBorderThenFill.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.creation.DrawBorderThenFill" href="#manimlib.animation.creation.DrawBorderThenFill">DrawBorderThenFill</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.creation.DrawBorderThenFill.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.creation.DrawBorderThenFill.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.creation.DrawBorderThenFill.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.creation.Uncreate"><code class="flex name class">
+<span>class <span class="ident">Uncreate</span></span>
+<span>(</span><span>mobject, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Abstract class for ShowCreation and ShowPassingFlash</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Uncreate(ShowCreation):
+    CONFIG = {
+        &#34;rate_func&#34;: lambda t: smooth(1 - t),
+        &#34;remover&#34;: True
+    }</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.creation.ShowCreation" href="#manimlib.animation.creation.ShowCreation">ShowCreation</a></li>
+<li><a title="manimlib.animation.creation.ShowPartial" href="#manimlib.animation.creation.ShowPartial">ShowPartial</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.creation.Uncreate.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.creation.ShowCreation" href="#manimlib.animation.creation.ShowCreation">ShowCreation</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.creation.ShowCreation.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.creation.ShowCreation.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.creation.ShowCreation.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.creation.Unwrite"><code class="flex name class">
+<span>class <span class="ident">Unwrite</span></span>
+<span>(</span><span>mobject, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Unwrite(Write):
+    CONFIG = {
+        &#34;rate_func&#34;: lambda t: linear(1 - t),
+        &#34;remover&#34;: True
+    }</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.creation.Write" href="#manimlib.animation.creation.Write">Write</a></li>
+<li><a title="manimlib.animation.creation.DrawBorderThenFill" href="#manimlib.animation.creation.DrawBorderThenFill">DrawBorderThenFill</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.creation.Unwrite.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.creation.Write" href="#manimlib.animation.creation.Write">Write</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.creation.Write.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.creation.Write.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.creation.Write.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="manimlib.animation.creation.Write"><code class="flex name class">
+<span>class <span class="ident">Write</span></span>
+<span>(</span><span>mobject, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Write(DrawBorderThenFill):
+    CONFIG = {
+        # To be figured out in
+        # set_default_config_from_lengths
+        &#34;run_time&#34;: None,
+        &#34;lag_ratio&#34;: None,
+        &#34;rate_func&#34;: linear,
+    }
+
+    def __init__(self, mobject, **kwargs):
+        digest_config(self, kwargs)
+        self.set_default_config_from_length(mobject)
+        super().__init__(mobject, **kwargs)
+
+    def set_default_config_from_length(self, mobject):
+        length = len(mobject.family_members_with_points())
+        if self.run_time is None:
+            if length &lt; 15:
+                self.run_time = 1
+            else:
+                self.run_time = 2
+        if self.lag_ratio is None:
+            self.lag_ratio = min(4.0 / length, 0.2)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.creation.DrawBorderThenFill" href="#manimlib.animation.creation.DrawBorderThenFill">DrawBorderThenFill</a></li>
+<li><a title="manimlib.animation.animation.Animation" href="animation.html#manimlib.animation.animation.Animation">Animation</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="manimlib.animation.creation.Unwrite" href="#manimlib.animation.creation.Unwrite">Unwrite</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="manimlib.animation.creation.Write.CONFIG"><code class="name">var <span class="ident">CONFIG</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="manimlib.animation.creation.Write.set_default_config_from_length"><code class="name flex">
+<span>def <span class="ident">set_default_config_from_length</span></span>(<span>self, mobject)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_default_config_from_length(self, mobject):
+    length = len(mobject.family_members_with_points())
+    if self.run_time is None:
+        if length &lt; 15:
+            self.run_time = 1
+        else:
+            self.run_time = 2
+    if self.lag_ratio is None:
+        self.lag_ratio = min(4.0 / length, 0.2)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="manimlib.animation.creation.DrawBorderThenFill" href="#manimlib.animation.creation.DrawBorderThenFill">DrawBorderThenFill</a></b></code>:
+<ul class="hlist">
+<li><code><a title="manimlib.animation.creation.DrawBorderThenFill.get_all_mobjects" href="animation.html#manimlib.animation.animation.Animation.get_all_mobjects">get_all_mobjects</a></code></li>
+<li><code><a title="manimlib.animation.creation.DrawBorderThenFill.update" href="animation.html#manimlib.animation.animation.Animation.update">update</a></code></li>
+<li><code><a title="manimlib.animation.creation.DrawBorderThenFill.update_mobjects" href="animation.html#manimlib.animation.animation.Animation.update_mobjects">update_mobjects</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="manimlib.animation" href="index.html">manimlib.animation</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="manimlib.animation.creation.AddTextWordByWord" href="#manimlib.animation.creation.AddTextWordByWord">AddTextWordByWord</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.creation.AddTextWordByWord.CONFIG" href="#manimlib.animation.creation.AddTextWordByWord.CONFIG">CONFIG</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.creation.DrawBorderThenFill" href="#manimlib.animation.creation.DrawBorderThenFill">DrawBorderThenFill</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.creation.DrawBorderThenFill.CONFIG" href="#manimlib.animation.creation.DrawBorderThenFill.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.creation.DrawBorderThenFill.begin" href="#manimlib.animation.creation.DrawBorderThenFill.begin">begin</a></code></li>
+<li><code><a title="manimlib.animation.creation.DrawBorderThenFill.check_validity_of_input" href="#manimlib.animation.creation.DrawBorderThenFill.check_validity_of_input">check_validity_of_input</a></code></li>
+<li><code><a title="manimlib.animation.creation.DrawBorderThenFill.get_outline" href="#manimlib.animation.creation.DrawBorderThenFill.get_outline">get_outline</a></code></li>
+<li><code><a title="manimlib.animation.creation.DrawBorderThenFill.get_stroke_color" href="#manimlib.animation.creation.DrawBorderThenFill.get_stroke_color">get_stroke_color</a></code></li>
+<li><code><a title="manimlib.animation.creation.DrawBorderThenFill.interpolate_submobject" href="#manimlib.animation.creation.DrawBorderThenFill.interpolate_submobject">interpolate_submobject</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.creation.ShowCreation" href="#manimlib.animation.creation.ShowCreation">ShowCreation</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.creation.ShowCreation.CONFIG" href="#manimlib.animation.creation.ShowCreation.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.creation.ShowCreation.get_bounds" href="#manimlib.animation.creation.ShowCreation.get_bounds">get_bounds</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.creation.ShowIncreasingSubsets" href="#manimlib.animation.creation.ShowIncreasingSubsets">ShowIncreasingSubsets</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.creation.ShowIncreasingSubsets.CONFIG" href="#manimlib.animation.creation.ShowIncreasingSubsets.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.creation.ShowIncreasingSubsets.interpolate_mobject" href="#manimlib.animation.creation.ShowIncreasingSubsets.interpolate_mobject">interpolate_mobject</a></code></li>
+<li><code><a title="manimlib.animation.creation.ShowIncreasingSubsets.update_submobject_list" href="#manimlib.animation.creation.ShowIncreasingSubsets.update_submobject_list">update_submobject_list</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.creation.ShowPartial" href="#manimlib.animation.creation.ShowPartial">ShowPartial</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.creation.ShowPartial.get_bounds" href="#manimlib.animation.creation.ShowPartial.get_bounds">get_bounds</a></code></li>
+<li><code><a title="manimlib.animation.creation.ShowPartial.interpolate_submobject" href="#manimlib.animation.creation.ShowPartial.interpolate_submobject">interpolate_submobject</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.creation.ShowSubmobjectsOneByOne" href="#manimlib.animation.creation.ShowSubmobjectsOneByOne">ShowSubmobjectsOneByOne</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.creation.ShowSubmobjectsOneByOne.CONFIG" href="#manimlib.animation.creation.ShowSubmobjectsOneByOne.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.creation.ShowSubmobjectsOneByOne.update_submobject_list" href="#manimlib.animation.creation.ShowSubmobjectsOneByOne.update_submobject_list">update_submobject_list</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.creation.UnDrawBorderThenFill" href="#manimlib.animation.creation.UnDrawBorderThenFill">UnDrawBorderThenFill</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.creation.UnDrawBorderThenFill.CONFIG" href="#manimlib.animation.creation.UnDrawBorderThenFill.CONFIG">CONFIG</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.creation.Uncreate" href="#manimlib.animation.creation.Uncreate">Uncreate</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.creation.Uncreate.CONFIG" href="#manimlib.animation.creation.Uncreate.CONFIG">CONFIG</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.creation.Unwrite" href="#manimlib.animation.creation.Unwrite">Unwrite</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.creation.Unwrite.CONFIG" href="#manimlib.animation.creation.Unwrite.CONFIG">CONFIG</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="manimlib.animation.creation.Write" href="#manimlib.animation.creation.Write">Write</a></code></h4>
+<ul class="">
+<li><code><a title="manimlib.animation.creation.Write.CONFIG" href="#manimlib.animation.creation.Write.CONFIG">CONFIG</a></code></li>
+<li><code><a title="manimlib.animation.creation.Write.set_default_config_from_length" href="#manimlib.animation.creation.Write.set_default_config_from_length">set_default_config_from_length</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

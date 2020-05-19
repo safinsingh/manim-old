@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>manimlib.utils.space_ops API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>manimlib.utils.space_ops</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from functools import reduce
+
+import numpy as np
+
+from manimlib.constants import OUT
+from manimlib.constants import PI
+from manimlib.constants import RIGHT
+from manimlib.constants import TAU
+from manimlib.utils.iterables import adjacent_pairs
+from manimlib.utils.simple_functions import fdiv
+
+
+def get_norm(vect):
+    return sum([x**2 for x in vect])**0.5
+
+
+# Quaternions
+# TODO, implement quaternion type
+
+
+def quaternion_mult(q1, q2):
+    w1, x1, y1, z1 = q1
+    w2, x2, y2, z2 = q2
+    return np.array([
+        w1 * w2 - x1 * x2 - y1 * y2 - z1 * z2,
+        w1 * x2 + x1 * w2 + y1 * z2 - z1 * y2,
+        w1 * y2 + y1 * w2 + z1 * x2 - x1 * z2,
+        w1 * z2 + z1 * w2 + x1 * y2 - y1 * x2,
+    ])
+
+
+def quaternion_from_angle_axis(angle, axis):
+    return np.append(
+        np.cos(angle / 2),
+        np.sin(angle / 2) * normalize(axis)
+    )
+
+
+def angle_axis_from_quaternion(quaternion):
+    axis = normalize(
+        quaternion[1:],
+        fall_back=np.array([1, 0, 0])
+    )
+    angle = 2 * np.arccos(quaternion[0])
+    if angle &gt; TAU / 2:
+        angle = TAU - angle
+    return angle, axis
+
+
+def quaternion_conjugate(quaternion):
+    result = np.array(quaternion)
+    result[1:] *= -1
+    return result
+
+
+def rotate_vector(vector, angle, axis=OUT):
+    if len(vector) == 2:
+        # Use complex numbers...because why not
+        z = complex(*vector) * np.exp(complex(0, angle))
+        return np.array([z.real, z.imag])
+    elif len(vector) == 3:
+        # Use quaternions...because why not
+        quat = quaternion_from_angle_axis(angle, axis)
+        quat_inv = quaternion_conjugate(quat)
+        product = reduce(
+            quaternion_mult,
+            [quat, np.append(0, vector), quat_inv]
+        )
+        return product[1:]
+    else:
+        raise Exception(&#34;vector must be of dimension 2 or 3&#34;)
+
+
+def thick_diagonal(dim, thickness=2):
+    row_indices = np.arange(dim).repeat(dim).reshape((dim, dim))
+    col_indices = np.transpose(row_indices)
+    return (np.abs(row_indices - col_indices) &lt; thickness).astype(&#39;uint8&#39;)
+
+
+def rotation_matrix(angle, axis):
+    &#34;&#34;&#34;
+    Rotation in R^3 about a specified axis of rotation.
+    &#34;&#34;&#34;
+    about_z = rotation_about_z(angle)
+    z_to_axis = z_to_vector(axis)
+    axis_to_z = np.linalg.inv(z_to_axis)
+    return reduce(np.dot, [z_to_axis, about_z, axis_to_z])
+
+
+def rotation_about_z(angle):
+    return [
+        [np.cos(angle), -np.sin(angle), 0],
+        [np.sin(angle), np.cos(angle), 0],
+        [0, 0, 1]
+    ]
+
+
+def z_to_vector(vector):
+    &#34;&#34;&#34;
+    Returns some matrix in SO(3) which takes the z-axis to the
+    (normalized) vector provided as an argument
+    &#34;&#34;&#34;
+    norm = get_norm(vector)
+    if norm == 0:
+        return np.identity(3)
+    v = np.array(vector) / norm
+    phi = np.arccos(v[2])
+    if any(v[:2]):
+        # projection of vector to unit circle
+        axis_proj = v[:2] / get_norm(v[:2])
+        theta = np.arccos(axis_proj[0])
+        if axis_proj[1] &lt; 0:
+            theta = -theta
+    else:
+        theta = 0
+    phi_down = np.array([
+        [np.cos(phi), 0, np.sin(phi)],
+        [0, 1, 0],
+        [-np.sin(phi), 0, np.cos(phi)]
+    ])
+    return np.dot(rotation_about_z(theta), phi_down)
+
+
+def angle_between(v1, v2):
+    return np.arccos(np.dot(
+        v1 / get_norm(v1),
+        v2 / get_norm(v2)
+    ))
+
+
+def angle_of_vector(vector):
+    &#34;&#34;&#34;
+    Returns polar coordinate theta when vector is project on xy plane
+    &#34;&#34;&#34;
+    z = complex(*vector[:2])
+    if z == 0:
+        return 0
+    return np.angle(complex(*vector[:2]))
+
+
+def angle_between_vectors(v1, v2):
+    &#34;&#34;&#34;
+    Returns the angle between two 3D vectors.
+    This angle will always be btw 0 and pi
+    &#34;&#34;&#34;
+    return np.arccos(fdiv(
+        np.dot(v1, v2),
+        get_norm(v1) * get_norm(v2)
+    ))
+
+
+def project_along_vector(point, vector):
+    matrix = np.identity(3) - np.outer(vector, vector)
+    return np.dot(point, matrix.T)
+
+
+def normalize(vect, fall_back=None):
+    norm = get_norm(vect)
+    if norm &gt; 0:
+        return np.array(vect) / norm
+    else:
+        if fall_back is not None:
+            return fall_back
+        else:
+            return np.zeros(len(vect))
+
+
+def cross(v1, v2):
+    return np.array([
+        v1[1] * v2[2] - v1[2] * v2[1],
+        v1[2] * v2[0] - v1[0] * v2[2],
+        v1[0] * v2[1] - v1[1] * v2[0]
+    ])
+
+
+def get_unit_normal(v1, v2):
+    return normalize(cross(v1, v2))
+
+
+###
+
+
+def compass_directions(n=4, start_vect=RIGHT):
+    angle = TAU / n
+    return np.array([
+        rotate_vector(start_vect, k * angle)
+        for k in range(n)
+    ])
+
+
+def complex_to_R3(complex_num):
+    return np.array((complex_num.real, complex_num.imag, 0))
+
+
+def R3_to_complex(point):
+    return complex(*point[:2])
+
+
+def complex_func_to_R3_func(complex_func):
+    return lambda p: complex_to_R3(complex_func(R3_to_complex(p)))
+
+
+def center_of_mass(points):
+    points = [np.array(point).astype(&#34;float&#34;) for point in points]
+    return sum(points) / len(points)
+
+
+def midpoint(point1, point2):
+    return center_of_mass([point1, point2])
+
+
+def line_intersection(line1, line2):
+    &#34;&#34;&#34;
+    return intersection point of two lines,
+    each defined with a pair of vectors determining
+    the end points
+    &#34;&#34;&#34;
+    x_diff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
+    y_diff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
+
+    def det(a, b):
+        return a[0] * b[1] - a[1] * b[0]
+
+    div = det(x_diff, y_diff)
+    if div == 0:
+        raise Exception(&#34;Lines do not intersect&#34;)
+    d = (det(*line1), det(*line2))
+    x = det(d, x_diff) / div
+    y = det(d, y_diff) / div
+    return np.array([x, y, 0])
+
+
+def get_winding_number(points):
+    total_angle = 0
+    for p1, p2 in adjacent_pairs(points):
+        d_angle = angle_of_vector(p2) - angle_of_vector(p1)
+        d_angle = ((d_angle + PI) % TAU) - PI
+        total_angle += d_angle
+    return total_angle / TAU</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="manimlib.utils.space_ops.R3_to_complex"><code class="name flex">
+<span>def <span class="ident">R3_to_complex</span></span>(<span>point)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def R3_to_complex(point):
+    return complex(*point[:2])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.angle_axis_from_quaternion"><code class="name flex">
+<span>def <span class="ident">angle_axis_from_quaternion</span></span>(<span>quaternion)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def angle_axis_from_quaternion(quaternion):
+    axis = normalize(
+        quaternion[1:],
+        fall_back=np.array([1, 0, 0])
+    )
+    angle = 2 * np.arccos(quaternion[0])
+    if angle &gt; TAU / 2:
+        angle = TAU - angle
+    return angle, axis</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.angle_between"><code class="name flex">
+<span>def <span class="ident">angle_between</span></span>(<span>v1, v2)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def angle_between(v1, v2):
+    return np.arccos(np.dot(
+        v1 / get_norm(v1),
+        v2 / get_norm(v2)
+    ))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.angle_between_vectors"><code class="name flex">
+<span>def <span class="ident">angle_between_vectors</span></span>(<span>v1, v2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the angle between two 3D vectors.
+This angle will always be btw 0 and pi</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def angle_between_vectors(v1, v2):
+    &#34;&#34;&#34;
+    Returns the angle between two 3D vectors.
+    This angle will always be btw 0 and pi
+    &#34;&#34;&#34;
+    return np.arccos(fdiv(
+        np.dot(v1, v2),
+        get_norm(v1) * get_norm(v2)
+    ))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.angle_of_vector"><code class="name flex">
+<span>def <span class="ident">angle_of_vector</span></span>(<span>vector)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns polar coordinate theta when vector is project on xy plane</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def angle_of_vector(vector):
+    &#34;&#34;&#34;
+    Returns polar coordinate theta when vector is project on xy plane
+    &#34;&#34;&#34;
+    z = complex(*vector[:2])
+    if z == 0:
+        return 0
+    return np.angle(complex(*vector[:2]))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.center_of_mass"><code class="name flex">
+<span>def <span class="ident">center_of_mass</span></span>(<span>points)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def center_of_mass(points):
+    points = [np.array(point).astype(&#34;float&#34;) for point in points]
+    return sum(points) / len(points)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.compass_directions"><code class="name flex">
+<span>def <span class="ident">compass_directions</span></span>(<span>n=4, start_vect=array([1., 0., 0.]))</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compass_directions(n=4, start_vect=RIGHT):
+    angle = TAU / n
+    return np.array([
+        rotate_vector(start_vect, k * angle)
+        for k in range(n)
+    ])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.complex_func_to_R3_func"><code class="name flex">
+<span>def <span class="ident">complex_func_to_R3_func</span></span>(<span>complex_func)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def complex_func_to_R3_func(complex_func):
+    return lambda p: complex_to_R3(complex_func(R3_to_complex(p)))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.complex_to_R3"><code class="name flex">
+<span>def <span class="ident">complex_to_R3</span></span>(<span>complex_num)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def complex_to_R3(complex_num):
+    return np.array((complex_num.real, complex_num.imag, 0))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.cross"><code class="name flex">
+<span>def <span class="ident">cross</span></span>(<span>v1, v2)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cross(v1, v2):
+    return np.array([
+        v1[1] * v2[2] - v1[2] * v2[1],
+        v1[2] * v2[0] - v1[0] * v2[2],
+        v1[0] * v2[1] - v1[1] * v2[0]
+    ])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.get_norm"><code class="name flex">
+<span>def <span class="ident">get_norm</span></span>(<span>vect)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_norm(vect):
+    return sum([x**2 for x in vect])**0.5</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.get_unit_normal"><code class="name flex">
+<span>def <span class="ident">get_unit_normal</span></span>(<span>v1, v2)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_unit_normal(v1, v2):
+    return normalize(cross(v1, v2))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.get_winding_number"><code class="name flex">
+<span>def <span class="ident">get_winding_number</span></span>(<span>points)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_winding_number(points):
+    total_angle = 0
+    for p1, p2 in adjacent_pairs(points):
+        d_angle = angle_of_vector(p2) - angle_of_vector(p1)
+        d_angle = ((d_angle + PI) % TAU) - PI
+        total_angle += d_angle
+    return total_angle / TAU</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.line_intersection"><code class="name flex">
+<span>def <span class="ident">line_intersection</span></span>(<span>line1, line2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>return intersection point of two lines,
+each defined with a pair of vectors determining
+the end points</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def line_intersection(line1, line2):
+    &#34;&#34;&#34;
+    return intersection point of two lines,
+    each defined with a pair of vectors determining
+    the end points
+    &#34;&#34;&#34;
+    x_diff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
+    y_diff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
+
+    def det(a, b):
+        return a[0] * b[1] - a[1] * b[0]
+
+    div = det(x_diff, y_diff)
+    if div == 0:
+        raise Exception(&#34;Lines do not intersect&#34;)
+    d = (det(*line1), det(*line2))
+    x = det(d, x_diff) / div
+    y = det(d, y_diff) / div
+    return np.array([x, y, 0])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.midpoint"><code class="name flex">
+<span>def <span class="ident">midpoint</span></span>(<span>point1, point2)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def midpoint(point1, point2):
+    return center_of_mass([point1, point2])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.normalize"><code class="name flex">
+<span>def <span class="ident">normalize</span></span>(<span>vect, fall_back=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def normalize(vect, fall_back=None):
+    norm = get_norm(vect)
+    if norm &gt; 0:
+        return np.array(vect) / norm
+    else:
+        if fall_back is not None:
+            return fall_back
+        else:
+            return np.zeros(len(vect))</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.project_along_vector"><code class="name flex">
+<span>def <span class="ident">project_along_vector</span></span>(<span>point, vector)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def project_along_vector(point, vector):
+    matrix = np.identity(3) - np.outer(vector, vector)
+    return np.dot(point, matrix.T)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.quaternion_conjugate"><code class="name flex">
+<span>def <span class="ident">quaternion_conjugate</span></span>(<span>quaternion)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def quaternion_conjugate(quaternion):
+    result = np.array(quaternion)
+    result[1:] *= -1
+    return result</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.quaternion_from_angle_axis"><code class="name flex">
+<span>def <span class="ident">quaternion_from_angle_axis</span></span>(<span>angle, axis)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def quaternion_from_angle_axis(angle, axis):
+    return np.append(
+        np.cos(angle / 2),
+        np.sin(angle / 2) * normalize(axis)
+    )</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.quaternion_mult"><code class="name flex">
+<span>def <span class="ident">quaternion_mult</span></span>(<span>q1, q2)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def quaternion_mult(q1, q2):
+    w1, x1, y1, z1 = q1
+    w2, x2, y2, z2 = q2
+    return np.array([
+        w1 * w2 - x1 * x2 - y1 * y2 - z1 * z2,
+        w1 * x2 + x1 * w2 + y1 * z2 - z1 * y2,
+        w1 * y2 + y1 * w2 + z1 * x2 - x1 * z2,
+        w1 * z2 + z1 * w2 + x1 * y2 - y1 * x2,
+    ])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.rotate_vector"><code class="name flex">
+<span>def <span class="ident">rotate_vector</span></span>(<span>vector, angle, axis=array([0., 0., 1.]))</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rotate_vector(vector, angle, axis=OUT):
+    if len(vector) == 2:
+        # Use complex numbers...because why not
+        z = complex(*vector) * np.exp(complex(0, angle))
+        return np.array([z.real, z.imag])
+    elif len(vector) == 3:
+        # Use quaternions...because why not
+        quat = quaternion_from_angle_axis(angle, axis)
+        quat_inv = quaternion_conjugate(quat)
+        product = reduce(
+            quaternion_mult,
+            [quat, np.append(0, vector), quat_inv]
+        )
+        return product[1:]
+    else:
+        raise Exception(&#34;vector must be of dimension 2 or 3&#34;)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.rotation_about_z"><code class="name flex">
+<span>def <span class="ident">rotation_about_z</span></span>(<span>angle)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rotation_about_z(angle):
+    return [
+        [np.cos(angle), -np.sin(angle), 0],
+        [np.sin(angle), np.cos(angle), 0],
+        [0, 0, 1]
+    ]</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.rotation_matrix"><code class="name flex">
+<span>def <span class="ident">rotation_matrix</span></span>(<span>angle, axis)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Rotation in R^3 about a specified axis of rotation.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rotation_matrix(angle, axis):
+    &#34;&#34;&#34;
+    Rotation in R^3 about a specified axis of rotation.
+    &#34;&#34;&#34;
+    about_z = rotation_about_z(angle)
+    z_to_axis = z_to_vector(axis)
+    axis_to_z = np.linalg.inv(z_to_axis)
+    return reduce(np.dot, [z_to_axis, about_z, axis_to_z])</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.thick_diagonal"><code class="name flex">
+<span>def <span class="ident">thick_diagonal</span></span>(<span>dim, thickness=2)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def thick_diagonal(dim, thickness=2):
+    row_indices = np.arange(dim).repeat(dim).reshape((dim, dim))
+    col_indices = np.transpose(row_indices)
+    return (np.abs(row_indices - col_indices) &lt; thickness).astype(&#39;uint8&#39;)</code></pre>
+</details>
+</dd>
+<dt id="manimlib.utils.space_ops.z_to_vector"><code class="name flex">
+<span>def <span class="ident">z_to_vector</span></span>(<span>vector)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns some matrix in SO(3) which takes the z-axis to the
+(normalized) vector provided as an argument</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def z_to_vector(vector):
+    &#34;&#34;&#34;
+    Returns some matrix in SO(3) which takes the z-axis to the
+    (normalized) vector provided as an argument
+    &#34;&#34;&#34;
+    norm = get_norm(vector)
+    if norm == 0:
+        return np.identity(3)
+    v = np.array(vector) / norm
+    phi = np.arccos(v[2])
+    if any(v[:2]):
+        # projection of vector to unit circle
+        axis_proj = v[:2] / get_norm(v[:2])
+        theta = np.arccos(axis_proj[0])
+        if axis_proj[1] &lt; 0:
+            theta = -theta
+    else:
+        theta = 0
+    phi_down = np.array([
+        [np.cos(phi), 0, np.sin(phi)],
+        [0, 1, 0],
+        [-np.sin(phi), 0, np.cos(phi)]
+    ])
+    return np.dot(rotation_about_z(theta), phi_down)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="manimlib.utils" href="index.html">manimlib.utils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="manimlib.utils.space_ops.R3_to_complex" href="#manimlib.utils.space_ops.R3_to_complex">R3_to_complex</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.angle_axis_from_quaternion" href="#manimlib.utils.space_ops.angle_axis_from_quaternion">angle_axis_from_quaternion</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.angle_between" href="#manimlib.utils.space_ops.angle_between">angle_between</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.angle_between_vectors" href="#manimlib.utils.space_ops.angle_between_vectors">angle_between_vectors</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.angle_of_vector" href="#manimlib.utils.space_ops.angle_of_vector">angle_of_vector</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.center_of_mass" href="#manimlib.utils.space_ops.center_of_mass">center_of_mass</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.compass_directions" href="#manimlib.utils.space_ops.compass_directions">compass_directions</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.complex_func_to_R3_func" href="#manimlib.utils.space_ops.complex_func_to_R3_func">complex_func_to_R3_func</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.complex_to_R3" href="#manimlib.utils.space_ops.complex_to_R3">complex_to_R3</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.cross" href="#manimlib.utils.space_ops.cross">cross</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.get_norm" href="#manimlib.utils.space_ops.get_norm">get_norm</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.get_unit_normal" href="#manimlib.utils.space_ops.get_unit_normal">get_unit_normal</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.get_winding_number" href="#manimlib.utils.space_ops.get_winding_number">get_winding_number</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.line_intersection" href="#manimlib.utils.space_ops.line_intersection">line_intersection</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.midpoint" href="#manimlib.utils.space_ops.midpoint">midpoint</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.normalize" href="#manimlib.utils.space_ops.normalize">normalize</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.project_along_vector" href="#manimlib.utils.space_ops.project_along_vector">project_along_vector</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.quaternion_conjugate" href="#manimlib.utils.space_ops.quaternion_conjugate">quaternion_conjugate</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.quaternion_from_angle_axis" href="#manimlib.utils.space_ops.quaternion_from_angle_axis">quaternion_from_angle_axis</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.quaternion_mult" href="#manimlib.utils.space_ops.quaternion_mult">quaternion_mult</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.rotate_vector" href="#manimlib.utils.space_ops.rotate_vector">rotate_vector</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.rotation_about_z" href="#manimlib.utils.space_ops.rotation_about_z">rotation_about_z</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.rotation_matrix" href="#manimlib.utils.space_ops.rotation_matrix">rotation_matrix</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.thick_diagonal" href="#manimlib.utils.space_ops.thick_diagonal">thick_diagonal</a></code></li>
+<li><code><a title="manimlib.utils.space_ops.z_to_vector" href="#manimlib.utils.space_ops.z_to_vector">z_to_vector</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
