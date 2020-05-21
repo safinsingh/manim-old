@@ -71,6 +71,9 @@ ITALIC = 'ITALIC'
 OBLIQUE = 'OBLIQUE'
 BOLD = 'BOLD'
 
+THIS_DIR = os.path.dirname(os.path.realpath(__file__))
+FILE_DIR = os.path.join(THIS_DIR, "files")
+
 TEX_USE_CTEX = False
 TEX_TEXT_TO_REPLACE = "YourTextHere"
 TEMPLATE_TEX_FILE = os.path.join(
