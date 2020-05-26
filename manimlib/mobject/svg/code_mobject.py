@@ -45,7 +45,7 @@ class Code(VGroup):
         'insert_line_no': True,
         'line_no_from': 1,
         "line_no_buff": 0.4,
-        'style': 'vim',
+        'style': 'monokai',
         'language': 'cpp',
         'generate_html_file': False
     }
@@ -274,7 +274,7 @@ class Code(VGroup):
 
 def hilite_me(code, lexer, options, style, linenos, divstyles):
     lexer = lexer or 'python'
-    style = style or 'colorful'
+    style = style or 'monokai'
     defstyles = 'overflow:auto;width:auto;'
 
     formatter = HtmlFormatter(style=style,

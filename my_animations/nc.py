@@ -7,22 +7,32 @@ class test1(Scene):
         Theta[4].set_color(BLUE)
         self.add(Theta)
 
-class OmegaDice(Scene):
+class TC(Scene):
     def construct(self):
-        Ale=Alex().to_edge(DOWN)
-        palabras_ale = TextMobject("Learn to do \\\\animations with me!!")
-        self.add(Ale)
-        self.play(ThetaCreatureSays(
-            Ale, palabras_ale, 
-            bubble_kwargs = {"height" : 4, "width" : 6},
-            target_mode="speaking"
-        ))
+        bruh = Bruh().to_edge(DOWN)
+        bruh2 = CoolBruh().next_to(bruh,LEFT,buff=MED_LARGE_BUFF)
+        
         self.wait()
-        self.play(Blink(Ale))
-        self.wait(1)
-        self.play(Blink(Ale))
-        self.wait(1)
-        self.play(Blink(Ale))
-        self.wait(1)
-        self.play(Blink(Ale))
-        self.wait(1)
+
+        self.play(FadeInFromDown(VGroup(bruh,bruh2)))
+
+        self.wait()
+
+        self.play(Blink(bruh))
+        self.play(Blink(bruh2))
+
+        bruhText = TextMobject("bruh")
+
+        self.play(
+            ThetaCreatureSays(bruh, bruhText, bubble_kwargs = {"height" : 3, "width" : 4}, target_mode="speaking", look_at_arg=bruhText),
+            bruh2.look_at, bruhText
+        )
+
+        self.wait()
+
+        self.play(
+            RemovePiCreatureBubble(bruh),
+            bruh2.look_at, RIGHT,
+        )
+
+        self.wait()

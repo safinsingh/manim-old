@@ -287,12 +287,13 @@ def get_all_pi_creature_modes():
     return result
 
 
-class Alex(ThetaCreature):
+class Bruh(ThetaCreature):
     pass  # Nothing more than an alternative name
 
-
-
-
+class CoolBruh(ThetaCreature):
+    CONFIG = {
+        "color": GREY_BROWN
+    }
 
 class Eyes(VMobject):
     CONFIG = {

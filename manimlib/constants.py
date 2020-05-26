@@ -386,6 +386,6 @@ code_languages_list = {"abap": "abap", "as": "as", "as3": "as3", "ada": "ada", "
                        "xml_velocity": "xml+velocity", "xquery": "xquery", "xslt": "xslt", "xtend": "xtend",
                        "yaml": "yaml"}
 
-code_styles_list = {0: "autumn", 1: "borland", 2: "bw", 3: "colorful", 4: "default", 5: "emacs",
-                    6: "friendly", 7: "fruity", 8: "manni", 9: "monokai", 10: "murphy", 11: "native",
-                    12: "pastie", 13: "perldoc", 14: "rrt", 15: "tango", 16: "trac", 17: "vim", 18: "vs"}
+code_styles_list = {0: "autumn", 1: "borland", 2: "bw", 3: "colorful", 4: "default", 5: "dracula", 6: "emacs",
+                    7: "friendly", 8: "fruity", 9: "manni", 10: "monokai", 11: "murphy", 12: "native",
+                    13: "pastie", 14: "perldoc", 15: "rrt", 16: "tango", 17: "trac", 18: "vim", 19: "vs"}
